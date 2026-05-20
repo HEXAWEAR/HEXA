@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>أوفرسايز بيزيك بوليفار</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #fff;
+            color: #000;
+            line-height: 1.6;
+            padding-bottom: 80px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .header-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 20px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .cart-btn {
+            background: none;
+            border: none;
+            position: relative;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .cart-btn svg {
+            width: 26px;
+            height: 26px;
+            stroke: #000;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff3333;
+            color: #fff;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* Hero */
+        .hero {
+            margin-top: 60px;
+            width: 100%;
+            height: 250px;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            padding: 15px;
+        }
+
+        .hero h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .hero p {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .hero .price {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .hero .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        /* Main Product */
+        .product-page {
+            padding: 20px 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .product-image {
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto 20px;
+            display: none;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gender-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .gender-img {
+            background: #f5f5f5;
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+        }
+
+        .gender-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            text-align: center;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .product-price .old {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        /* Color Selection */
+        .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .color-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .color-btn {
+            padding: 10px 18px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: #fff;
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .color-btn:hover {
+            border-color: #999;
+        }
+
+        .color-btn.active {
+            border-color: #000;
+            background: #000;
+            color: #fff;
+        }
+
+        /* Size Selection */
+        .size-options {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .size-btn {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: #fff;
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .size-btn:hover {
+            border-color: #999;
+        }
+
+        .size-btn.active {
+            border-color: #000;
+            background: #000;
+            color: #fff;
+        }
+
+        /* Discount */
+        .discount-box {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .discount-input {
+            display: flex;
+            gap: 8px;
+        }
+
+        .discount-input input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+        }
+
+        .discount-input button {
+            padding: 12px 20px;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .discount-msg {
+            margin-top: 10px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .discount-msg.success { color: #00cc00; }
+        .discount-msg.error { color: #ff3333; }
+
+        /* Add to Cart */
+        .add-cart-btn {
+            width: 100%;
+            padding: 16px;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Features */
+        .features {
+            margin-top: 25px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .feature:last-child { border: none; }
+
+        .feature svg {
+            width: 22px;
+            height: 22px;
+            stroke: #000;
+            flex-shrink: 0;
+        }
+
+        /* Cart Sidebar */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+
+        .cart-overlay.show { opacity: 1; visibility: visible; }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 380px;
+            height: 100%;
+            background: #fff;
+            z-index: 2001;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.show { right: 0; }
+
+        .cart-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h3 { font-size: 18px; font-weight: 700; }
+
+        .cart-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .cart-close svg { width: 24px; height: 24px; stroke: #000; }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px 20px;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .cart-empty svg {
+            width: 60px;
+            height: 60px;
+            stroke: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 12px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 6px;
+            background: #f5f5f5;
+        }
+
+        .cart-item-info { flex: 1; }
+
+        .cart-item-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: #ff3333;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-top: 5px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .cart-footer {
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .cart-total-label { font-size: 16px; font-weight: 600; }
+        .cart-total-value { font-size: 20px; font-weight: 700; }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 16px;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Checkout Page */
+        .checkout-page {
+            display: none;
+            padding: 80px 15px 40px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .checkout-page.show { display: block; }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .form-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .form-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+        }
+
+        /* Payment Methods */
+        .payment-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .payment-option.active {
+            border-color: #000;
+            background: #fff;
+        }
+
+        .payment-radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .payment-option.active .payment-radio {
+            border-color: #000;
+            background: #000;
+        }
+
+        .payment-label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .vodafone-box {
+            display: none;
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            border: 2px solid #ff3333;
+        }
+
+        .vodafone-box.show { display: block; }
+
+        .vodafone-num {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff3333;
+            text-align: center;
+        }
+
+        .file-upload {
+            margin-top: 15px;
+            padding: 20px;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            background: #fff;
+            transition: 0.2s;
+        }
+
+        .file-upload:hover {
+            border-color: #000;
+        }
+
+        .file-upload svg {
+            width: 30px;
+            height: 30px;
+            stroke: #999;
+            margin-bottom: 8px;
+        }
+
+        .file-upload input { display: none; }
+
+        /* Order Summary */
+        .order-summary {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-top: 2px solid #000;
+            margin-top: 10px;
+        }
+
+        .summary-total .label {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .summary-total .value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ff3333;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: #ff3333;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Success Page */
+        .success-page {
+            display: none;
+            min-height: 100vh;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .success-page.show { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #e6ffe6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .success-icon svg {
+            width: 50px;
+            height: 50px;
+            stroke: #00cc00;
+        }
+
+        .success-title {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .success-msg {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .success-order {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .success-order span { color: #ff3333; }
+
+        .back-btn {
+            padding: 14px 30px;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            z-index: 5000;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .toast.show { opacity: 1; }
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: #fff;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        footer .logo {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        footer p {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+
+        footer a {
+            color: #00cc00;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .hero { height: 350px; }
+            .hero h1 { font-size: 40px; }
+            .hero .price { font-size: 32px; }
+            .product-page { max-width: 900px; }
+            .product-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+            .product-gallery { text-align: left; }
+            .product-info { text-align: left; }
+            .checkout-page { max-width: 900px; }
+            .checkout-container { display: grid; grid-template-columns: 1fr 350px; gap: 25px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><a href="#" id="home-logo" style="text-decoration:none;color:inherit;">HEXA</a></div>
+        <div class="header-btns">
+            <button class="lang-btn" id="lang-btn">EN</button>
+            <button class="cart-btn" id="cart-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.3561-2.993l1.6779.838A5.25 5.25 0 0119.5 9.75v1.5m-12 5.25v-1.5m12 5.25v1.5m-6.75-6.75l1.6779.838A5.25 5.25 0 004.5 9.75v1.5M6 21h12a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0018 4.5h-12A2.25 2.25 0 003.75 6.75v12a2.25 2.25 0 002.25 2.25z" />
+                </svg>
+                <span class="cart-count" id="cart-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="logo"><a href="#" id="hero-home-logo" style="text-decoration:none;color:inherit;">HEXA</a></div>
+    </section>
+
+    <section class="product-page" id="product-page">
+        <div class="product-gallery">
+            <div class="gender-images" id="gender-images">
+                <div class="gender-img"><img src="photos/ابيض راجل.png" alt=""></div>
+                <div class="gender-img"><img src="photos/ابيض بنت.png" alt=""></div>
+            </div>
+        </div>
+
+        <div class="product-info">
+            <h1 class="product-title" id="product-title">أوفرسايز بيزيك بوليفار</h1>
+            <div class="product-price">
+                <span class="old" data-i18n="price.old">800 ج.م</span>
+                <span data-i18n="price.current">700 ج.م</span>
+            </div>
+
+            <div class="section-title" data-i18n="color.title">اختر اللون</div>
+            <div class="color-options" id="color-options"></div>
+
+            <div class="section-title" data-i18n="size.title">اختر المقاس</div>
+            <div class="size-options" id="size-options"></div>
+
+            <div class="discount-box">
+                <div class="section-title" data-i18n="discount.label">كود الخصم</div>
+                <div class="discount-input">
+                    <input type="text" id="discount-input" placeholder="أدخل الكود">
+                    <button id="apply-btn" data-i18n="discount.btn">تطبيق</button>
+                </div>
+                <div class="discount-msg" id="discount-msg"></div>
+            </div>
+
+            <button class="add-cart-btn" id="add-cart-btn" data-i18n="cart.add">أضف للسلة</button>
+
+            <div class="features">
+                <div class="feature">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                    </svg>
+                    <span data-i18n="feat.quality">100% قطن - جودة عالية</span>
+                </div>
+                <div class="feature">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span data-i18n="feat.shipping">شحن خلال 2-5 أيام</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3 data-i18n="cart.title">سلة التسوق</h3>
+            <button class="cart-close" id="cart-close">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div class="cart-items" id="cart-items"></div>
+        <div class="cart-footer" id="cart-footer" style="display: none;">
+            <div class="cart-total">
+                <span class="cart-total-label" data-i18n="cart.total">الإجمالي</span>
+                <span class="cart-total-value" id="cart-total">0 ج.م</span>
+            </div>
+            <button class="checkout-btn" id="go-checkout" data-i18n="cart.checkout">إتمام الدفع</button>
+        </div>
+    </div>
+
+    <section class="checkout-page" id="checkout-page">
+        <h1 class="page-title" data-i18n="checkout.title">إتمام الطلب</h1>
+        
+        <form class="form-section" id="order-form" action="https://formspree.io/f/mpqnqoqj" method="POST" enctype="multipart/form-data">
+            <h3 class="form-title" data-i18n="checkout.info">المعلومات الشخصية</h3>
+            
+            <div class="form-group">
+                <label data-i18n="checkout.name">الاسم الكامل</label>
+                <input type="text" name="الاسم" required>
+            </div>
+            
+            <div class="form-group">
+                <label data-i18n="checkout.phone">رقم التليفون</label>
+                <input type="tel" name="التليفون" required>
+            </div>
+            
+            <div class="form-group">
+                <label data-i18n="checkout.city">المحافظة</label>
+                <select name="المحافظة" required>
+                    
+<option value="">اختر المحافظة</option>
+<option value="القاهرة - 60 ج.م">القاهرة - 60 ج.م</option>
+<option value="الجيزة - 60 ج.م">الجيزة - 60 ج.م</option>
+<option value="الإسكندرية - 80 ج.م">الإسكندرية - 80 ج.م</option>
+<option value="القليوبية - 70 ج.م">القليوبية - 70 ج.م</option>
+<option value="الشرقية - 80 ج.م">الشرقية - 80 ج.م</option>
+<option value="الدقهلية - 80 ج.م">الدقهلية - 80 ج.م</option>
+<option value="البحيرة - 80 ج.م">البحيرة - 80 ج.م</option>
+<option value="الغربية - 80 ج.م">الغربية - 80 ج.م</option>
+<option value="المنوفية - 80 ج.م">المنوفية - 80 ج.م</option>
+<option value="كفر الشيخ - 80 ج.م">كفر الشيخ - 80 ج.م</option>
+<option value="دمياط - 90 ج.م">دمياط - 90 ج.م</option>
+<option value="بورسعيد - 90 ج.م">بورسعيد - 90 ج.م</option>
+<option value="الإسماعيلية - 90 ج.م">الإسماعيلية - 90 ج.م</option>
+<option value="السويس - 90 ج.م">السويس - 90 ج.م</option>
+<option value="الفيوم - 90 ج.م">الفيوم - 90 ج.م</option>
+<option value="بني سويف - 90 ج.م">بني سويف - 90 ج.م</option>
+<option value="المنيا - 100 ج.م">المنيا - 100 ج.م</option>
+<option value="أسيوط - 110 ج.م">أسيوط - 110 ج.م</option>
+<option value="سوهاج - 110 ج.م">سوهاج - 110 ج.م</option>
+<option value="قنا - 120 ج.م">قنا - 120 ج.م</option>
+<option value="الأقصر - 120 ج.م">الأقصر - 120 ج.م</option>
+<option value="أسوان - 130 ج.م">أسوان - 130 ج.م</option>
+<option value="البحر الأحمر - 130 ج.م">البحر الأحمر - 130 ج.م</option>
+<option value="الوادي الجديد - 140 ج.م">الوادي الجديد - 140 ج.م</option>
+<option value="مطروح - 130 ج.م">مطروح - 130 ج.م</option>
+<option value="شمال سيناء - 140 ج.م">شمال سيناء - 140 ج.م</option>
+<option value="جنوب سيناء - 140 ج.م">جنوب سيناء - 140 ج.م</option>
+
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label data-i18n="checkout.address">العنوان بالتفصيل</label>
+                <textarea name="العنوان" rows="3" required></textarea>
+            </div>
+
+            <div class="payment-title" data-i18n="payment.title">طريقة الدفع</div>
+            
+            <div class="payment-option active" data-payment="cod">
+                <input type="radio" name="الدفع" value="الدفع عند الاستلام" checked>
+                <div class="payment-radio"></div>
+                <span class="payment-label" data-i18n="payment.cod">الدفع عند الاستلام</span>
+            </div>
+            
+            <div class="payment-option" data-payment="vodafone">
+                <input type="radio" name="الدفع" value="فودافون كاش">
+                <div class="payment-radio"></div>
+                <span class="payment-label" data-i18n="payment.vodafone">فودافون كاش</span>
+            </div>
+            
+            <div class="payment-option" data-payment="instapay">
+                <input type="radio" name="الدفع" value="إنستا باي">
+                <div class="payment-radio"></div>
+                <span class="payment-label" data-i18n="payment.instapay">إنستا باي</span>
+            </div>
+
+            <div class="vodafone-box" id="vodafone-box">
+                <div class="vodafone-num">01014144843</div>
+                <div class="file-upload" id="file-upload-box">
+                    <input type="file" id="payment-file" name="صورة_الدفع" accept="image/*">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                    </svg>
+                    <p data-i18n="upload.hint">ارفع صورة إثبات الدفع</p>
+                </div>
+            </div>
+        </form>
+
+        <div class="order-summary">
+            <h3 class="form-title" data-i18n="summary.title">ملخص الطلب</h3>
+            <div id="order-items"></div>
+            <div class="summary-total">
+                <span class="label" data-i18n="summary.total">الإجمالي</span>
+                <span class="value" id="summary-total">0 ج.م</span>
+            </div>
+            <button id="submit-order-btn" type="submit" form="order-form" class="submit-btn" data-i18n="submit.btn">تأكيد الطلب</button>
+        </div>
+    </section>
+
+    <section class="success-page" id="success-page">
+        <div class="success-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        </div>
+        <h1 class="success-title" data-i18n="success.title">شكراً لك!</h1>
+        <p class="success-msg" data-i18n="success.msg">تم استلام طلبك بنجاح</p>
+        <p class="success-order">رقم الطلب: <span id="order-num">#0000</span></p>
+        <button class="back-btn" id="back-btn" data-i18n="success.back">العودة للمتجر</button>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <footer>
+        <div class="logo">HEXA</div>
+        <p data-i18n="footer.desc">ستريت وير فاخر بأسلوب عصري</p>
+        <a href="https://wa.me/201014144843" target="_blank" data-i18n="footer.whatsapp">واتساب</a>
+    </footer>
+
+    <script>
+        // Data
+        const product = {
+            nameAr: 'أوفرسايز بيزيك بوليفار',
+            nameEn: 'Oversized Basic Pullover',
+            price: 700,
+            colors: [
+                { name: 'أبيض', nameEn: 'White', male: 'white-male.png', female: 'white-female.png' },
+                { name: 'أسود', nameEn: 'Black', male: 'black-male.png', female: 'black-female.png' },
+                { name: 'رمادي', nameEn: 'Grey', male: 'grey-male.png', female: 'grey-female.png' },
+                { name: 'بينك', nameEn: 'Pink', male: 'pink-male.png', female: 'pink-female.png' },
+                { name: 'بيج', nameEn: 'Beige', male: 'beige-male.png', female: 'beige-female.png' },
+                { name: 'زيتي', nameEn: 'Olive', male: 'olive-male.png', female: 'olive-female.png' },
+                { name: 'برجاندي', nameEn: 'Burgundy', male: 'burgundy-male.png', female: 'burgundy-female.png' }
+            ],
+            sizes: ['S', 'M', 'L', 'XL']
+        };
+
+        const translations = {
+            ar: {
+                'hero.title': 'أوفرسايز', 'hero.sub': 'ستريت وير فاخر',
+                'price.old': '800 ج.م', 'price.new': '700 ج.م', 'price.current': '700 ج.م',
+                'color.title': 'اختر اللون', 'size.title': 'اختر المقاس',
+                'discount.label': 'كود الخصم', 'discount.btn': 'تطبيق',
+                'cart.add': 'أضف للسلة', 'cart.title': 'سلة التسوق', 'cart.total': 'الإجمالي', 'cart.checkout': 'إتمام الدفع', 'cart.empty': 'السلة فارغة',
+                'checkout.title': 'إتمام الطلب', 'checkout.info': 'المعلومات الشخصية', 'checkout.name': 'الاسم الكامل', 'checkout.phone': 'رقم التليفون', 'checkout.city': 'المحافظة', 'checkout.address': 'العنوان بالتفصيل',
+                'payment.title': 'طريقة الدفع', 'payment.cod': 'الدفع عند الاستلام', 'payment.vodafone': 'فودافون كاش', 'payment.instapay': 'إنستا باي',
+                'upload.hint': 'ارفع صورة إثبات الدفع',
+                'summary.title': 'ملخص الطلب', 'summary.total': 'الإجمالي',
+                'submit.btn': 'تأكيد الطلب',
+                'success.title': 'شكراً لك!', 'success.msg': 'تم استلام طلبك بنجاح', 'success.back': 'العودة للمتجر',
+                'feat.quality': '100% قطن - جودة عالية', 'feat.shipping': 'شحن خلال 3-5 أيام', 'feat.return': 'استبدال خلال 14 يوم',
+                'footer.desc': 'ستريت وير فاخر بأسلوب عصري', 'footer.whatsapp': 'واتساب',
+                'toast.added': 'تمت الإضافة للسلة', 'toast.select': 'اختر المقاس أولاً'
+            },
+            en: {
+                'hero.title': 'Oversized', 'hero.sub': 'Premium Streetwear',
+                'price.old': '800 EGP', 'price.new': '700 EGP', 'price.current': '700 EGP',
+                'color.title': 'Select Color', 'size.title': 'Select Size',
+                'discount.label': 'Discount Code', 'discount.btn': 'Apply',
+                'cart.add': 'Add to Cart', 'cart.title': 'Shopping Cart', 'cart.total': 'Total', 'cart.checkout': 'Checkout', 'cart.empty': 'Cart is empty',
+                'checkout.title': 'Checkout', 'checkout.info': 'Personal Information', 'checkout.name': 'Full Name', 'checkout.phone': 'Phone Number', 'checkout.city': 'Governorate', 'checkout.address': 'Full Address',
+                'payment.title': 'Payment Method', 'payment.cod': 'Cash on Delivery', 'payment.vodafone': 'Vodafone Cash', 'payment.instapay': 'InstaPay',
+                'upload.hint': 'Upload payment proof',
+                'summary.title': 'Order Summary', 'summary.total': 'Total',
+                'submit.btn': 'Confirm Order',
+                'success.title': 'Thank You!', 'success.msg': 'Your order has been received', 'success.back': 'Back to Store',
+                'feat.quality': '100% Cotton - High Quality', 'feat.shipping': 'Ships in 3-5 days', 'feat.return': 'Exchange within 14 days',
+                'footer.desc': 'Premium streetwear with modern style', 'footer.whatsapp': 'WhatsApp',
+                'toast.added': 'Added to cart', 'toast.select': 'Please select size first'
+            }
+        };
+
+        const discountCodes = [
+            { code: 'HEXA10', discount: 10, type: 'percent' },
+            { code: 'HEXA50', discount: 50, type: 'fixed' }
+        ];
+
+        // State
+        let currentLang = 'ar';
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let selectedColor = product.colors[0];
+        let selectedSize = null;
+        let appliedDiscount = null;
+        let finalPrice = product.price;
+
+        // Elements
+        const langBtn = document.getElementById('lang-btn');
+        const cartBtn = document.getElementById('cart-btn');
+        const cartCount = document.getElementById('cart-count');
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const cartOverlay = document.getElementById('cart-overlay');
+        const cartClose = document.getElementById('cart-close');
+        const cartItems = document.getElementById('cart-items');
+        const cartFooter = document.getElementById('cart-footer');
+        const cartTotal = document.getElementById('cart-total');
+        const goCheckout = document.getElementById('go-checkout');
+        const productPage = document.getElementById('product-page');
+        const checkoutPage = document.getElementById('checkout-page');
+        const successPage = document.getElementById('success-page');
+        const addCartBtn = document.getElementById('add-cart-btn');
+        const colorOptions = document.getElementById('color-options');
+        const sizeOptions = document.getElementById('size-options');
+        const genderImages = document.getElementById('gender-images');
+        const productTitle = document.getElementById('product-title');
+        const discountInput = document.getElementById('discount-input');
+        const applyBtn = document.getElementById('apply-btn');
+        const discountMsg = document.getElementById('discount-msg');
+        const toast = document.getElementById('toast');
+        const paymentOptions = document.querySelectorAll('.payment-option');
+        const vodafoneBox = document.getElementById('vodafone-box');
+        const orderForm = document.getElementById('order-form');
+
+        // Functions
+        function t(key) {
+            return translations[currentLang][key] || key;
+        }
+
+        function applyLang() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                el.textContent = t(el.dataset.i18n);
+            });
+            productTitle.textContent = currentLang === 'ar' ? product.nameAr : product.nameEn;
+            langBtn.textContent = currentLang === 'ar' ? 'EN' : 'عربي';
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            renderColors();
+            renderSizes();
+        }
+
+        function renderColors() {
+            colorOptions.innerHTML = product.colors.map(color => `
+                <button class="color-btn ${selectedColor?.name === color.name ? 'active' : ''}" 
+                        onclick="selectColor('${color.name}')">
+                    ${currentLang === 'ar' ? color.name : color.nameEn}
+                </button>
+            `).join('');
+        }
+
+        function selectColor(name) {
+            selectedColor = product.colors.find(c => c.name === name);
+            updateImages();
+            renderColors();
+        }
+
+        function renderSizes() {
+            sizeOptions.innerHTML = product.sizes.map(size => `
+                <button class="size-btn ${selectedSize === size ? 'active' : ''}" 
+                        onclick="selectSize('${size}')">
+                    ${size}
+                </button>
+            `).join('');
+        }
+
+        function selectSize(size) {
+            selectedSize = size;
+            renderSizes();
+        }
+
+        function updateImages() {
+            if (!selectedColor) return;
+            genderImages.innerHTML = `
+                <div class="gender-img"><img src="photos/${selectedColor.male}" alt=""></div>
+                <div class="gender-img"><img src="photos/${selectedColor.female}" alt=""></div>
+            `;
+        }
+
+        function updateCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="cart-empty">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.3561-2.993l1.6779.838A5.25 5.25 0 0119.5 9.75v1.5m-12 5.25v-1.5m12 5.25v1.5m-6.75-6.75l1.6779.838A5.25 5.25 0 004.5 9.75v1.5M6 21h12a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0018 4.5h-12A2.25 2.25 0 003.75 6.75v12a2.25 2.25 0 002.25 2.25z" />
+                        </svg>
+                        <p>${t('cart.empty')}</p>
+                    </div>
+                `;
+                cartFooter.style.display = 'none';
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <img src="photos/${item.image}" alt="">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">${item.price} ${currentLang === 'ar' ? 'ج.م' : 'EGP'}</div>
+                            <button class="cart-item-remove" onclick="removeFromCart(${item.id})">${currentLang === 'ar' ? 'حذف' : 'Remove'}</button>
+                        </div>
+                    </div>
+                `).join('');
+                const total = cart.reduce((sum, item) => sum + item.price, 0);
+                cartTotal.textContent = `${total} ${currentLang === 'ar' ? 'ج.م' : 'EGP'}`;
+                cartFooter.style.display = 'block';
+            }
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCart();
+        }
+
+        function showCart() {
+            cartSidebar.classList.add('show');
+            cartOverlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideCart() {
+            cartSidebar.classList.remove('show');
+            cartOverlay.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        function showToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        function resetPaymentUI() {
+            paymentOptions.forEach(o => o.classList.remove('active'));
+            const codOption = document.querySelector('.payment-option[data-payment="cod"]');
+            if (codOption) {
+                codOption.classList.add('active');
+                codOption.querySelector('input').checked = true;
+            }
+            vodafoneBox.classList.remove('show');
+            const fileInput = document.getElementById('payment-file');
+            if (fileInput) fileInput.value = '';
+            const fileLabel = document.querySelector('#file-upload-box p');
+            if (fileLabel) fileLabel.textContent = t('upload.hint');
+        }
+
+        function showCheckout() {
+            productPage.style.display = 'none';
+            checkoutPage.classList.add('show');
+            document.getElementById('order-items').innerHTML = cart.map(item => `
+                <div class="summary-item">
+                    <span>${item.name}</span>
+                    <span>${item.price} ج.م</span>
+                </div>
+            `).join('');
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('summary-total').textContent = `${total} ج.م`;
+        }
+
+        function showProduct() {
+            productPage.style.display = 'block';
+            checkoutPage.style.display = 'none';
+            checkoutPage.classList.remove('show');
+            successPage.classList.remove('show');
+        }
+
+        // Event Listeners
+        langBtn.addEventListener('click', () => {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            applyLang();
+            updateCart();
+        });
+
+        cartBtn.addEventListener('click', showCart);
+        cartClose.addEventListener('click', hideCart);
+        cartOverlay.addEventListener('click', hideCart);
+        goCheckout.addEventListener('click', () => { hideCart(); showCheckout(); });
+
+        addCartBtn.addEventListener('click', () => {
+            if (!selectedSize) {
+                showToast(t('toast.select'));
+                return;
+            }
+            const item = {
+                id: Date.now(),
+                name: `${product[currentLang === 'ar' ? 'nameAr' : 'nameEn']} - ${selectedColor[currentLang === 'ar' ? 'name' : 'nameEn']} - ${selectedSize}`,
+                price: finalPrice,
+                image: selectedColor.male
+            };
+            cart.push(item);
+            updateCart();
+            showToast(t('toast.added'));
+            showCheckout();
+        });
+
+        applyBtn.addEventListener('click', () => {
+            const code = discountInput.value.trim().toUpperCase();
+            const valid = discountCodes.find(c => c.code === code);
+            if (valid) {
+                finalPrice = valid.type === 'percent' 
+                    ? product.price - (product.price * valid.discount / 100)
+                    : product.price - valid.discount;
+                discountMsg.textContent = `✓ خصم ${valid.discount}${valid.type === 'percent' ? '%' : ' ج.م'}`;
+                discountMsg.className = 'discount-msg success';
+                appliedDiscount = valid;
+            } else {
+                discountMsg.textContent = '✗ كود غير صحيح';
+                discountMsg.className = 'discount-msg error';
+            }
+        });
+
+        paymentOptions.forEach(opt => {
+            opt.addEventListener('click', () => {
+                paymentOptions.forEach(o => o.classList.remove('active'));
+                opt.classList.add('active');
+                opt.querySelector('input').checked = true;
+                vodafoneBox.classList.toggle('show', opt.dataset.payment === 'vodafone');
+            });
+        });
+
+        document.getElementById('file-upload-box').addEventListener('click', () => {
+            document.getElementById('payment-file').click();
+        });
+
+        document.getElementById('payment-file').addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const fileName = this.files[0].name;
+                document.querySelector('#file-upload-box p').textContent = fileName;
+            }
+        });
+
+        
+orderForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const submitBtn = document.getElementById('submit-order-btn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'جاري إرسال الطلب...';
+
+    const formData = new FormData(orderForm);
+
+    const productsText = cart.map(item =>
+        `${item.name} - ${item.price} ج.م`
+    ).join(' | ');
+
+    formData.append('الطلبات', productsText);
+
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    formData.append('الإجمالي', total + ' ج.م');
+
+    try {
+
+        const response = await fetch(orderForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        document.getElementById('order-num').textContent =
+            '#' + Math.floor(1000 + Math.random() * 9000);
+
+        checkoutPage.style.display = 'none';
+        checkoutPage.classList.remove('show');
+
+        successPage.style.display = 'flex';
+        successPage.classList.add('show');
+
+        cart = [];
+        updateCart();
+        orderForm.reset();
+
+    } catch (error) {
+
+        alert('حصل خطأ أثناء إرسال الطلب');
+
+    } finally {
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'تأكيد الطلب';
+
+    }
+});
+
+
+        document.getElementById('back-btn').addEventListener('click', () => {
+            successPage.classList.remove('show');
+            finalPrice = product.price;
+            appliedDiscount = null;
+            discountInput.value = '';
+            discountMsg.textContent = '';
+            showProduct();
+        });
+
+        
+        document.getElementById('home-logo').addEventListener('click', (e) => {
+            e.preventDefault();
+            successPage.classList.remove('show');
+            checkoutPage.classList.remove('show');
+            checkoutPage.style.display = 'none';
+            successPage.style.display = 'none';
+            productPage.style.display = 'block';
+            window.scrollTo({top:0, behavior:'smooth'});
+        });
+
+        document.getElementById('hero-home-logo').addEventListener('click', (e) => {
+            e.preventDefault();
+            successPage.classList.remove('show');
+            checkoutPage.classList.remove('show');
+            checkoutPage.style.display = 'none';
+            successPage.style.display = 'none';
+            productPage.style.display = 'block';
+            window.scrollTo({top:0, behavior:'smooth'});
+        });
+
+
+        // Init
+        applyLang();
+        updateCart();
+        updateImages();
+    </script>
+</body>
+</html>
