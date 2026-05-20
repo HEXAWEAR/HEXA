@@ -791,8 +791,8 @@
     <section class="product-page" id="product-page">
         <div class="product-gallery">
             <div class="gender-images" id="gender-images">
-                <div class="gender-img"><img src="assets/images/ابيض راجل.png" alt=""></div>
-                <div class="gender-img"><img src="assets/images/ابيض بنت.png" alt=""></div>
+                <div class="gender-img"><img src="photos/ابيض راجل.png" alt=""></div>
+                <div class="gender-img"><img src="photos/ابيض بنت.png" alt=""></div>
             </div>
         </div>
 
@@ -860,7 +860,7 @@
     <section class="checkout-page" id="checkout-page">
         <h1 class="page-title" data-i18n="checkout.title">إتمام الطلب</h1>
         
-        <form class="form-section" id="order-form" action="https://formspree.io/f/mpqnqoqj" method="POST" enctype="multipart/form-data">
+        <form class="form-section" id="order-form" action="https://formspree.io/f/mpqnqoqj" method="POST">
             <h3 class="form-title" data-i18n="checkout.info">المعلومات الشخصية</h3>
             
             <div class="form-group">
@@ -965,7 +965,7 @@
                 { name: 'بيرجاندي', nameEn: 'Burgundy', male: 'برجاندي راجل.png', female: 'برجاندي بنت.png' },
                 { name: 'بيج', nameEn: 'Beige', male: 'بيج راجل.png', female: 'بيج بنت.png' },
                 { name: 'بينك', nameEn: 'Pink', male: 'بينك راجل.png', female: 'بينك بنت.png' },
-                { name: 'زيتي', nameEn: 'Olive', male: 'زيتي راجل.png', female: 'زيتي بنت.png' }
+                { name: 'زيتي', nameEn: 'Olive', male: 'زيتي راجل.png', female: 'زيني بنت.png' }
             ],
             sizes: ['S', 'M', 'L', 'XL']
         };
@@ -1094,8 +1094,8 @@
         function updateImages() {
             if (!selectedColor) return;
             genderImages.innerHTML = `
-                <div class="gender-img"><img src="assets/images/${selectedColor.male}" alt=""></div>
-                <div class="gender-img"><img src="assets/images/${selectedColor.female}" alt=""></div>
+                <div class="gender-img"><img src="photos/${selectedColor.male}" alt=""></div>
+                <div class="gender-img"><img src="photos/${selectedColor.female}" alt=""></div>
             `;
         }
 
@@ -1116,7 +1116,7 @@
             } else {
                 cartItems.innerHTML = cart.map(item => `
                     <div class="cart-item">
-                        <img src="assets/images/${item.image}" alt="">
+                        <img src="photos/${item.image}" alt="">
                         <div class="cart-item-info">
                             <div class="cart-item-name">${item.name}</div>
                             <div class="cart-item-price">${item.price} ${currentLang === 'ar' ? 'ج.م' : 'EGP'}</div>
@@ -1236,68 +1236,14 @@
             }
         });
 
-        orderForm.addEventListener('submit', async (e) => {
+        orderForm.addEventListener('submit', e => {
             e.preventDefault();
-
-            const submitBtn = document.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            submitBtn.disabled = true;
-            submitBtn.textContent = currentLang === 'ar' ? 'جاري الإرسال...' : 'Sending...';
-
-            const formData = new FormData(orderForm);
-
-            const selectedPayment = document.querySelector('.payment-option.active .payment-label');
-            const paymentMethod = selectedPayment ? selectedPayment.textContent.trim() : '';
-
-            const productsText = cart.map(item => {
-                return `المنتج: ${item.name}
-السعر: ${item.price} ج.م
-`;
-            }).join('
-');
-
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-
-            formData.append('الطلبات', productsText);
-            formData.append('الإجمالي', `${total} ج.م`);
-            formData.append('عدد_المنتجات', String(cart.length));
-            formData.append('طريقة_الدفع_المختارة', paymentMethod);
-            formData.append('لون_المنتج', selectedColor ? selectedColor.name : '');
-            formData.append('المقاس_المختار', selectedSize || '');
-            formData.append('الخصم_المطبق', appliedDiscount ? appliedDiscount.code : 'لا يوجد');
-
-            try {
-                const response = await fetch(orderForm.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: { Accept: 'application/json' }
-                });
-
-                if (response.ok) {
-                    document.getElementById('order-num').textContent =
-                        '#' + Math.floor(1000 + Math.random() * 9000);
-
-                    checkoutPage.classList.remove('show');
-                    successPage.classList.add('show');
-
-                    cart = [];
-                    updateCart();
-                    orderForm.reset();
-                    vodafoneBox.classList.remove('show');
-                    finalPrice = product.price;
-                    appliedDiscount = null;
-                    discountInput.value = '';
-                    discountMsg.textContent = '';
-                } else {
-                    const data = await response.json().catch(() => null);
-                    alert(data?.errors?.[0]?.message || 'حدث خطأ أثناء إرسال الطلب');
-                }
-            } catch (error) {
-                alert('فشل الاتصال بالسيرفر');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
-            }
+            document.getElementById('order-num').textContent = '#' + Math.floor(1000 + Math.random() * 9000);
+            checkoutPage.classList.remove('show');
+            successPage.classList.add('show');
+            cart = [];
+            updateCart();
+            orderForm.reset();
         });
 
         document.getElementById('back-btn').addEventListener('click', () => {
