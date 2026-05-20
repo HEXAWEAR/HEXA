@@ -35,7 +35,6 @@
     .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:10px;}
     .gallery-side{position:sticky;top:20px;align-self:start;}
     
-    /* معرض الصور الجديد: صورتين جمب بعض */
     .gallery-two-up{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:15px;}
     .gallery-two-up img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);cursor:zoom-in;}
 
@@ -119,7 +118,6 @@
     @media(max-width:900px){
       .product-grid{grid-template-columns:1fr;gap:25px;}
       .gallery-side{position:relative;top:0;}
-      /* على الهاتف: تصغير الفجوة بين الصورتين */
       .gallery-two-up{gap:8px;}
       .details-side{padding:25px;}
       h1{font-size:26px;}
@@ -138,8 +136,8 @@
     <div class="product-grid" id="product-page">
       <div class="gallery-side">
         <div class="gallery-two-up" id="main-gallery">
-          <img id="stage-male" src="photos/أسود راجل.png" alt="صورة المنتج للولد">
-          <img id="stage-female" src="photos/أسود بنت.png" alt="صورة المنتج للبنت">
+          <img id="stage-male" src="photos/black-male.png" alt="صورة المنتج للولد">
+          <img id="stage-female" src="photos/black-female.png" alt="صورة المنتج للبنت">
         </div>
       </div>
 
@@ -330,14 +328,15 @@
   </div>
 
   <script>
+    // تعديل المسارات هنا باللغة الإنجليزية بالكامل لتجنب مشاكل الـ Encoding
     const colorNames = {
-      black: { ar: 'أسود', en: 'Black', male: 'photos/أسود راجل.png', female: 'photos/أسود بنت.png' },
-      white: { ar: 'أبيض', en: 'White', male: 'photos/ابيض راجل.png', female: 'photos/ابيض بنت.png' },
-      navy: { ar: 'كحلي', en: 'Navy', male: 'photos/كحلي راجل.png', female: 'photos/كحلي بنت.png' },
-      olive: { ar: 'زيتي', en: 'Olive', male: 'photos/زيتي راجل.png', female: 'photos/زيتي بنت.png' },
-      grey: { ar: 'رمادي', en: 'Grey', male: 'photos/رمادي راجل.png', female: 'photos/رمادي بنت.png' },
-      beige: { ar: 'بيج', en: 'Beige', male: 'photos/بيج راجل.png', female: 'photos/بيج بنت.png' },
-      brown: { ar: 'بني', en: 'Brown', male: 'photos/بني راجل.png', female: 'photos/بني بنت.png' }
+      black: { ar: 'أسود', en: 'Black', male: 'photos/black-male.png', female: 'photos/black-female.png' },
+      white: { ar: 'أبيض', en: 'White', male: 'photos/white-male.png', female: 'photos/white-female.png' },
+      navy: { ar: 'كحلي', en: 'Navy', male: 'photos/navy-male.png', female: 'photos/navy-female.png' },
+      olive: { ar: 'زيتي', en: 'Olive', male: 'photos/olive-male.png', female: 'photos/olive-female.png' },
+      grey: { ar: 'رمادي', en: 'Grey', male: 'photos/grey-male.png', female: 'photos/grey-female.png' },
+      beige: { ar: 'بيج', en: 'Beige', male: 'photos/beige-male.png', female: 'photos/beige-female.png' },
+      brown: { ar: 'بني', en: 'Brown', male: 'photos/brown-male.png', female: 'photos/brown-female.png' }
     };
 
     const dict = {
@@ -461,7 +460,6 @@
       
       stageMale: document.getElementById('stage-male'),
       stageFemale: document.getElementById('stage-female'),
-      // تم إزالة مراجع الصور المصغرة لأنها لم تعد موجودة
       
       colorOpts: document.querySelectorAll('.color-opt'),
       colorVal: document.getElementById('color-val'),
@@ -543,7 +541,6 @@
     function applyImages(colorKey) {
       const paths = colorNames[colorKey];
       if (paths) {
-        // تحديث الصورتين الرئيسيتين في المعرض
         els.stageMale.src = paths.male;
         els.stageFemale.src = paths.female;
       }
@@ -569,9 +566,6 @@
       });
     });
 
-    // تم إزالة وظائف switchThumb لأنها لم تعد مطلوبة مع التصميم الجديد
-
-    // وظيفة تكبير الصورة عند الضغط عليها
     document.querySelectorAll('.gallery-two-up img').forEach(img => {
       img.addEventListener('click', () => {
         els.lightboxImg.src = img.src;
@@ -624,7 +618,7 @@
     }
 
     els.govSelect.addEventListener('change', () => {
-      state.shipping = 0; // شحن مجاني
+      state.shipping = 0;
       calculateTotal();
     });
 
