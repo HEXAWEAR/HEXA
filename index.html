@@ -63,9 +63,12 @@
     .qty-btn:hover{background:var(--primary);color:#fff;}
     .qty-val{font-size:18px;font-weight:700;width:40px;text-align:center;}
 
+    .action-row{display:flex;gap:12px;width:100%;}
     .action-btn{background:var(--primary);color:#fff;border:none;padding:18px;border-radius:var(--radius-sm);font-size:18px;font-weight:700;cursor:pointer;transition:0.3s;display:flex;align-items:center;justify-content:center;gap:15px;box-shadow:0 10px 25px rgba(17,17,17,0.15);width:100%;}
     .action-btn:hover{background:var(--primary-2);transform:translateY(-2px);}
     .action-btn:active{transform:translateY(0);}
+    .action-btn.secondary{background:#fff;color:var(--primary);border:1px solid var(--line);box-shadow:0 10px 25px rgba(17,17,17,0.06);}
+    .action-btn.secondary:hover{background:var(--bg);transform:translateY(-2px);}
 
     .desc-text{color:var(--muted);font-size:15px;line-height:1.7;border-top:1px solid var(--line);padding-top:20px;margin-top:5px;}
     .desc-text ul{padding-right:20px;margin-top:10px;display:flex;flex-direction:column;gap:6px;}
@@ -127,6 +130,7 @@
       .details-side{padding:25px;}
       h1{font-size:26px;}
       .current-price{font-size:30px;}
+      .action-row{flex-direction:column;}
     }
   </style>
 </head>
@@ -206,9 +210,14 @@
           </div>
         </div>
 
-        <button class="action-btn" id="buy-btn">
-          <span data-i18n="buy.btn">شراء الآن</span>
-        </button>
+        <div class="action-row">
+          <button class="action-btn secondary" id="add-cart-btn">
+            <span data-i18n="cart.btn">إضافة للسلة</span>
+          </button>
+          <button class="action-btn" id="buy-btn">
+            <span data-i18n="buy.btn">شراء الآن</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -335,6 +344,7 @@
         'size.title': 'المقاس:',
         'qty.title': 'الكمية:',
         'buy.btn': 'شراء الآن',
+        'cart.btn': 'إضافة للسلة',
         'size.chart.title': 'سايز شارت',
         'size.chart.note': 'الأرقام بالمقاس توضيحية، واستخدم الجدول لاختيار المقاس المناسب.',
         'checkout.title': 'إتمام الطلب',
@@ -377,6 +387,7 @@
         'size.title': 'Size:',
         'qty.title': 'Quantity:',
         'buy.btn': 'Buy Now',
+        'cart.btn': 'Add to Cart',
         'size.chart.title': 'Size Chart',
         'size.chart.note': 'The measurements are approximate. Use the chart to choose the right size.',
         'checkout.title': 'Checkout',
@@ -461,6 +472,7 @@
       checkoutPage: document.getElementById('checkout-page'),
       successPage: document.getElementById('success-page'),
       buyBtn: document.getElementById('buy-btn'),
+      addCartBtn: document.getElementById('add-cart-btn'),
       backBtn: document.getElementById('back-btn'),
       homeLogo: document.getElementById('home-logo'),
 
@@ -600,6 +612,13 @@
       updatePricingDisplay();
     }
 
+    function openCheckout() {
+      els.productPage.style.display = 'none';
+      els.checkoutPage.classList.add('show');
+      calculateTotal();
+      window.scrollTo(0,0);
+    }
+
     els.langToggle.addEventListener('click', () => {
       state.lang = state.lang === 'ar' ? 'en' : 'ar';
       localize();
@@ -688,10 +707,11 @@
     }
 
     els.buyBtn.addEventListener('click', () => {
-      els.productPage.style.display = 'none';
-      els.checkoutPage.classList.add('show');
-      calculateTotal();
-      window.scrollTo(0,0);
+      openCheckout();
+    });
+
+    els.addCartBtn.addEventListener('click', () => {
+      openCheckout();
     });
 
     els.orderForm.addEventListener('submit', async (e) => {
