@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#111111" />
-  <title>HEXA | أوفرسايز بيزيك بوليفار</title>
+  <title id="page-title">HEXA | أوفرسايز بيزيك بوليفار</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -79,55 +79,6 @@
       border:2px solid #fff;
     }
 
-    /* Hero */
-    .hero{padding:22px 0 8px}
-    .hero-card{
-      position:relative;overflow:hidden;border-radius:30px;background:
-        linear-gradient(135deg, rgba(17,17,17,.96), rgba(56,56,56,.86));
-      box-shadow:var(--shadow);min-height:260px;color:#fff;
-      display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:center;
-      padding:26px;
-    }
-    .hero-card::after{
-      content:"";position:absolute;inset:auto -120px -120px auto;width:260px;height:260px;border-radius:50%;
-      background:radial-gradient(circle, rgba(255,255,255,.16), transparent 65%);
-      pointer-events:none;
-    }
-    .hero-copy{position:relative;z-index:1}
-    .eyebrow{
-      display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;
-      background:rgba(255,255,255,.12);color:#fff;font-size:12px;font-weight:700;margin-bottom:14px;
-    }
-    .hero-title{font-size:clamp(30px, 4vw, 52px);line-height:1.05;font-weight:800;margin-bottom:10px}
-    .hero-sub{font-size:15px;color:rgba(255,255,255,.84);max-width:520px;margin-bottom:18px}
-    .hero-pricing{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-    .hero-old{color:rgba(255,255,255,.5);text-decoration:line-through;font-size:18px}
-    .hero-price{font-size:34px;font-weight:800}
-    .hero-actions{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}
-    .hero-actions .btn{
-      height:46px;padding:0 18px;border-radius:14px;border:none;cursor:pointer;font-weight:800;
-      display:inline-flex;align-items:center;gap:10px;transition:.2s ease;
-    }
-    .btn-primary{background:#fff;color:#111}
-    .btn-secondary{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.15)}
-    .btn:hover{transform:translateY(-1px)}
-    .hero-visual{
-      position:relative;z-index:1;display:grid;place-items:center;
-      min-height:210px;
-    }
-    .hero-visual .ring{
-      width:min(100%, 320px);aspect-ratio:1;border-radius:28px;
-      background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
-      display:grid;place-items:center;padding:14px;
-    }
-    .hero-visual img{
-      width:100%;height:100%;object-fit:contain;border-radius:22px;
-      filter:drop-shadow(0 20px 35px rgba(0,0,0,.22));
-      background:transparent;
-    }
-
     /* Main layout */
     main{padding:18px 0 36px}
     .layout{
@@ -158,6 +109,7 @@
       padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;box-shadow:0 8px 20px rgba(17,17,17,.05)
     }
     .thumbs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .thumbs.two-up .thumb{aspect-ratio:3/4}
     .thumb{
       border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#f6f7fb;aspect-ratio:3/4;
     }
@@ -170,10 +122,11 @@
     .current-price{font-size:28px;font-weight:900;color:var(--primary);line-height:1.1}
     .subtitle{color:var(--muted);font-size:14px;margin-top:6px}
 
-    .option-grid{display:flex;flex-wrap:wrap;gap:10px}
+    .option-grid{display:flex;flex-wrap:wrap;gap:10px;min-height:52px}
     .option-btn{
       border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:11px 14px;
       min-height:46px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s ease;
+      color:var(--text);display:inline-flex;align-items:center;justify-content:center;
     }
     .option-btn:hover{border-color:#b7bfd0;transform:translateY(-1px)}
     .option-btn.active{
@@ -260,6 +213,14 @@
       transition:.28s ease;display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(17,17,17,.12);
     }
     .drawer.show{right:0}
+    html[dir="ltr"] .drawer {
+      right: auto;
+      left: -100%;
+    }
+    html[dir="ltr"] .drawer.show {
+      left: 0;
+    }
+    
     .drawer-header{
       height:74px;padding:0 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;
     }
@@ -402,7 +363,7 @@
     .success-page{display:none;min-height:72vh;padding:40px 0}
     .success-page.show{display:grid;place-items:center}
     .success-card{
-      max-width:560px;width:100%;text-align:center;padding:26px;background:#fff;border:1px solid var(--line);
+      max-width:560px;width:100%;text-align:center;padding:20px;background:#fff;border:1px solid var(--line);
       border-radius:28px;box-shadow:var(--shadow)
     }
     .success-icon{
@@ -435,6 +396,26 @@
     .footer-logo{font-size:22px;font-weight:900;letter-spacing:2px;color:#111;margin-bottom:6px}
     .footer-link{display:inline-flex;align-items:center;gap:8px;color:#0f9d58;font-weight:800}
     .footer-small{font-size:13px;margin-top:8px}
+    .footer-small:empty,.feature span:empty{display:none}
+    .thumb img{cursor:zoom-in}
+
+    /* Image zoom */
+    .zoom-modal{
+      position:fixed;inset:0;z-index:6000;display:none;align-items:center;justify-content:center;
+      padding:18px;background:rgba(17,17,17,.72);backdrop-filter:blur(8px);
+    }
+    .zoom-modal.show{display:flex}
+    .zoom-dialog{position:relative;width:min(920px,100%);max-height:88vh}
+    .zoom-dialog img{
+      width:100%;max-height:82vh;object-fit:contain;display:block;background:#fff;border-radius:24px;
+      box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.18)
+    }
+    .zoom-close{
+      position:absolute;top:-14px;inset-inline-end:-14px;width:42px;height:42px;border:none;border-radius:14px;
+      background:#fff;cursor:pointer;display:grid;place-items:center;box-shadow:0 10px 26px rgba(0,0,0,.18)
+    }
+    .zoom-close svg{width:20px;height:20px;stroke:#111}
+    .zoom-caption{margin-top:10px;color:#fff;font-size:13px;text-align:center}
 
     /* Responsive */
     @media (max-width: 980px){
@@ -464,7 +445,6 @@
     <div class="container">
       <div class="header-inner">
         <a href="#" class="brand" id="home-logo">
-          <div class="brand-badge">H</div>
           <span>HEXA</span>
         </a>
         <div class="header-actions">
@@ -480,54 +460,15 @@
     </div>
   </header>
 
-  <section class="hero">
-    <div class="container">
-      <div class="hero-card">
-        <div class="hero-copy">
-          <div class="eyebrow">
-            <span>●</span>
-            <span data-i18n="hero.badge">Premium Streetwear</span>
-          </div>
-          <h1 class="hero-title" id="hero-title">أوفرسايز بيزيك بوليفار</h1>
-          <p class="hero-sub" data-i18n="hero.sub">ستايل نظيف، خامة عالية، وتفاصيل مدروسة لواجهة بيع بشكل احترافي.</p>
-          <div class="hero-pricing">
-            <span class="hero-old" data-i18n="price.old">800 ج.م</span>
-            <span class="hero-price" data-i18n="price.current">700 ج.م</span>
-          </div>
-          <div class="hero-actions">
-            <button class="btn btn-primary" id="hero-shop-btn">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <path d="M3 3h2l.4 2m0 0L7.2 14h9.5l1.8-7H5.4m0 0L4 5H2"/>
-                <path d="M7 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm10 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>
-              </svg>
-              <span data-i18n="hero.shop">ابدأ التسوق</span>
-            </button>
-            <button class="btn btn-secondary" id="hero-checkout-btn">
-              <span data-i18n="hero.checkout">اذهب للدفع</span>
-            </button>
-          </div>
-        </div>
-        <div class="hero-visual">
-          <div class="ring">
-            <img src="photos/ابيض راجل.png" id="hero-image" alt="Product preview">
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <main>
     <div class="container">
       <section class="layout" id="product-page">
         <div class="card product-card">
           <div class="gallery">
-            <div class="gallery-main">
-              <div class="gallery-badge" data-i18n="gallery.badge">اختر اللون ثم أضف للسلة</div>
-              <img id="main-image" src="photos/ابيض راجل.png" alt="Main product image">
-            </div>
-            <div class="thumbs" id="thumbs">
-              <div class="thumb"><img id="thumb-male" src="photos/ابيض راجل.png" alt=""></div>
-              <div class="thumb"><img id="thumb-female" src="photos/ابيض بنت.png" alt=""></div>
+            <div class="gallery-badge" data-i18n="gallery.badge">اختر اللون ثم أضف للسلة</div>
+            <div class="thumbs two-up" id="thumbs">
+              <div class="thumb"><img id="thumb-male" src="photos/ابيض راجل.png" alt="صورة المنتج للولد"></div>
+              <div class="thumb"><img id="thumb-female" src="photos/ابيض بنت.png" alt="صورة المنتج للبنت"></div>
             </div>
           </div>
 
@@ -596,7 +537,7 @@
               </svg>
               <div>
                 <strong data-i18n="feat.quality.title">جودة ممتازة</strong>
-                <span data-i18n="feat.quality.desc">خامة مريحة ومظهر clean مناسب للبيزنس الحديث.</span>
+                <span data-i18n=""></span>
               </div>
             </div>
             <div class="feature">
@@ -605,53 +546,15 @@
               </svg>
               <div>
                 <strong data-i18n="feat.shipping.title">شحن سريع</strong>
-                <span data-i18n="feat.shipping.desc">اختيارات واضحة وسهلة مع تجربة دفع منفصلة وأنيقة.</span>
+                <span data-i18n=""></span>
               </div>
             </div>
           </div>
         </div>
-
-        <aside class="card product-card">
-          <div class="section-title"><span class="dot"></span><span data-i18n="sidebar.title">ملاحظات البيع</span></div>
-          <div class="info-box" style="margin-top:0">
-            <div class="feature" style="border:none;padding:0;background:transparent">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0A9 9 0 1 1 3 12a9 9 0 0 1 18 0Z"/>
-              </svg>
-              <div>
-                <strong data-i18n="sidebar.note1.title">التعديل قبل الدفع</strong>
-                <span data-i18n="sidebar.note1.desc">تقدر تضيف أكتر من لون أو مقاس أو كمية من غير ما تدخل صفحة الدفع.</span>
-              </div>
-            </div>
-          </div>
-          <div class="info-box">
-            <div class="feature" style="border:none;padding:0;background:transparent">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8.25 12 3l9 5.25v10.5L12 24 3 18.75V8.25Z"/>
-              </svg>
-              <div>
-                <strong data-i18n="sidebar.note2.title">ملخص نظيف</strong>
-                <span data-i18n="sidebar.note2.desc">الملخص في صفحة الدفع يحتوي على أيقونة السلة والكمية واللون والمقاس والإجمالي.</span>
-              </div>
-            </div>
-          </div>
-          <div class="info-box">
-            <div class="feature" style="border:none;padding:0;background:transparent">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6.75a4.5 4.5 0 1 0-9 0v1.5m-2.25 0h13.5l1.5 12.75H5.25L6.75 8.25Z"/>
-              </svg>
-              <div>
-                <strong data-i18n="sidebar.note3.title">Checkout منفصل</strong>
-                <span data-i18n="sidebar.note3.desc">لا يتم فتح صفحة الدفع تلقائيًا بعد الإضافة للسلة.</span>
-              </div>
-            </div>
-          </div>
-        </aside>
       </section>
     </div>
   </main>
 
-  <!-- Cart Drawer -->
   <div class="overlay" id="cart-overlay"></div>
   <aside class="drawer" id="cart-drawer" aria-label="Shopping cart">
     <div class="drawer-header">
@@ -680,7 +583,6 @@
     </div>
   </aside>
 
-  <!-- Checkout -->
   <section class="checkout-page" id="checkout-page">
     <div class="container">
       <h1 class="page-title" data-i18n="checkout.title">إتمام الطلب</h1>
@@ -692,48 +594,20 @@
             <div class="group">
               <label class="field-label" data-i18n="checkout.info">المعلومات الشخصية</label>
               <div class="input-row one">
-                <input type="text" name="الاسم" required placeholder="الاسم الكامل">
-                <input type="tel" name="التليفون" required placeholder="رقم الهاتف">
+                <input type="text" name="الاسم" id="input-name" required placeholder="الاسم الكامل">
+                <input type="tel" name="التليفون" id="input-phone" required placeholder="رقم الهاتف">
               </div>
             </div>
 
             <div class="group">
               <label class="field-label" data-i18n="checkout.city">المحافظة</label>
               <select name="المحافظة" id="city-select" required>
-                <option value="">اختر المحافظة</option>
-                <option value="القاهرة - 60 ج.م">القاهرة - 60 ج.م</option>
-                <option value="الجيزة - 60 ج.م">الجيزة - 60 ج.م</option>
-                <option value="الإسكندرية - 80 ج.م">الإسكندرية - 80 ج.م</option>
-                <option value="القليوبية - 70 ج.م">القليوبية - 70 ج.م</option>
-                <option value="الشرقية - 80 ج.م">الشرقية - 80 ج.م</option>
-                <option value="الدقهلية - 80 ج.م">الدقهلية - 80 ج.م</option>
-                <option value="البحيرة - 80 ج.م">البحيرة - 80 ج.م</option>
-                <option value="الغربية - 80 ج.م">الغربية - 80 ج.م</option>
-                <option value="المنوفية - 80 ج.م">المنوفية - 80 ج.م</option>
-                <option value="كفر الشيخ - 80 ج.م">كفر الشيخ - 80 ج.م</option>
-                <option value="دمياط - 90 ج.م">دمياط - 90 ج.م</option>
-                <option value="بورسعيد - 90 ج.م">بورسعيد - 90 ج.م</option>
-                <option value="الإسماعيلية - 90 ج.م">الإسماعيلية - 90 ج.م</option>
-                <option value="السويس - 90 ج.م">السويس - 90 ج.م</option>
-                <option value="الفيوم - 90 ج.م">الفيوم - 90 ج.م</option>
-                <option value="بني سويف - 90 ج.م">بني سويف - 90 ج.م</option>
-                <option value="المنيا - 100 ج.م">المنيا - 100 ج.م</option>
-                <option value="أسيوط - 110 ج.م">أسيوط - 110 ج.م</option>
-                <option value="سوهاج - 110 ج.م">سوهاج - 110 ج.م</option>
-                <option value="قنا - 120 ج.م">قنا - 120 ج.م</option>
-                <option value="الأقصر - 120 ج.م">الأقصر - 120 ج.م</option>
-                <option value="أسوان - 130 ج.م">أسوان - 130 ج.م</option>
-                <option value="البحر الأحمر - 130 ج.م">البحر الأحمر - 130 ج.م</option>
-                <option value="الوادي الجديد - 140 ج.م">الوادي الجديد - 140 ج.م</option>
-                <option value="مطروح - 130 ج.م">مطروح - 130 ج.م</option>
-                <option value="شمال سيناء - 140 ج.م">شمال سيناء - 140 ج.م</option>
-                <option value="جنوب سيناء - 140 ج.م">جنوب سيناء - 140 ج.م</option>
-              </select>
+                </select>
             </div>
 
             <div class="group">
               <label class="field-label" data-i18n="checkout.address">العنوان بالتفصيل</label>
-              <textarea name="العنوان" rows="4" required placeholder="الحي - الشارع - رقم المنزل - علامة مميزة"></textarea>
+              <textarea name="العنوان" id="input-address" rows="4" required placeholder="الحي - الشارع - رقم المنزل - علامة مميزة"></textarea>
             </div>
 
             <div class="group">
@@ -744,7 +618,6 @@
                   <span class="radio"></span>
                   <span class="pay-content">
                     <strong data-i18n="payment.cod">الدفع عند الاستلام</strong>
-                    <span data-i18n="payment.cod.sub">مناسب لمعظم الطلبات</span>
                   </span>
                 </label>
                 <label class="pay-option" data-payment="vodafone">
@@ -752,7 +625,6 @@
                   <span class="radio"></span>
                   <span class="pay-content">
                     <strong data-i18n="payment.vodafone">فودافون كاش</strong>
-                    <span data-i18n="payment.vodafone.sub">ارفع صورة التحويل بعد الدفع</span>
                   </span>
                 </label>
                 <label class="pay-option" data-payment="instapay">
@@ -760,7 +632,6 @@
                   <span class="radio"></span>
                   <span class="pay-content">
                     <strong data-i18n="payment.instapay">إنستا باي</strong>
-                    <span data-i18n="payment.instapay.sub">ادفع بالطريقة الأسرع</span>
                   </span>
                 </label>
               </div>
@@ -837,22 +708,34 @@
     <div class="container">
       <div class="footer-card">
         <div class="footer-logo">HEXA</div>
-        <div class="footer-small" data-i18n="footer.desc">ستريت وير فاخر بأسلوب عصري وتجربة شراء واضحة.</div>
+        <div class="footer-small" data-i18n="footer.desc">ستريت وير</div>
         <div style="margin-top:12px">
           <a class="footer-link" href="https://wa.me/201014144843" target="_blank" rel="noopener">
-            <span>واتساب</span>
+            <span data-i18n="footer.whatsapp">واتساب</span>
           </a>
         </div>
       </div>
     </div>
   </footer>
 
+  <div class="zoom-modal" id="image-zoom-modal" aria-hidden="true">
+    <div class="zoom-dialog" role="dialog" aria-modal="true">
+      <button class="zoom-close" id="image-zoom-close" type="button" aria-label="Close zoom">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+      <img id="image-zoom-img" alt="">
+      <div class="zoom-caption" id="image-zoom-caption"></div>
+    </div>
+  </div>
+
   <div class="toast" id="toast"></div>
 
   <script>
     const product = {
       nameAr: 'أوفرسايز بيزيك بوليفار',
-      nameEn: 'Oversized Basic Pullover',
+      nameEn: 'Oversized Basic Bolivar',
       basePrice: 700,
       oldPrice: 800,
       images: {
@@ -871,14 +754,42 @@
       sizes: ['S', 'M', 'L', 'XL']
     };
 
+    const governorates = [
+      { ar: 'القاهرة - 60 ج.م', en: 'Cairo - 60 EGP', price: 60 },
+      { ar: 'الجيزة - 60 ج.م', en: 'Giza - 60 EGP', price: 60 },
+      { ar: 'الإسكندرية - 80 ج.م', en: 'Alexandria - 80 EGP', price: 80 },
+      { ar: 'القليوبية - 70 ج.م', en: 'Qalyubia - 70 EGP', price: 70 },
+      { ar: 'الشرقية - 80 ج.م', en: 'Al Sharqia - 80 EGP', price: 80 },
+      { ar: 'الدقهلية - 80 ج.م', en: 'Dakahlia - 80 EGP', price: 80 },
+      { ar: 'البحيرة - 80 ج.م', en: 'Beheira - 80 EGP', price: 80 },
+      { ar: 'الغربية - 80 ج.م', en: 'Gharbia - 80 EGP', price: 80 },
+      { ar: 'المنوفية - 80 ج.م', en: 'Monufia - 80 EGP', price: 80 },
+      { ar: 'كفر الشيخ - 80 ج.م', en: 'Kafr El Sheikh - 80 EGP', price: 80 },
+      { ar: 'دمياط - 90 ج.م', en: 'Damietta - 90 EGP', price: 90 },
+      { ar: 'بورسعيد - 90 ج.م', en: 'Port Said - 90 EGP', price: 90 },
+      { ar: 'الإسماعيلية - 90 ج.م', en: 'Ismailia - 90 EGP', price: 90 },
+      { ar: 'السويس - 90 ج.م', en: 'Suez - 90 EGP', price: 90 },
+      { ar: 'الفيوم - 90 ج.م', en: 'Fayoum - 90 EGP', price: 90 },
+      { ar: 'بني سويف - 90 ج.م', en: 'Beni Suef - 90 EGP', price: 90 },
+      { ar: 'المنيا - 100 ج.م', en: 'Minya - 100 EGP', price: 100 },
+      { ar: 'أسيوط - 110 ج.م', en: 'Assiut - 110 EGP', price: 110 },
+      { ar: 'سوهاج - 110 ج.م', en: 'Sohag - 110 EGP', price: 110 },
+      { ar: 'قنا - 120 ج.م', en: 'Qena - 120 EGP', price: 120 },
+      { ar: 'الأقصر - 120 ج.م', en: 'Luxor - 120 EGP', price: 120 },
+      { ar: 'أسوان - 130 ج.م', en: 'Aswan - 130 EGP', price: 130 },
+      { ar: 'البحر الأحمر - 130 ج.م', en: 'Red Sea - 130 EGP', price: 130 },
+      { ar: 'الوادي الجديد - 140 ج.م', en: 'New Valley - 140 EGP', price: 140 },
+      { ar: 'مطروح - 130 ج.م', en: 'Matrouh - 130 EGP', price: 130 },
+      { ar: 'شمال سيناء - 140 ج.م', en: 'North Sinai - 140 EGP', price: 140 },
+      { ar: 'جنوب سيناء - 140 ج.م', en: 'South Sinai - 140 EGP', price: 140 }
+    ];
+
     const translations = {
       ar: {
-        'hero.badge': 'Premium Streetwear',
-        'hero.sub': 'ستايل نظيف، خامة عالية، وتفاصيل مدروسة لواجهة بيع بشكل احترافي.',
+        'page.title': 'HEXA | أوفرسايز بيزيك بوليفار',
+        'hero.badge': 'ستريت وير',
         'hero.shop': 'ابدأ التسوق',
         'hero.checkout': 'اذهب للدفع',
-        'price.old': '800 ج.م',
-        'price.current': '700 ج.م',
         'gallery.badge': 'اختر اللون ثم أضف للسلة',
         'product.sub': 'اختار اللون والمقاس والكمية قبل الإضافة.',
         'color.title': 'اختر اللون',
@@ -892,6 +803,7 @@
         'cart.total': 'الإجمالي',
         'cart.checkout': 'إتمام الدفع',
         'cart.empty': 'السلة فارغة',
+        'cart.remove': 'حذف',
         'checkout.title': 'إتمام الطلب',
         'checkout.sub': 'مراجعة الطلب ثم إدخال البيانات وإرسالها مباشرة.',
         'checkout.info': 'المعلومات الشخصية',
@@ -901,42 +813,42 @@
         'checkout.address': 'العنوان بالتفصيل',
         'payment.title': 'طريقة الدفع',
         'payment.cod': 'الدفع عند الاستلام',
-        'payment.cod.sub': 'مناسب لمعظم الطلبات',
         'payment.vodafone': 'فودافون كاش',
-        'payment.vodafone.sub': 'ارفع صورة التحويل بعد الدفع',
         'payment.instapay': 'إنستا باي',
-        'payment.instapay.sub': 'ادفع بالطريقة الأسرع',
         'payment.proof.title': 'بيانات الدفع',
         'payment.upload.title': 'ارفع صورة إثبات الدفع',
         'summary.title': 'ملخص الطلب',
         'summary.subtotal': 'الإجمالي الفرعي',
         'summary.shipping': 'سعر الشحن',
         'summary.total': 'الإجمالي النهائي',
+        'summary.items': 'منتج',
         'submit.btn': 'تأكيد الطلب',
+        'submit.sending': 'جاري إرسال الطلب...',
         'success.title': 'شكراً لك!',
         'success.msg': 'تم استلام طلبك بنجاح.',
         'success.order': 'رقم الطلب:',
         'success.back': 'العودة للمتجر',
-        'footer.desc': 'ستريت وير فاخر بأسلوب عصري وتجربة شراء واضحة.',
+        'footer.desc': 'ستريت وير',
+        'footer.whatsapp': 'واتساب',
         'feat.quality.title': 'جودة ممتازة',
-        'feat.quality.desc': 'خامة مريحة ومظهر clean مناسب للبيزنس الحديث.',
         'feat.shipping.title': 'شحن سريع',
-        'feat.shipping.desc': 'اختيارات واضحة وسهلة مع تجربة دفع منفصلة وأنيقة.',
-        'sidebar.title': 'ملاحظات البيع',
-        'sidebar.note1.title': 'التعديل قبل الدفع',
-        'sidebar.note1.desc': 'تقدر تضيف أكتر من لون أو مقاس أو كمية من غير ما تدخل صفحة الدفع.',
-        'sidebar.note2.title': 'ملخص نظيف',
-        'sidebar.note2.desc': 'الملخص في صفحة الدفع يحتوي على أيقونة السلة والكمية واللون والمقاس والإجمالي.',
-        'sidebar.note3.title': 'Checkout منفصل',
-        'sidebar.note3.desc': 'لا يتم فتح صفحة الدفع تلقائيًا بعد الإضافة للسلة.'
+        'msg.added': 'تمت الإضافة للسلة',
+        'msg.cart_empty': 'السلة فارغة',
+        'msg.invalid_code': '✗ كود غير صحيح',
+        'msg.discount_applied': 'تم تطبيق الخصم',
+        'msg.discount_success': '✓ تم تطبيق خصم',
+        'msg.error': 'حصل خطأ أثناء إرسال الطلب',
+        'placeholder.name': 'الاسم الكامل',
+        'placeholder.phone': 'رقم الهاتف',
+        'placeholder.address': 'الحي - الشارع - رقم المنزل - علامة مميزة',
+        'placeholder.discount': 'أدخل الكود',
+        'select.city': 'اختر المحافظة'
       },
       en: {
-        'hero.badge': 'Premium Streetwear',
-        'hero.sub': 'Clean style, quality fabric, and a polished selling experience.',
+        'page.title': 'HEXA | Oversized Basic Bolivar',
+        'hero.badge': 'Streetwear',
         'hero.shop': 'Start Shopping',
         'hero.checkout': 'Go to Checkout',
-        'price.old': '800 EGP',
-        'price.current': '700 EGP',
         'gallery.badge': 'Choose a color then add to cart',
         'product.sub': 'Select color, size, and quantity before adding.',
         'color.title': 'Select Color',
@@ -950,8 +862,9 @@
         'cart.total': 'Total',
         'cart.checkout': 'Checkout',
         'cart.empty': 'Cart is empty',
+        'cart.remove': 'Remove',
         'checkout.title': 'Checkout',
-        'checkout.sub': 'Review the order and submit your details.',
+        'checkout.sub': 'Review the order and submit your details directly.',
         'checkout.info': 'Personal Information',
         'checkout.name': 'Full Name',
         'checkout.phone': 'Phone Number',
@@ -959,34 +872,36 @@
         'checkout.address': 'Full Address',
         'payment.title': 'Payment Method',
         'payment.cod': 'Cash on Delivery',
-        'payment.cod.sub': 'Best for most orders',
         'payment.vodafone': 'Vodafone Cash',
-        'payment.vodafone.sub': 'Upload proof after payment',
         'payment.instapay': 'InstaPay',
-        'payment.instapay.sub': 'Fastest payment option',
         'payment.proof.title': 'Payment Details',
-        'payment.upload.title': 'Upload payment proof',
+        'payment.upload.title': 'Upload Payment Proof',
         'summary.title': 'Order Summary',
         'summary.subtotal': 'Subtotal',
         'summary.shipping': 'Shipping',
         'summary.total': 'Grand Total',
+        'summary.items': 'items',
         'submit.btn': 'Confirm Order',
+        'submit.sending': 'Sending order...',
         'success.title': 'Thank you!',
         'success.msg': 'Your order has been received successfully.',
         'success.order': 'Order number:',
         'success.back': 'Back to Store',
-        'footer.desc': 'Premium streetwear with a clean shopping experience.',
-        'feat.quality.title': 'Excellent Quality',
-        'feat.quality.desc': 'Comfortable fabric and a clean look for modern brands.',
+        'footer.desc': 'Streetwear',
+        'footer.whatsapp': 'WhatsApp',
+        'feat.quality.title': 'Premium Quality',
         'feat.shipping.title': 'Fast Shipping',
-        'feat.shipping.desc': 'Clear choices and a polished, separate checkout flow.',
-        'sidebar.title': 'Sales Notes',
-        'sidebar.note1.title': 'Edit before checkout',
-        'sidebar.note1.desc': 'Add multiple colors, sizes, or quantities without entering checkout.',
-        'sidebar.note2.title': 'Clean summary',
-        'sidebar.note2.desc': 'The checkout summary includes a cart icon, quantity, color, size, and totals.',
-        'sidebar.note3.title': 'Separate checkout',
-        'sidebar.note3.desc': 'Checkout does not open automatically after adding to cart.'
+        'msg.added': 'Added to cart',
+        'msg.cart_empty': 'Cart is empty',
+        'msg.invalid_code': '✗ Invalid code',
+        'msg.discount_applied': 'Discount applied',
+        'msg.discount_success': '✓ Discount applied',
+        'msg.error': 'Error while sending order',
+        'placeholder.name': 'Full Name',
+        'placeholder.phone': 'Phone Number',
+        'placeholder.address': 'Neighborhood - Street - House Number - Landmark',
+        'placeholder.discount': 'Enter code',
+        'select.city': 'Select Governorate'
       }
     };
 
@@ -1006,6 +921,7 @@
     };
 
     const els = {
+      pageTitle: document.getElementById('page-title'),
       langBtn: document.getElementById('lang-btn'),
       cartBtn: document.getElementById('cart-btn'),
       cartCount: document.getElementById('cart-count'),
@@ -1021,15 +937,11 @@
       successPage: document.getElementById('success-page'),
       addCartBtn: document.getElementById('add-cart-btn'),
       scrollToCart: document.getElementById('scroll-to-cart'),
-      heroCheckoutBtn: document.getElementById('hero-checkout-btn'),
-      heroShopBtn: document.getElementById('hero-shop-btn'),
       colorOptions: document.getElementById('color-options'),
       sizeOptions: document.getElementById('size-options'),
       mainImage: document.getElementById('main-image'),
       thumbMale: document.getElementById('thumb-male'),
       thumbFemale: document.getElementById('thumb-female'),
-      heroImage: document.getElementById('hero-image'),
-      heroTitle: document.getElementById('hero-title'),
       productTitle: document.getElementById('product-title'),
       oldPrice: document.getElementById('old-price'),
       currentPrice: document.getElementById('current-price'),
@@ -1042,6 +954,10 @@
       applyBtn: document.getElementById('apply-btn'),
       discountMsg: document.getElementById('discount-msg'),
       toast: document.getElementById('toast'),
+      imageZoomModal: document.getElementById('image-zoom-modal'),
+      imageZoomImg: document.getElementById('image-zoom-img'),
+      imageZoomCaption: document.getElementById('image-zoom-caption'),
+      imageZoomClose: document.getElementById('image-zoom-close'),
       paymentOptions: document.querySelectorAll('.pay-option'),
       proofBox: document.getElementById('proof-box'),
       paymentFile: document.getElementById('payment-file'),
@@ -1053,10 +969,12 @@
       summaryTotal: document.getElementById('summary-total'),
       summaryItemsCount: document.getElementById('summary-items-count'),
       citySelect: document.getElementById('city-select'),
+      inputName: document.getElementById('input-name'),
+      inputPhone: document.getElementById('input-phone'),
+      inputAddress: document.getElementById('input-address'),
       submitOrderBtn: document.getElementById('submit-order-btn'),
       backBtn: document.getElementById('back-btn'),
       homeLogo: document.getElementById('home-logo'),
-      heroTitleText: document.getElementById('hero-title')
     };
 
     function t(key) {
@@ -1094,11 +1012,34 @@
       };
     }
 
+    function openImageZoom(src, caption) {
+      if (!els.imageZoomModal || !els.imageZoomImg) return;
+      els.imageZoomImg.src = src;
+      els.imageZoomImg.alt = caption || '';
+      els.imageZoomCaption.textContent = caption || '';
+      els.imageZoomModal.classList.add('show');
+      els.imageZoomModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageZoom() {
+      if (!els.imageZoomModal) return;
+      els.imageZoomModal.classList.remove('show');
+      els.imageZoomModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function bindZoom(imgEl, caption) {
+      if (!imgEl) return;
+      imgEl.style.cursor = 'zoom-in';
+      imgEl.onclick = () => openImageZoom(imgEl.src, caption);
+    }
+
     function applyImages(color) {
-      setImage(els.mainImage, color.male, color.name);
       setImage(els.thumbMale, color.male, color.name);
       setImage(els.thumbFemale, color.female, color.name);
-      setImage(els.heroImage, color.male, color.name);
+      bindZoom(els.thumbMale, `${state.selectedColor.name} - ${state.lang === 'ar' ? 'صورة المنتج للولد' : 'Male product image'}`);
+      bindZoom(els.thumbFemale, `${state.selectedColor.name} - ${state.lang === 'ar' ? 'صورة المنتج للبنت' : 'Female product image'}`);
     }
 
     function renderColors() {
@@ -1136,7 +1077,7 @@
     }
 
     function updateSelectedPills() {
-      els.selectedColorPill.textContent = `${state.selectedColor.name}`;
+      els.selectedColorPill.textContent = `● ${state.lang === 'ar' ? state.selectedColor.name : state.selectedColor.nameEn}`;
       els.selectedSizePill.textContent = state.selectedSize;
       els.qtyValue.textContent = state.qty;
       els.currentPrice.textContent = formatPrice(state.unitPrice);
@@ -1172,7 +1113,7 @@
 
     function getShipping() {
       const v = els.citySelect?.value || '';
-      const match = v.match(/-\s*(\d+)\s*ج\.?م/);
+      const match = v.match(/-\s*(\d+)\s*(ج\.?م|EGP)/i);
       return match ? Number(match[1]) : 0;
     }
 
@@ -1198,15 +1139,21 @@
         return;
       }
 
-      els.cartItems.innerHTML = state.cart.map((item, idx) => `
+      els.cartItems.innerHTML = state.cart.map((item, idx) => {
+        // Find English color name from cart item if saved previously
+        const colorObj = product.colors.find(c => c.name === item.color || c.nameEn === item.color);
+        const displayColor = colorObj ? (state.lang === 'ar' ? colorObj.name : colorObj.nameEn) : item.color;
+        const displayName = state.lang === 'ar' ? product.nameAr : product.nameEn;
+
+        return `
         <div class="cart-item">
           <div class="cart-thumb">
             <img src="${imgPath(item.image)}" alt="">
           </div>
           <div class="cart-meta">
-            <div class="cart-name">${escapeHtml(item.name)}</div>
+            <div class="cart-name">${escapeHtml(displayName)}</div>
             <div class="cart-details">
-              <span class="meta-pill">● ${escapeHtml(item.color)}</span>
+              <span class="meta-pill">● ${escapeHtml(displayColor)}</span>
               <span class="meta-pill">${escapeHtml(item.size)}</span>
               <span class="meta-pill">${item.quantity}×</span>
             </div>
@@ -1219,12 +1166,12 @@
                 <button class="icon-action" type="button" data-action="inc" data-idx="${idx}">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m7-7H5"/></svg>
                 </button>
-                <button class="remove-btn" type="button" data-action="remove" data-idx="${idx}">حذف</button>
+                <button class="remove-btn" type="button" data-action="remove" data-idx="${idx}">${t('cart.remove')}</button>
               </div>
             </div>
           </div>
         </div>
-      `).join('');
+      `}).join('');
 
       els.cartItems.querySelectorAll('[data-action]').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -1250,7 +1197,12 @@
       const shipping = getShipping();
       const total = subtotal + shipping;
 
-      els.summaryItems.innerHTML = state.cart.map(item => `
+      els.summaryItems.innerHTML = state.cart.map(item => {
+        const colorObj = product.colors.find(c => c.name === item.color || c.nameEn === item.color);
+        const displayColor = colorObj ? (state.lang === 'ar' ? colorObj.name : colorObj.nameEn) : item.color;
+        const displayName = state.lang === 'ar' ? product.nameAr : product.nameEn;
+        
+        return `
         <div class="summary-item">
           <div class="summary-item-top">
             <div>
@@ -1259,10 +1211,10 @@
                   <path d="M3 3h2l.4 2m0 0L7.2 14h9.5l1.8-7H5.4m0 0L4 5H2"/>
                   <path d="M7 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm10 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>
                 </svg>
-                ${escapeHtml(item.name)}
+                ${escapeHtml(displayName)}
               </div>
               <div class="summary-item-meta">
-                <span class="pill">${escapeHtml(item.color)}</span>
+                <span class="pill">${escapeHtml(displayColor)}</span>
                 <span class="pill">${escapeHtml(item.size)}</span>
                 <span class="pill">${item.quantity}×</span>
               </div>
@@ -1270,12 +1222,12 @@
             <div class="summary-item-price">${money(item.quantity * item.unitPrice)}</div>
           </div>
         </div>
-      `).join('');
+      `}).join('');
 
       els.summarySubtotal.textContent = money(subtotal);
       els.summaryShipping.textContent = money(shipping);
       els.summaryTotal.textContent = money(total);
-      els.summaryItemsCount.textContent = `${state.cart.length} ${state.lang === 'ar' ? 'منتج' : 'items'}`;
+      els.summaryItemsCount.textContent = `${state.cart.length} ${t('summary.items')}`;
     }
 
     function showToast(message) {
@@ -1285,13 +1237,13 @@
     }
 
     function openCart() {
-      els.overlay.classList.add('show');
+      els.cartOverlay.classList.add('show');
       els.cartDrawer.classList.add('show');
       document.body.style.overflow = 'hidden';
     }
 
     function closeCart() {
-      els.overlay.classList.remove('show');
+      els.cartOverlay.classList.remove('show');
       els.cartDrawer.classList.remove('show');
       document.body.style.overflow = '';
     }
@@ -1329,22 +1281,35 @@
       document.documentElement.lang = state.lang;
       document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
 
+      els.pageTitle.textContent = t('page.title');
       els.productTitle.textContent = state.lang === 'ar' ? product.nameAr : product.nameEn;
-      els.heroTitleText.textContent = state.lang === 'ar' ? product.nameAr : product.nameEn;
+      
+      // Update Inputs Placeholders
+      els.inputName.placeholder = t('placeholder.name');
+      els.inputPhone.placeholder = t('placeholder.phone');
+      els.inputAddress.placeholder = t('placeholder.address');
+      els.discountInput.placeholder = t('placeholder.discount');
+      
+      // Update Cities Select Dropdown
+      const currentValIndex = els.citySelect.selectedIndex;
+      els.citySelect.innerHTML = `<option value="">${t('select.city')}</option>` + 
+        governorates.map(g => {
+          const val = state.lang === 'ar' ? g.ar : g.en;
+          return `<option value="${val}">${val}</option>`;
+        }).join('');
+      if(currentValIndex > 0) els.citySelect.selectedIndex = currentValIndex;
 
       renderColors();
       renderSizes();
       updateSelectedPills();
       updateCart();
       if (els.checkoutPage.classList.contains('show')) updateCheckoutSummary();
-      els.discountInput.placeholder = state.lang === 'ar' ? 'أدخل الكود' : 'Enter code';
-      els.fileName.textContent = state.lang === 'ar' ? 'PNG / JPG / HEIC' : 'PNG / JPG / HEIC';
     }
 
     function addToCart() {
       const item = {
-        name: state.lang === 'ar' ? product.nameAr : product.nameEn,
-        color: state.selectedColor.name,
+        name: product.nameAr, // Always store internal logic variables
+        color: state.selectedColor.name, 
         size: state.selectedSize,
         quantity: state.qty,
         unitPrice: state.unitPrice,
@@ -1362,7 +1327,7 @@
       }
 
       updateCart();
-      showToast(state.lang === 'ar' ? 'تمت الإضافة للسلة' : 'Added to cart');
+      showToast(t('msg.added'));
     }
 
     // Events
@@ -1376,16 +1341,15 @@
     els.cartClose.addEventListener('click', closeCart);
     els.cartOverlay.addEventListener('click', closeCart);
 
-    els.heroShopBtn.addEventListener('click', () => {
-      document.getElementById('product-page').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    els.imageZoomClose?.addEventListener('click', closeImageZoom);
+    els.imageZoomModal?.addEventListener('click', (e) => {
+      if (e.target === els.imageZoomModal) closeImageZoom();
     });
-
-    els.heroCheckoutBtn.addEventListener('click', () => {
-      if (!state.cart.length) {
-        showToast(state.lang === 'ar' ? 'السلة فارغة' : 'Cart is empty');
-        return;
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeCart();
+        closeImageZoom();
       }
-      showCheckoutPage();
     });
 
     els.addCartBtn.addEventListener('click', () => {
@@ -1394,7 +1358,7 @@
 
     els.goCheckout.addEventListener('click', () => {
       if (!state.cart.length) {
-        showToast(state.lang === 'ar' ? 'السلة فارغة' : 'Cart is empty');
+        showToast(t('msg.cart_empty'));
         return;
       }
       closeCart();
@@ -1417,7 +1381,7 @@
       if (!valid) {
         state.discount = null;
         state.unitPrice = product.basePrice;
-        els.discountMsg.textContent = state.lang === 'ar' ? '✗ كود غير صحيح' : '✗ Invalid code';
+        els.discountMsg.textContent = t('msg.invalid_code');
         els.discountMsg.className = 'msg error';
         updateSelectedPills();
         return;
@@ -1426,11 +1390,8 @@
       state.discount = valid;
       syncPriceWithDiscount();
       els.discountMsg.className = 'msg success';
-      els.discountMsg.textContent =
-        state.lang === 'ar'
-          ? `✓ تم تطبيق خصم ${valid.value}${valid.type === 'percent' ? '%' : ' ج.م'}`
-          : `✓ Discount applied ${valid.value}${valid.type === 'percent' ? '%' : ' EGP'}`;
-      showToast(state.lang === 'ar' ? 'تم تطبيق الخصم' : 'Discount applied');
+      els.discountMsg.textContent = `${t('msg.discount_success')} ${valid.value}${valid.type === 'percent' ? '%' : (state.lang === 'ar' ? ' ج.م' : ' EGP')}`;
+      showToast(t('msg.discount_applied'));
     });
 
     els.paymentOptions.forEach(opt => {
@@ -1461,22 +1422,24 @@
       e.preventDefault();
 
       if (!state.cart.length) {
-        showToast(state.lang === 'ar' ? 'السلة فارغة' : 'Cart is empty');
+        showToast(t('msg.cart_empty'));
         return;
       }
 
       const submitBtn = els.submitOrderBtn;
       submitBtn.disabled = true;
-      submitBtn.innerHTML = state.lang === 'ar' ? 'جاري إرسال الطلب...' : 'Sending order...';
+      submitBtn.innerHTML = t('submit.sending');
 
       const formData = new FormData(els.orderForm);
       const productsText = state.cart.map(item =>
-        `${item.name} | ${item.color} | ${item.size} | ${item.quantity} x ${item.unitPrice} = ${item.quantity * item.unitPrice} ج.م`
+        `${item.name} | ${item.color} | ${item.size} | ${item.quantity} x ${item.unitPrice} = ${item.quantity * item.unitPrice}`
       ).join(' || ');
+      
+      const currency = state.lang === 'ar' ? 'ج.م' : 'EGP';
       formData.append('الطلبات', productsText);
-      formData.append('الإجمالي الفرعي', `${cartSubtotal()} ج.م`);
-      formData.append('سعر الشحن', `${getShipping()} ج.م`);
-      formData.append('الإجمالي النهائي', `${cartSubtotal() + getShipping()} ج.م`);
+      formData.append('الإجمالي الفرعي', `${cartSubtotal()} ${currency}`);
+      formData.append('سعر الشحن', `${getShipping()} ${currency}`);
+      formData.append('الإجمالي النهائي', `${cartSubtotal() + getShipping()} ${currency}`);
 
       try {
         await fetch(els.orderForm.action, {
@@ -1496,18 +1459,17 @@
         saveCart();
         updateCart();
         els.orderForm.reset();
-        els.fileName.textContent = state.lang === 'ar' ? 'PNG / JPG / HEIC' : 'PNG / JPG / HEIC';
+        els.fileName.textContent = 'PNG / JPG / HEIC';
         els.proofBox.classList.remove('show');
         els.paymentOptions.forEach(x => x.classList.remove('active'));
         const cod = document.querySelector('.pay-option[data-payment="cod"]');
         cod.classList.add('active');
         cod.querySelector('input').checked = true;
       } catch (err) {
-        alert(state.lang === 'ar' ? 'حصل خطأ أثناء إرسال الطلب' : 'Error while sending order');
+        alert(t('msg.error'));
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = `<span data-i18n="submit.btn">${t('submit.btn')}</span>`;
-        submitBtn.textContent = t('submit.btn');
       }
     });
 
@@ -1524,12 +1486,12 @@
 
     // init
     applyImages(state.selectedColor);
-    renderColors();
-    renderSizes();
-    syncPriceWithDiscount();
-    updateCart();
+    bindZoom(els.thumbMale, state.lang === 'ar' ? 'صورة المنتج للولد' : 'Male product image');
+    bindZoom(els.thumbFemale, state.lang === 'ar' ? 'صورة المنتج للبنت' : 'Female product image');
+    
+    // Default load execution
     applyLanguage();
-    updateSelectedPills();
+    syncPriceWithDiscount();
   </script>
 </body>
 </html>
