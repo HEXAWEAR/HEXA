@@ -25,7 +25,7 @@
     }
     *{box-sizing:border-box;margin:0;padding:0;font-family:'Cairo',sans-serif;-webkit-tap-highlight-color:transparent;}
     body{background:var(--bg);color:var(--text);direction:rtl;text-align:right;overflow-x:hidden;line-height:1.6;}
-    
+
     .container{max-width:1200px;margin:0 auto;padding:20px;}
     header{display:flex;justify-content:space-between;align-items:center;padding:15px 0;margin-bottom:20px;border-bottom:1px solid var(--line);}
     .logo{font-size:26px;font-weight:800;letter-spacing:1px;cursor:pointer;color:var(--primary);}
@@ -34,15 +34,15 @@
 
     .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:10px;}
     .gallery-side{position:sticky;top:20px;align-self:start;}
-    
+
     .gallery-two-up{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:15px;}
     .gallery-two-up img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);cursor:zoom-in;}
 
     .details-side{background:var(--card);padding:40px;border-radius:var(--radius);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:25px;}
     .tag-brand{align-self:start;background:var(--bg);font-size:12px;font-weight:700;padding:6px 14px;border-radius:30px;text-transform:uppercase;}
     h1{font-size:32px;font-weight:800;color:var(--primary);line-height:1.2;}
-    
-    .price-box{display:flex;align-items:center;gap:15px;margin-top:-5px;}
+
+    .price-box{display:flex;align-items:center;gap:15px;margin-top:-5px;flex-wrap:wrap;}
     .current-price{font-size:36px;font-weight:800;color:var(--accent);}
     .old-price{font-size:20px;color:var(--muted);text-decoration:line-through;}
     .discount-badge{background:var(--accent);color:#fff;padding:4px 12px;border-radius:30px;font-size:14px;font-weight:700;}
@@ -75,15 +75,15 @@
     .layer-page{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg);z-index:1000;overflow-y:auto;display:none;padding:20px 0;}
     .layer-page.show{display:block;}
     .layer-container{max-width:600px;margin:0 auto;padding:0 20px;}
-    
+
     .checkout-card{background:var(--card);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow);margin-bottom:25px;}
     .checkout-title{font-size:22px;font-weight:800;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;}
-    
+
     .form-group{margin-bottom:20px;position:relative;}
     .form-group label{display:block;font-size:14px;font-weight:700;margin-bottom:8px;color:var(--text);}
     .form-group input, .form-group select{width:100%;padding:14px 16px;border-radius:var(--radius-sm);border:1px solid var(--line);background:var(--bg);font-size:15px;font-weight:600;transition:0.2s;outline:none;}
     .form-group input:focus, .form-group select:focus{border-color:var(--primary);background:var(--card);box-shadow:0 0 0 4px rgba(17,17,17,0.05);}
-    
+
     .pay-options{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:20px;}
     .pay-option{background:var(--bg);border:2px solid transparent;padding:16px;border-radius:var(--radius-sm);cursor:pointer;transition:0.2s;display:flex;align-items:center;gap:12px;}
     .pay-option.active{border-color:var(--primary);background:var(--card);box-shadow:0 4px 15px rgba(0,0,0,0.02);}
@@ -136,8 +136,8 @@
     <div class="product-grid" id="product-page">
       <div class="gallery-side">
         <div class="gallery-two-up" id="main-gallery">
-          <img id="stage-male" src="photos/black-male.png" alt="صورة المنتج للولد">
-          <img id="stage-female" src="photos/black-female.png" alt="صورة المنتج للبنت">
+          <img id="stage-male" src="" alt="صورة المنتج للولد">
+          <img id="stage-female" src="" alt="صورة المنتج للبنت">
         </div>
       </div>
 
@@ -160,12 +160,12 @@
           </div>
           <div class="color-picker">
             <div class="color-opt active" data-color="black" style="background:#111111;"></div>
-            <div class="color-opt" data-color="white" style="background:#ffffff;"></div>
-            <div class="color-opt" data-color="navy" style="background:#1e293b;"></div>
-            <div class="color-opt" data-color="olive" style="background:#3f4238;"></div>
-            <div class="color-opt" data-color="grey" style="background:#707378;"></div>
+            <div class="color-opt" data-color="white" style="background:#ffffff;border:1px solid #ccc;"></div>
             <div class="color-opt" data-color="beige" style="background:#ded1be;"></div>
-            <div class="color-opt" data-color="brown" style="background:#4a3728;"></div>
+            <div class="color-opt" data-color="burgundy" style="background:#6d1f36;"></div>
+            <div class="color-opt" data-color="grey" style="background:#707378;"></div>
+            <div class="color-opt" data-color="olive" style="background:#556b2f;"></div>
+            <div class="color-opt" data-color="pink" style="background:#ffb6c1;"></div>
           </div>
         </div>
 
@@ -212,7 +212,7 @@
       <div class="checkout-card">
         <div class="checkout-title" data-i18n="checkout.title">إتمام الطلب</div>
         <form id="order-form" action="https://formspree.io/f/mpqnqoqj" method="POST">
-          
+
           <input type="hidden" name="المنتج" value="أوفرسايز بيزيك بوليفار">
           <input type="hidden" name="اللون" id="form-color" value="أسود">
           <input type="hidden" name="المقاس" id="form-size" value="M">
@@ -328,15 +328,16 @@
   </div>
 
   <script>
-    // تعديل المسارات هنا باللغة الإنجليزية بالكامل لتجنب مشاكل الـ Encoding
+    const BASE_URL = "https://raw.githubusercontent.com/HEXAWEAR/HEXA/main/photos";
+
     const colorNames = {
-      black: { ar: 'أسود', en: 'Black', male: 'photos/black-male.png', female: 'photos/black-female.png' },
-      white: { ar: 'أبيض', en: 'White', male: 'photos/white-male.png', female: 'photos/white-female.png' },
-      navy: { ar: 'كحلي', en: 'Navy', male: 'photos/navy-male.png', female: 'photos/navy-female.png' },
-      olive: { ar: 'زيتي', en: 'Olive', male: 'photos/olive-male.png', female: 'photos/olive-female.png' },
-      grey: { ar: 'رمادي', en: 'Grey', male: 'photos/grey-male.png', female: 'photos/grey-female.png' },
-      beige: { ar: 'بيج', en: 'Beige', male: 'photos/beige-male.png', female: 'photos/beige-female.png' },
-      brown: { ar: 'بني', en: 'Brown', male: 'photos/brown-male.png', female: 'photos/brown-female.png' }
+      black: { ar: 'أسود', en: 'Black', male: `${BASE_URL}/black-male.png`, female: `${BASE_URL}/black-female.png` },
+      white: { ar: 'أبيض', en: 'White', male: `${BASE_URL}/white-male.png`, female: `${BASE_URL}/white-female.png` },
+      beige: { ar: 'بيج', en: 'Beige', male: `${BASE_URL}/beige-male.png`, female: `${BASE_URL}/beige-female.png` },
+      burgundy: { ar: 'برجاندي', en: 'Burgundy', male: `${BASE_URL}/burgundy-male.png`, female: `${BASE_URL}/burgundy-female.png` },
+      grey: { ar: 'رمادي', en: 'Grey', male: `${BASE_URL}/grey-male.png`, female: `${BASE_URL}/grey-female.png` },
+      olive: { ar: 'زيتي', en: 'Olive', male: `${BASE_URL}/olive-male.png`, female: `${BASE_URL}/olive-female.png` },
+      pink: { ar: 'بينك', en: 'Pink', male: `${BASE_URL}/pink-male.png`, female: `${BASE_URL}/pink-female.png` }
     };
 
     const dict = {
@@ -347,11 +348,11 @@
         'color.title': 'اللون:',
         'color.black': 'أسود',
         'color.white': 'أبيض',
-        'color.navy': 'كحلي',
-        'color.olive': 'زيتي',
-        'color.grey': 'رمادي',
         'color.beige': 'بيج',
-        'color.brown': 'بني',
+        'color.burgundy': 'برجاندي',
+        'color.grey': 'رمادي',
+        'color.olive': 'زيتي',
+        'color.pink': 'بينك',
         'size.title': 'المقاس:',
         'qty.title': 'الكمية:',
         'buy.btn': 'شراء الآن',
@@ -392,11 +393,11 @@
         'color.title': 'Color:',
         'color.black': 'Black',
         'color.white': 'White',
-        'color.navy': 'Navy',
-        'color.olive': 'Olive',
-        'color.grey': 'Grey',
         'color.beige': 'Beige',
-        'color.brown': 'Brown',
+        'color.burgundy': 'Burgundy',
+        'color.grey': 'Grey',
+        'color.olive': 'Olive',
+        'color.pink': 'Pink',
         'size.title': 'Size:',
         'qty.title': 'Quantity:',
         'buy.btn': 'Buy Now',
@@ -457,38 +458,38 @@
       buyBtn: document.getElementById('buy-btn'),
       backBtn: document.getElementById('back-btn'),
       homeLogo: document.getElementById('home-logo'),
-      
+
       stageMale: document.getElementById('stage-male'),
       stageFemale: document.getElementById('stage-female'),
-      
+
       colorOpts: document.querySelectorAll('.color-opt'),
       colorVal: document.getElementById('color-val'),
       sizeOpts: document.querySelectorAll('.size-opt'),
       sizeVal: document.getElementById('size-val'),
-      
+
       qtyMinus: document.getElementById('qty-minus'),
       qtyPlus: document.getElementById('qty-plus'),
       qtyNum: document.getElementById('qty-num'),
-      
+
       orderForm: document.getElementById('order-form'),
       govSelect: document.getElementById('gov-select'),
       paymentOptions: document.querySelectorAll('.pay-option'),
-      
+
       promoInput: document.getElementById('promo-input'),
       promoBtn: document.getElementById('promo-btn'),
       promoMsg: document.getElementById('promo-msg'),
-      
+
       sumSubtotal: document.getElementById('sum-subtotal'),
       sumDiscount: document.getElementById('sum-discount'),
       sumShipping: document.getElementById('sum-shipping'),
       sumTotal: document.getElementById('sum-total'),
       discountRow: document.getElementById('discount-row'),
-      
+
       formColor: document.getElementById('form-color'),
       formSize: document.getElementById('form-size'),
       formQty: document.getElementById('form-qty'),
       formTotal: document.getElementById('form-total'),
-      
+
       lightbox: document.getElementById('lightbox'),
       lightboxImg: document.getElementById('lightbox-img'),
       lightboxClose: document.getElementById('lightbox-close')
@@ -507,7 +508,7 @@
           el.textContent = t(key);
         }
       });
-      
+
       if (state.lang === 'ar') {
         document.documentElement.lang = 'ar';
         document.documentElement.dir = 'rtl';
@@ -523,7 +524,7 @@
         document.getElementById('price-old').textContent = '700 EGP';
         document.getElementById('discount-amount-badge').textContent = 'Save 100 EGP';
       }
-      
+
       const currentGov = els.govSelect.value;
       els.govSelect.innerHTML = `<option value="" disabled ${!currentGov ? 'selected' : ''}>${t('form.govPlace')}</option>` + 
         ['القاهرة','الجيزة','الإسكندرية','القليوبية','المنوفية','الشرقية','الغربية','الدقهلية','البحيرة','دمياط','بورسعيد','الإسماعيلية','السويس','كفر الشيخ','الفيوم','بني سويف','المنيا','أسيوط','سوهاج','قنا','الأقصر','أسوان','البحر الأحمر','الوادي الجديد','مطروح','شمال سيناء','جنوب سيناء'].map(g => `<option value="${g}" ${currentGov === g ? 'selected' : ''}>${g}</option>`).join('');
@@ -597,20 +598,20 @@
     function updatePricingDisplay() {
       const sub = state.basePrice * state.qty;
       const cur = state.lang === 'ar' ? ' ج.م' : ' EGP';
-      
+
       els.sumSubtotal.textContent = sub + cur;
       els.sumShipping.textContent = state.shipping === 0 ? (state.lang === 'ar' ? 'مجاني' : 'Free') : state.shipping + cur;
-      
+
       if (state.discount > 0) {
         els.discountRow.style.display = 'flex';
         els.sumDiscount.textContent = '-' + state.discount + cur;
       } else {
         els.discountRow.style.display = 'none';
       }
-      
+
       const finalTotal = Math.max(0, (sub - state.discount) + state.shipping);
       els.sumTotal.textContent = finalTotal + cur;
-      
+
       els.formColor.value = colorNames[state.selectedColor].ar;
       els.formSize.value = state.selectedSize;
       els.formQty.value = state.qty;
@@ -709,7 +710,6 @@
       showProductPage();
     });
 
-    // init
     applyImages(state.selectedColor);
     localize();
   </script>
