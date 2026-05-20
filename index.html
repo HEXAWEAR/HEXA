@@ -876,11 +876,36 @@
             <div class="form-group">
                 <label data-i18n="checkout.city">المحافظة</label>
                 <select name="المحافظة" required>
-                    <option value="">اختر المحافظة</option>
-                    <option value="القاهرة - 50 ج.م">القاهرة - 50 ج.م</option>
-                    <option value="الجيزة - 50 ج.م">الجيزة - 50 ج.م</option>
-                    <option value="الإسكندرية - 70 ج.م">الإسكندرية - 70 ج.م</option>
-                    <option value="باقي المحافظات - 70-120 ج.م">باقي المحافظات - 70-120 ج.م</option>
+                    
+<option value="">اختر المحافظة</option>
+<option value="القاهرة - 60 ج.م">القاهرة - 60 ج.م</option>
+<option value="الجيزة - 60 ج.م">الجيزة - 60 ج.م</option>
+<option value="الإسكندرية - 80 ج.م">الإسكندرية - 80 ج.م</option>
+<option value="القليوبية - 70 ج.م">القليوبية - 70 ج.م</option>
+<option value="الشرقية - 80 ج.م">الشرقية - 80 ج.م</option>
+<option value="الدقهلية - 80 ج.م">الدقهلية - 80 ج.م</option>
+<option value="البحيرة - 80 ج.م">البحيرة - 80 ج.م</option>
+<option value="الغربية - 80 ج.م">الغربية - 80 ج.م</option>
+<option value="المنوفية - 80 ج.م">المنوفية - 80 ج.م</option>
+<option value="كفر الشيخ - 80 ج.م">كفر الشيخ - 80 ج.م</option>
+<option value="دمياط - 90 ج.م">دمياط - 90 ج.م</option>
+<option value="بورسعيد - 90 ج.م">بورسعيد - 90 ج.م</option>
+<option value="الإسماعيلية - 90 ج.م">الإسماعيلية - 90 ج.م</option>
+<option value="السويس - 90 ج.م">السويس - 90 ج.م</option>
+<option value="الفيوم - 90 ج.م">الفيوم - 90 ج.م</option>
+<option value="بني سويف - 90 ج.م">بني سويف - 90 ج.م</option>
+<option value="المنيا - 100 ج.م">المنيا - 100 ج.م</option>
+<option value="أسيوط - 110 ج.م">أسيوط - 110 ج.م</option>
+<option value="سوهاج - 110 ج.م">سوهاج - 110 ج.م</option>
+<option value="قنا - 120 ج.م">قنا - 120 ج.م</option>
+<option value="الأقصر - 120 ج.م">الأقصر - 120 ج.م</option>
+<option value="أسوان - 130 ج.م">أسوان - 130 ج.م</option>
+<option value="البحر الأحمر - 130 ج.م">البحر الأحمر - 130 ج.م</option>
+<option value="الوادي الجديد - 140 ج.م">الوادي الجديد - 140 ج.م</option>
+<option value="مطروح - 130 ج.م">مطروح - 130 ج.م</option>
+<option value="شمال سيناء - 140 ج.م">شمال سيناء - 140 ج.م</option>
+<option value="جنوب سيناء - 140 ج.م">جنوب سيناء - 140 ج.م</option>
+
                 </select>
             </div>
             
@@ -1182,6 +1207,7 @@
 
         function showProduct() {
             productPage.style.display = 'block';
+            checkoutPage.style.display = 'none';
             checkoutPage.classList.remove('show');
             successPage.classList.remove('show');
         }
@@ -1212,6 +1238,7 @@
             cart.push(item);
             updateCart();
             showToast(t('toast.added'));
+            showCheckout();
         });
 
         applyBtn.addEventListener('click', () => {
@@ -1287,8 +1314,10 @@
                 }
 
                 document.getElementById('order-num').textContent = '#' + Math.floor(1000 + Math.random() * 9000);
-                checkoutPage.classList.remove('show');
-                successPage.classList.add('show');
+                checkoutPage.style.display = 'none';
+            checkoutPage.classList.remove('show');
+                successPage.style.display = 'flex';
+            successPage.classList.add('show');
 
                 cart = [];
                 updateCart();
