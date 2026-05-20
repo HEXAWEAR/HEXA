@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang=\"ar\" dir=\"rtl\">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#111111" />
-  <title id="page-title">HEXA | أوفرسايز بيزيك بوليفار</title>
+  <meta charset=\"UTF-8\" />
+  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" />
+  <meta name=\"theme-color\" content=\"#111111\" />
+  <title>HEXA | أوفرسايز بيزيك بوليفار</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -23,886 +23,410 @@
       --radius: 22px;
       --radius-sm: 14px;
     }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{
-      font-family:'Cairo',sans-serif;
-      background:
-        radial-gradient(1200px 500px at 50% -10%, rgba(17,17,17,.08), transparent 60%),
-        linear-gradient(180deg,#ffffff 0%, #f7f8fc 100%);
-      color:var(--text);
-      line-height:1.6;
-      padding-bottom:96px;
-      overflow-x:hidden;
-    }
-    a{text-decoration:none;color:inherit}
-    button,input,select,textarea{font:inherit}
-    .container{max-width:1160px;margin:0 auto;padding:0 16px}
-
-    /* Header */
-    header{
-      position:sticky;top:0;z-index:1000;
-      backdrop-filter:saturate(180%) blur(14px);
-      background:rgba(255,255,255,.8);
-      border-bottom:1px solid rgba(233,236,243,.8);
-    }
-    .header-inner{
-      height:72px;display:flex;align-items:center;justify-content:space-between;gap:12px;
-    }
-    .brand{
-      display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:2px;
-    }
-    .brand-badge{
-      width:38px;height:38px;border-radius:12px;
-      background:linear-gradient(135deg,#111,#444);
-      display:grid;place-items:center;color:#fff;font-size:15px;box-shadow:var(--shadow);
-    }
-    .brand span{font-size:20px}
-    .header-actions{display:flex;align-items:center;gap:10px}
-    .icon-btn,.chip-btn{
-      border:none;cursor:pointer;transition:.2s ease;
-      display:inline-flex;align-items:center;justify-content:center;
-    }
-    .chip-btn{
-      height:40px;padding:0 14px;border-radius:999px;
-      background:#111;color:#fff;font-weight:700;font-size:13px;
-    }
-    .chip-btn:hover,.icon-btn:hover{transform:translateY(-1px)}
-    .icon-btn{
-      position:relative;width:44px;height:44px;border-radius:14px;
-      background:#fff;border:1px solid var(--line);box-shadow:0 8px 20px rgba(17,17,17,.05);
-    }
-    .icon-btn svg{width:22px;height:22px;stroke:#111}
-    .count-badge{
-      position:absolute;top:-5px;right:-5px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;
-      background:var(--accent);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;
-      border:2px solid #fff;
-    }
-
-    /* Main layout */
-    main{padding:18px 0 36px}
-    .layout{
-      display:grid;grid-template-columns:minmax(0, 1.4fr) minmax(0, .9fr);gap:22px;align-items:start;
-    }
-    .card{
-      background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);
-    }
-    .product-card{padding:20px}
-    .section-title{
-      font-size:15px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px;
-    }
-    .section-title .dot{
-      width:9px;height:9px;border-radius:50%;background:var(--primary);opacity:.9;flex-shrink:0;
-    }
-
-    /* Gallery */
-    .gallery{
-      display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:18px;
-    }
-    .gallery-main{
-      border-radius:22px;overflow:hidden;position:relative;background:#f4f6fb;border:1px solid var(--line);
-      min-height:360px;display:grid;place-items:center;
-    }
-    .gallery-main img{width:100%;height:100%;object-fit:cover;display:block}
-    .gallery-badge{
-      position:absolute;top:14px;left:14px;background:#fff;border:1px solid var(--line);
-      padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;box-shadow:0 8px 20px rgba(17,17,17,.05)
-    }
-    .thumbs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .thumbs.two-up .thumb{aspect-ratio:3/4}
-    .thumb{
-      border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#f6f7fb;aspect-ratio:3/4;
-    }
-    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-
-    .product-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:4px 0 14px}
-    .product-title{font-size:26px;font-weight:800;line-height:1.2}
-    .price-box{text-align:left}
-    .old-price{color:var(--muted);text-decoration:line-through;font-size:15px}
-    .current-price{font-size:28px;font-weight:900;color:var(--primary);line-height:1.1}
-    .subtitle{color:var(--muted);font-size:14px;margin-top:6px}
-
-    .option-grid{display:flex;flex-wrap:wrap;gap:10px;min-height:52px}
-    .option-btn{
-      border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:11px 14px;
-      min-height:46px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s ease;
-      color:var(--text);display:inline-flex;align-items:center;justify-content:center;
-    }
-    .option-btn:hover{border-color:#b7bfd0;transform:translateY(-1px)}
-    .option-btn.active{
-      border-color:var(--primary);background:var(--primary);color:#fff;box-shadow:0 10px 24px rgba(17,17,17,.14)
-    }
-
-    .swatch{
-      width:20px;height:20px;border-radius:999px;border:1px solid rgba(0,0,0,.12);display:inline-block;vertical-align:middle;margin-inline-end:8px;
-    }
-
-    .qty-wrap{
-      display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-    }
-    .qty-control{
-      display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;
-      box-shadow:0 10px 24px rgba(17,17,17,.05);
-    }
-    .qty-btn{
-      width:44px;height:46px;border:none;background:#fff;cursor:pointer;font-size:20px;font-weight:800;transition:.2s ease;
-    }
-    .qty-btn:hover{background:#f3f5fa}
-    .qty-value{
-      min-width:54px;text-align:center;font-size:15px;font-weight:800;border-inline:1px solid var(--line);padding:0 10px
-    }
-    .mini-info{
-      display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;color:var(--muted);font-size:13px
-    }
-    .pill{
-      background:#f5f7fb;border:1px solid var(--line);padding:8px 12px;border-radius:999px;font-weight:700;
-      display:inline-flex;align-items:center;gap:8px;
-    }
-
-    .discount-box,.info-box{
-      margin-top:18px;background:#f8f9fd;border:1px solid var(--line);border-radius:18px;padding:16px;
-    }
-    .input-row{display:flex;gap:10px}
-    .input-row input,.input-row select,.input-row textarea{
-      width:100%;border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:13px 14px;outline:none;
-      transition:.2s ease; font-family:inherit;
-    }
-    .input-row input:focus,.input-row select:focus,.input-row textarea:focus{
-      border-color:#bfc6d6;box-shadow:0 0 0 4px rgba(17,17,17,.05)
-    }
-    .input-row .btn{
-      min-width:110px;height:48px;border:none;border-radius:14px;background:var(--primary);color:#fff;
-      cursor:pointer;font-weight:800;
-    }
-    .msg{margin-top:10px;font-size:13px;font-weight:700}
-    .msg.success{color:var(--success)}
-    .msg.error{color:var(--accent)}
-
-    .cta-row{
-      display:flex;gap:10px;flex-wrap:wrap;margin-top:18px
-    }
-    .cta-row .primary{
-      flex:1;min-width:220px;height:54px;border:none;border-radius:16px;background:var(--primary);color:#fff;
-      cursor:pointer;font-size:16px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      box-shadow:0 16px 32px rgba(17,17,17,.15);transition:.2s ease;
-    }
-    .cta-row .secondary{
-      min-width:160px;height:54px;border:1px solid var(--line);border-radius:16px;background:#fff;color:var(--text);
-      cursor:pointer;font-size:15px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      transition:.2s ease;
-    }
-    .cta-row button:hover{transform:translateY(-1px)}
-
-    .features{display:grid;gap:12px;margin-top:18px}
-    .feature{
-      display:flex;gap:12px;align-items:flex-start;padding:14px 14px;border-radius:16px;background:#fff;
-      border:1px solid var(--line);
-    }
-    .feature svg{width:22px;height:22px;stroke:var(--primary);flex-shrink:0;margin-top:1px}
-    .feature strong{display:block;font-size:14px;margin-bottom:2px}
-    .feature span{font-size:13px;color:var(--muted)}
-
-    /* Cart sidebar */
-    .overlay{
-      position:fixed;inset:0;background:rgba(17,17,17,.5);backdrop-filter:blur(4px);z-index:2000;
-      opacity:0;visibility:hidden;transition:.25s ease;
-    }
-    .overlay.show{opacity:1;visibility:visible}
-    .drawer{
-      position:fixed;top:0;right:-100%;width:min(100%, 420px);height:100vh;background:#fff;z-index:2001;
-      transition:.28s ease;display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(17,17,17,.12);
-    }
-    .drawer.show{right:0}
-    html[dir="ltr"] .drawer {
-      right: auto;
-      left: -100%;
-    }
-    html[dir="ltr"] .drawer.show {
-      left: 0;
-    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:'Cairo',sans-serif;-webkit-tap-highlight-color:transparent;}
+    body{background:var(--bg);color:var(--text);direction:rtl;text-align:right;overflow-x:hidden;line-height:1.6;}
     
-    .drawer-header{
-      height:74px;padding:0 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;
-    }
-    .drawer-title{font-size:18px;font-weight:900;display:flex;align-items:center;gap:10px}
-    .close-btn{
-      width:42px;height:42px;border-radius:14px;border:1px solid var(--line);background:#fff;cursor:pointer
-    }
-    .close-btn svg{width:20px;height:20px;stroke:#111}
-    .drawer-body{flex:1;overflow:auto;padding:16px 18px}
-    .empty-state{
-      text-align:center;padding:34px 14px;color:var(--muted)
-    }
-    .empty-state svg{width:64px;height:64px;stroke:#c6ccda;margin-bottom:12px}
-    .cart-item{
-      display:grid;grid-template-columns:84px minmax(0,1fr);gap:12px;padding:14px 0;border-bottom:1px solid var(--line)
-    }
-    .cart-item:last-child{border-bottom:none}
-    .cart-thumb{
-      width:84px;height:110px;border-radius:16px;overflow:hidden;background:#f4f6fb;border:1px solid var(--line)
-    }
-    .cart-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-    .cart-meta{min-width:0}
-    .cart-name{font-size:14px;font-weight:800;line-height:1.45;margin-bottom:4px}
-    .cart-details{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
-    .meta-pill{
-      display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;background:#f8f9fd;border:1px solid var(--line);
-      font-weight:700
-    }
-    .cart-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;flex-wrap:wrap}
-    .cart-price{font-weight:900;font-size:16px}
-    .cart-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-    .icon-action{
-      width:34px;height:34px;border:none;border-radius:10px;background:#f5f7fb;cursor:pointer;display:grid;place-items:center;
-      transition:.2s ease;
-    }
-    .icon-action:hover{background:#eaedf5}
-    .icon-action svg{width:17px;height:17px;stroke:#111}
-    .remove-btn{
-      border:none;background:transparent;color:var(--accent);font-weight:800;cursor:pointer;font-size:12px;
-    }
-    .drawer-footer{
-      border-top:1px solid var(--line);padding:16px 18px;background:linear-gradient(180deg, #fff, #fbfcff)
-    }
-    .total-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-    .total-row span:first-child{color:var(--muted);font-weight:700}
-    .total-row span:last-child{font-size:22px;font-weight:900}
-    .checkout-btn{
-      width:100%;height:54px;border:none;border-radius:16px;background:var(--primary);color:#fff;cursor:pointer;
-      font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:10px;
-    }
+    .container{max-width:1200px;margin:0 auto;padding:20px;}
+    header{display:flex;justify-content:space-between;align-items:center;padding:15px 0;margin-bottom:20px;border-bottom:1px solid var(--line);}
+    .logo{font-size:26px;font-weight:800;letter-spacing:1px;cursor:pointer;color:var(--primary);}
+    .lang-btn{background:var(--card);border:1px solid var(--line);padding:8px 16px;border-radius:30px;cursor:pointer;font-weight:600;font-size:14px;transition:0.2s;}
+    .lang-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
 
-    /* Checkout */
-    .checkout-page{display:none;padding:22px 0 40px}
-    .checkout-page.show{display:block}
-    .page-title{
-      font-size:28px;font-weight:900;margin-bottom:8px
-    }
-    .page-sub{color:var(--muted);font-size:14px;margin-bottom:18px}
-    .checkout-grid{
-      display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:22px;align-items:start
-    }
-    .form-card,.summary-card{
-      background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)
-    }
-    .form-card{padding:18px}
-    .summary-card{padding:18px;position:sticky;top:90px}
-    .group{margin-bottom:18px}
-    .group:last-child{margin-bottom:0}
-    .field-label{display:block;font-size:13px;font-weight:800;margin-bottom:8px;color:#111}
-    .input-row.one{display:grid;grid-template-columns:1fr}
-    .input-row.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .field-label.small{font-size:12px;color:var(--muted);font-weight:700}
-    .payment-list{display:grid;gap:10px}
-    .pay-option{
-      display:flex;align-items:flex-start;gap:12px;padding:14px;border:1.5px solid var(--line);border-radius:16px;background:#fff;cursor:pointer;
-      transition:.2s ease;
-    }
-    .pay-option.active{border-color:var(--primary);box-shadow:0 12px 28px rgba(17,17,17,.08)}
-    .radio{
-      width:20px;height:20px;border-radius:50%;border:2px solid #c8ceda;flex:0 0 auto;margin-top:1px;position:relative;
-    }
-    .pay-option.active .radio{border-color:var(--primary)}
-    .pay-option.active .radio::after{
-      content:"";position:absolute;inset:3px;border-radius:50%;background:var(--primary)
-    }
-    .pay-content strong{display:block;font-size:14px;margin-bottom:3px}
-    .pay-content span{font-size:12px;color:var(--muted)}
-    .proof-box{
-      margin-top:12px;padding:14px;border:1px dashed #cfd5e3;border-radius:16px;background:#fafbff;display:none
-    }
-    .proof-box.show{display:block}
-    .upload{
-      display:flex;align-items:center;justify-content:center;gap:10px;flex-direction:column;
-      min-height:130px;text-align:center;cursor:pointer
-    }
-    .upload svg{width:34px;height:34px;stroke:#888}
-    .upload p{font-size:13px;color:var(--muted)}
-    .upload strong{font-size:14px}
-    .upload input{display:none}
+    .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:10px;}
+    .gallery-side{position:sticky;top:20px;align-self:start;}
+    .main-stage{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);position:relative;margin-bottom:15px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;}
+    .main-stage img{width:100%;height:100%;object-fit:cover;display:none;transition:transform 0.3s ease;}
+    .main-stage img.active{display:block;}
+    .zoom-hint{position:absolute;bottom:15px;right:15px;background:rgba(17,17,17,0.7);color:#fff;padding:5px 12px;border-radius:20px;font-size:12px;pointer-events:none;backdrop-filter:blur(4px);}
+    
+    .thumbs-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;}
+    .thumb{background:var(--card);border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:1;cursor:pointer;border:2px solid transparent;box-shadow:0 4px 15px rgba(0,0,0,0.02);transition:0.2s;}
+    .thumb:hover{border-color:var(--muted);}
+    .thumb.active{border-color:var(--primary);}
+    .thumb img{width:100%;height:100%;object-fit:cover;}
 
-    .summary-head{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px
-    }
-    .summary-head h3{font-size:18px;font-weight:900;display:flex;align-items:center;gap:8px}
-    .summary-head h3 svg{width:20px;height:20px;stroke:var(--primary)}
-    .summary-list{display:grid;gap:10px;margin-top:12px}
-    .summary-item{
-      border:1px solid var(--line);background:#fafbff;border-radius:16px;padding:12px
-    }
-    .summary-item-top{
-      display:flex;align-items:flex-start;justify-content:space-between;gap:10px
-    }
-    .summary-item-name{
-      font-size:14px;font-weight:800;line-height:1.45
-    }
-    .summary-item-name .cart-mini{
-      width:18px;height:18px;vertical-align:-3px;margin-inline-end:6px;stroke:var(--primary)
-    }
-    .summary-item-meta{
-      margin-top:6px;display:flex;flex-wrap:wrap;gap:8px;color:var(--muted);font-size:12px
-    }
-    .summary-item-meta .pill{padding:5px 9px;font-size:12px}
-    .summary-item-price{font-weight:900;white-space:nowrap}
-    .summary-totals{
-      margin-top:14px;padding-top:14px;border-top:1px solid var(--line);display:grid;gap:8px
-    }
-    .sum-row{display:flex;justify-content:space-between;gap:10px;font-size:14px}
-    .sum-row strong{font-size:18px}
-    .sum-row.final{
-      padding-top:10px;margin-top:6px;border-top:2px solid var(--primary)
-    }
-    .sum-row.final span:last-child{font-size:22px;font-weight:900;color:var(--accent)}
-    .submit-btn{
-      width:100%;height:54px;border:none;border-radius:16px;background:var(--accent);color:#fff;cursor:pointer;
-      font-size:16px;font-weight:900;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:10px;
-      box-shadow:0 16px 32px rgba(216,31,38,.2)
-    }
+    .details-side{background:var(--card);padding:40px;border-radius:var(--radius);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:25px;}
+    .tag-brand{align-self:start;background:var(--bg);font-size:12px;font-weight:700;padding:6px 14px;border-radius:30px;text-transform:uppercase;}
+    h1{font-size:32px;font-weight:800;color:var(--primary);line-height:1.2;}
+    
+    .price-box{display:flex;align-items:baseline;gap:15px;margin-top:-5px;}
+    .current-price{font-size:36px;font-weight:800;color:var(--accent);}
+    .old-price{font-size:20px;color:var(--muted);text-decoration:line-through;}
 
-    /* Success */
-    .success-page{display:none;min-height:72vh;padding:40px 0}
-    .success-page.show{display:grid;place-items:center}
-    .success-card{
-      max-width:560px;width:100%;text-align:center;padding:20px;background:#fff;border:1px solid var(--line);
-      border-radius:28px;box-shadow:var(--shadow)
-    }
-    .success-icon{
-      width:86px;height:86px;border-radius:50%;background:rgba(17,163,106,.12);display:grid;place-items:center;margin:0 auto 18px
-    }
-    .success-icon svg{width:44px;height:44px;stroke:var(--success)}
-    .success-title{font-size:30px;font-weight:900;margin-bottom:8px}
-    .success-msg{color:var(--muted);font-size:14px;margin-bottom:12px}
-    .order-num{font-weight:900;font-size:16px;margin-bottom:18px}
-    .back-btn{
-      height:50px;padding:0 18px;border:none;border-radius:14px;background:var(--primary);color:#fff;cursor:pointer;
-      font-size:15px;font-weight:800
-    }
+    .section-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;justify-content:between;align-items:center;}
+    .section-title span.val-selected{font-weight:500;color:var(--muted);font-size:14px;margin-right:8px;}
 
-    /* Toast */
-    .toast{
-      position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);
-      background:#111;color:#fff;padding:12px 18px;border-radius:14px;font-size:13px;font-weight:700;
-      opacity:0;transition:.25s ease;z-index:5000;box-shadow:var(--shadow)
-    }
-    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    .color-picker{display:flex;gap:12px;}
+    .color-opt{width:45px;height:45px;border-radius:50%;cursor:pointer;position:relative;border:1px solid rgba(0,0,0,0.1);transition:0.2s;display:flex;align-items:center;justify-content:center;}
+    .color-opt:after{content:'';width:53px;height:53px;border-radius:50%;border:2px solid transparent;position:absolute;transition:0.2s;}
+    .color-opt.active:after{border-color:var(--primary);}
+    .color-opt.black{background:#111111;}
+    .color-opt.white{background:#ffffff;}
 
-    /* Footer */
-    footer{
-      margin-top:30px;padding:26px 0 34px;color:var(--muted)
-    }
-    .footer-card{
-      background:#fff;border:1px solid var(--line);border-radius:24px;padding:20px;text-align:center;box-shadow:var(--shadow)
-    }
-    .footer-logo{font-size:22px;font-weight:900;letter-spacing:2px;color:#111;margin-bottom:6px}
-    .footer-link{display:inline-flex;align-items:center;gap:8px;color:#0f9d58;font-weight:800}
-    .footer-small{font-size:13px;margin-top:8px}
-    .footer-small:empty,.feature span:empty{display:none}
-    .thumb img{cursor:zoom-in}
+    .size-picker{display:flex;gap:10px;flex-wrap:wrap;}
+    .size-opt{background:var(--bg);padding:12px 24px;border-radius:var(--radius-sm);cursor:pointer;font-weight:700;font-size:15px;transition:0.2s;border:2px solid transparent;flex:1;text-align:center;min-width:70px;}
+    .size-opt:hover{background:var(--line);}
+    .size-opt.active{background:var(--primary);color:#fff;border-color:var(--primary);}
 
-    /* Image zoom */
-    .zoom-modal{
-      position:fixed;inset:0;z-index:6000;display:none;align-items:center;justify-content:center;
-      padding:18px;background:rgba(17,17,17,.72);backdrop-filter:blur(8px);
-    }
-    .zoom-modal.show{display:flex}
-    .zoom-dialog{position:relative;width:min(920px,100%);max-height:88vh}
-    .zoom-dialog img{
-      width:100%;max-height:82vh;object-fit:contain;display:block;background:#fff;border-radius:24px;
-      box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.18)
-    }
-    .zoom-close{
-      position:absolute;top:-14px;inset-inline-end:-14px;width:42px;height:42px;border:none;border-radius:14px;
-      background:#fff;cursor:pointer;display:grid;place-items:center;box-shadow:0 10px 26px rgba(0,0,0,.18)
-    }
-    .zoom-close svg{width:20px;height:20px;stroke:#111}
-    .zoom-caption{margin-top:10px;color:#fff;font-size:13px;text-align:center}
+    .qty-box{display:flex;align-items:center;background:var(--bg);border-radius:var(--radius-sm);padding:6px;width:150px;justify-content:space-between;}
+    .qty-btn{width:40px;height:40px;border-radius:var(--radius-sm);background:var(--card);border:none;font-size:20px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:0.2s;box-shadow:0 2px 6px rgba(0,0,0,0.05);}
+    .qty-btn:hover{background:var(--primary);color:#fff;}
+    .qty-val{font-size:18px;font-weight:700;width:40px;text-align:center;}
 
-    /* Responsive */
-    @media (max-width: 980px){
-      .hero-card,.layout,.checkout-grid{grid-template-columns:1fr}
-      .summary-card{position:static}
-      .price-box{text-align:inherit}
-      .product-heading{flex-direction:column}
-      .hero-card{padding:22px;min-height:auto}
-      .hero-visual{min-height:180px}
-    }
-    @media (max-width: 640px){
-      .container{padding:0 12px}
-      .header-inner{height:66px}
-      .brand span{font-size:18px}
-      .hero-card{border-radius:24px}
-      .product-card,.form-card,.summary-card{padding:16px}
-      .gallery-main{min-height:280px}
-      .current-price{font-size:24px}
-      .product-title{font-size:22px}
-      .cta-row .primary,.cta-row .secondary,.submit-btn,.checkout-btn{height:52px}
-      .input-row.two{grid-template-columns:1fr}
+    .action-btn{background:var(--primary);color:#fff;border:none;padding:20px;border-radius:var(--radius-sm);font-size:18px;font-weight:700;cursor:pointer;transition:0.3s;display:flex;align-items:center;justify-content:center;gap:15px;box-shadow:0 10px 25px rgba(17,17,17,0.15);width:100%;margin-top:10px;}
+    .action-btn:hover{background:var(--primary-2);transform:translateY(-2px);}
+    .action-btn:active{transform:translateY(0);}
+
+    .desc-text{color:var(--muted);font-size:15px;line-height:1.7;border-top:1px solid var(--line);padding-top:20px;margin-top:5px;}
+    .desc-text ul{padding-right:20px;margin-top:10px;display:flex;flex-direction:column;gap:6px;}
+
+    .layer-page{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg);z-index:1000;overflow-y:auto;display:none;padding:20px 0;}
+    .layer-page.show{display:block;}
+    .layer-container{max-width:600px;margin:0 auto;padding:0 20px;}
+    
+    .checkout-card{background:var(--card);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow);margin-bottom:25px;}
+    .checkout-title{font-size:22px;font-weight:800;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;}
+    
+    .form-group{margin-bottom:20px;position:relative;}
+    .form-group label{display:block;font-size:14px;font-weight:700;margin-bottom:8px;color:var(--text);}
+    .form-group input, .form-group select{width:100%;padding:14px 16px;border-radius:var(--radius-sm);border:1px solid var(--line);background:var(--bg);font-size:15px;font-weight:600;transition:0.2s;outline:none;}
+    .form-group input:focus, .form-group select:focus{border-color:var(--primary);background:var(--card);box-shadow:0 0 0 4px rgba(17,17,17,0.05);}
+    
+    .pay-options{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:20px;}
+    .pay-option{background:var(--bg);border:2px solid transparent;padding:16px;border-radius:var(--radius-sm);cursor:pointer;transition:0.2s;display:flex;align-items:center;gap:12px;}
+    .pay-option.active{border-color:var(--primary);background:var(--card);box-shadow:0 4px 15px rgba(0,0,0,0.02);}
+    .pay-option input{display:none;}
+    .pay-circle{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);position:relative;display:flex;align-items:center;justify-content:center;background:#fff;}
+    .pay-option.active .pay-circle{border-color:var(--primary);}
+    .pay-option.active .pay-circle:after{content:'';width:10px;height:10px;background:var(--primary);border-radius:50%;}
+    .pay-text{font-weight:700;font-size:15px;}
+
+    .promo-box{display:flex;gap:10px;margin-bottom:20px;}
+    .promo-box input{flex:1;margin-bottom:0;}
+    .promo-btn{background:var(--primary);color:#fff;border:none;padding:0 22px;border-radius:var(--radius-sm);font-weight:700;cursor:pointer;transition:0.2s;}
+    .promo-btn:hover{background:var(--primary-2);}
+    .promo-msg{font-size:13px;font-weight:700;margin-top:6px;display:none;}
+    .promo-msg.success{color:var(--success);display:block;}
+    .promo-msg.error{color:var(--accent);display:block;}
+
+    .summary-row{display:flex;justify-content:space-between;margin-bottom:12px;font-size:15px;font-weight:600;color:var(--muted);}
+    .summary-row.total{border-top:1px solid var(--line);padding-top:15px;margin-top:15px;font-size:20px;font-weight:800;color:var(--text);}
+    .summary-row.discount-line{color:var(--success);display:none;}
+
+    .success-box{background:var(--card);border-radius:var(--radius);padding:50px 30px;box-shadow:var(--shadow);text-align:center;margin-top:40px;}
+    .success-icon{width:80px;height:80px;background:rgba(17,163,106,0.1);color:var(--success);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 25px;}
+    .success-box h2{font-size:28px;font-weight:800;margin-bottom:15px;}
+    .success-box p{color:var(--muted);font-size:16px;margin-bottom:30px;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.8;}
+    .order-tag{background:var(--bg);padding:10px 20px;border-radius:30px;font-weight:800;font-size:16px;display:inline-block;margin-bottom:30px;color:var(--primary);}
+
+    .lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(17,17,17,0.95);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px);}
+    .lightbox img{max-width:100%;max-height:100%;object-fit:contain;border-radius:10px;box-shadow:0 10px 40px rgba(0,0,0,0.5);transition:transform 0.25s ease;}
+    .lightbox-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#fff;font-size:35px;cursor:pointer;width:50px;height:50px;display:flex;align-items:center;justify-content:center;}
+
+    @media(max-width:900px){
+      .product-grid{grid-template-columns:1fr;gap:25px;}
+      .gallery-side{position:relative;top:0;}
+      .details-side{padding:25px;}
+      h1{font-size:26px;}
+      .current-price{font-size:30px;}
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <div class="header-inner">
-        <a href="#" class="brand" id="home-logo">
-          <span>HEXA</span>
-        </a>
-        <div class="header-actions">
-          <button class="chip-btn" id="lang-btn">EN</button>
-          <button class="icon-btn" id="cart-btn" aria-label="Cart">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 2.25h1.386c.51 0 .955.343 1.088.834l.39 1.443m0 0 1.972 7.3c.12.446.522.756.984.756h8.236c.462 0 .864-.31.984-.756l1.972-7.3m-14.548 0h11.386m0 0 .997-3.684A1.125 1.125 0 0 1 17.22 0h-10.44a1.125 1.125 0 0 1-1.088.834L4.25 5.282m3.75 14.218a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm8.5 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>
-            </svg>
-            <span class="count-badge" id="cart-count">0</span>
-          </button>
+
+  <div class="container">
+    <header>
+      <div class="logo" id="home-logo">HEXA</div>
+      <button class="lang-btn" id="lang-toggle">English</button>
+    </header>
+
+    <div class="product-grid" id="product-page">
+      <div class="gallery-side">
+        <div class="main-stage" id="main-stage">
+          <img id="stage-male" class="active" src="photos/أسود راجل.png" alt="صورة المنتج للولد">
+          <img id="stage-female" src="photos/أسود بنت.png" alt="صورة المنتج للبنت">
+          <div class="zoom-hint" data-i18n="gallery.zoom">اضغط للتكبير</div>
+        </div>
+        <div class="thumbs-grid">
+          <div class="thumb active" id="thumb-male"><img src="photos/أسود راجل.png" alt="صورة المنتج للولد"></div>
+          <div class="thumb" id="thumb-female"><img src="photos/أسود بنت.png" alt="صورة المنتج للبنت"></div>
         </div>
       </div>
-    </div>
-  </header>
 
-  <main>
-    <div class="container">
-      <section class="layout" id="product-page">
-        <div class="card product-card">
-          <div class="gallery">
-            <div class="gallery-badge" data-i18n="gallery.badge">اختر اللون ثم أضف للسلة</div>
-            <div class="thumbs two-up" id="thumbs">
-              <div class="thumb"><img id="thumb-male" src="photos/white-male.png" alt="صورة المنتج للولد"></div>
-              <div class="thumb"><img id="thumb-female" src="photos/white-female.png" alt="صورة المنتج للبنت"></div>
-            </div>
-          </div>
-
-          <div class="product-heading">
-            <div>
-              <h2 class="product-title" id="product-title">أوفرسايز بيزيك بوليفار</h2>
-              <div class="subtitle" data-i18n="product.sub">اختار اللون والمقاس والكمية قبل الإضافة.</div>
-            </div>
-            <div class="price-box">
-              <div class="old-price" id="old-price">800 ج.م</div>
-              <div class="current-price" id="current-price">700 ج.م</div>
-            </div>
-          </div>
-
-          <div class="group">
-            <div class="section-title"><span class="dot"></span><span data-i18n="color.title">اختر اللون</span></div>
-            <div class="option-grid" id="color-options"></div>
-          </div>
-
-          <div class="group">
-            <div class="section-title"><span class="dot"></span><span data-i18n="size.title">اختر المقاس</span></div>
-            <div class="option-grid" id="size-options"></div>
-          </div>
-
-          <div class="group">
-            <div class="section-title"><span class="dot"></span><span data-i18n="qty.title">الكمية</span></div>
-            <div class="qty-wrap">
-              <div class="qty-control">
-                <button class="qty-btn" id="qty-minus" type="button">−</button>
-                <div class="qty-value" id="qty-value">1</div>
-                <button class="qty-btn" id="qty-plus" type="button">+</button>
-              </div>
-              <div class="mini-info">
-                <span class="pill" id="selected-color-pill">● أبيض</span>
-                <span class="pill" id="selected-size-pill">S</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="discount-box">
-            <div class="section-title" style="margin-bottom:10px"><span class="dot"></span><span data-i18n="discount.label">كود الخصم</span></div>
-            <div class="input-row">
-              <input id="discount-input" type="text" placeholder="أدخل الكود">
-              <button class="btn" id="apply-btn" type="button" data-i18n="discount.btn">تطبيق</button>
-            </div>
-            <div class="msg" id="discount-msg"></div>
-          </div>
-
-          <div class="cta-row">
-            <button class="primary" id="add-cart-btn" type="button">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <path d="M3 3h2l.4 2m0 0L7.2 14h9.5l1.8-7H5.4m0 0L4 5H2"/>
-                <path d="M7 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm10 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>
-              </svg>
-              <span data-i18n="cart.add">أضف للسلة</span>
-            </button>
-            <button class="secondary" id="scroll-to-cart" type="button">
-              <span data-i18n="cart.open">عرض السلة</span>
-            </button>
-          </div>
-
-          <div class="features">
-            <div class="feature">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m9 12.75 2.25 2.25L15 9.75m6 2.25c0 5.523-4.477 10-10 10S1 17.523 1 12S5.477 2 11 2s10 4.477 10 10Z"/>
-              </svg>
-              <div>
-                <strong data-i18n="feat.quality.title">جودة ممتازة</strong>
-                <span data-i18n=""></span>
-              </div>
-            </div>
-            <div class="feature">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8.25h18M5.25 8.25l1 10.5a2.25 2.25 0 0 0 2.25 2.25h7.5a2.25 2.25 0 0 0 2.25-2.25l1-10.5m-12 0V6A2.25 2.25 0 0 1 9.5 3.75h5A2.25 2.25 0 0 1 16.75 6v2.25"/>
-              </svg>
-              <div>
-                <strong data-i18n="feat.shipping.title">شحن سريع</strong>
-                <span data-i18n=""></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </main>
-
-  <div class="overlay" id="cart-overlay"></div>
-  <aside class="drawer" id="cart-drawer" aria-label="Shopping cart">
-    <div class="drawer-header">
-      <div class="drawer-title">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <path d="M3 3h2l.4 2m0 0L7.2 14h9.5l1.8-7H5.4m0 0L4 5H2"/>
-          <path d="M7 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm10 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>
-        </svg>
-        <span data-i18n="cart.title">سلة التسوق</span>
-      </div>
-      <button class="close-btn" id="cart-close" type="button" aria-label="Close cart">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
-        </svg>
-      </button>
-    </div>
-    <div class="drawer-body" id="cart-items"></div>
-    <div class="drawer-footer" id="cart-footer" style="display:none">
-      <div class="total-row">
-        <span data-i18n="cart.total">الإجمالي</span>
-        <span id="cart-total">0 ج.م</span>
-      </div>
-      <button class="checkout-btn" id="go-checkout" type="button">
-        <span data-i18n="cart.checkout">إتمام الدفع</span>
-      </button>
-    </div>
-  </aside>
-
-  <section class="checkout-page" id="checkout-page">
-    <div class="container">
-      <h1 class="page-title" data-i18n="checkout.title">إتمام الطلب</h1>
-      <p class="page-sub" data-i18n="checkout.sub">مراجعة الطلب ثم إدخال البيانات وإرسالها مباشرة.</p>
-
-      <div class="checkout-grid">
-        <div class="form-card">
-          <form id="order-form" action="https://formspree.io/f/mpqnqoqj" method="POST" enctype="multipart/form-data">
-            <div class="group">
-              <label class="field-label" data-i18n="checkout.info">المعلومات الشخصية</label>
-              <div class="input-row one">
-                <input type="text" name="الاسم" id="input-name" required placeholder="الاسم الكامل">
-                <input type="tel" name="التليفون" id="input-phone" required placeholder="رقم الهاتف">
-              </div>
-            </div>
-
-            <div class="group">
-              <label class="field-label" data-i18n="checkout.city">المحافظة</label>
-              <select name="المحافظة" id="city-select" required>
-                </select>
-            </div>
-
-            <div class="group">
-              <label class="field-label" data-i18n="checkout.address">العنوان بالتفصيل</label>
-              <textarea name="العنوان" id="input-address" rows="4" required placeholder="الحي - الشارع - رقم المنزل - علامة مميزة"></textarea>
-            </div>
-
-            <div class="group">
-              <label class="field-label" data-i18n="payment.title">طريقة الدفع</label>
-              <div class="payment-list">
-                <label class="pay-option active" data-payment="cod">
-                  <input type="radio" name="الدفع" value="الدفع عند الاستلام" checked hidden>
-                  <span class="radio"></span>
-                  <span class="pay-content">
-                    <strong data-i18n="payment.cod">الدفع عند الاستلام</strong>
-                  </span>
-                </label>
-                <label class="pay-option" data-payment="vodafone">
-                  <input type="radio" name="الدفع" value="فودافون كاش" hidden>
-                  <span class="radio"></span>
-                  <span class="pay-content">
-                    <strong data-i18n="payment.vodafone">فودافون كاش</strong>
-                  </span>
-                </label>
-                <label class="pay-option" data-payment="instapay">
-                  <input type="radio" name="الدفع" value="إنستا باي" hidden>
-                  <span class="radio"></span>
-                  <span class="pay-content">
-                    <strong data-i18n="payment.instapay">إنستا باي</strong>
-                  </span>
-                </label>
-              </div>
-
-              <div class="proof-box" id="proof-box">
-                <div style="font-weight:900;margin-bottom:8px" data-i18n="payment.proof.title">بيانات الدفع</div>
-                <div style="font-size:20px;font-weight:900;color:var(--accent);text-align:center;margin-bottom:12px">01014144843</div>
-                <label class="upload" id="upload-box">
-                  <input type="file" name="صورة_الدفع" id="payment-file" accept="image/*">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M7.5 10.5 12 6m0 0 4.5 4.5M12 6v12"/>
-                  </svg>
-                  <strong data-i18n="payment.upload.title">ارفع صورة إثبات الدفع</strong>
-                  <p id="file-name">PNG / JPG / HEIC</p>
-                </label>
-              </div>
-            </div>
-          </form>
+      <div class="details-side">
+        <div>
+          <span class="tag-brand" data-i18n="brand.tag">STREETWEAR</span>
+          <h1 style="margin-top:10px;" data-i18n="product.title">أوفرسايز بيزيك بوليفار</h1>
         </div>
 
-        <aside class="summary-card">
-          <div class="summary-head">
-            <h3>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke="currentColor">
-                <path d="M3 3h2l.4 2m0 0L7.2 14h9.5l1.8-7H5.4m0 0L4 5H2"/>
-                <path d="M7 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm10 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>
-              </svg>
-              <span data-i18n="summary.title">ملخص الطلب</span>
-            </h3>
-            <span class="pill" id="summary-items-count">0</span>
-          </div>
-          <div class="summary-list" id="order-items"></div>
-
-          <div class="summary-totals">
-            <div class="sum-row">
-              <span data-i18n="summary.subtotal">الإجمالي الفرعي</span>
-              <span id="summary-subtotal">0 ج.م</span>
-            </div>
-            <div class="sum-row">
-              <span data-i18n="summary.shipping">سعر الشحن</span>
-              <span id="summary-shipping">0 ج.م</span>
-            </div>
-            <div class="sum-row final">
-              <span data-i18n="summary.total">الإجمالي النهائي</span>
-              <span id="summary-total">0 ج.م</span>
-            </div>
-          </div>
-
-          <button class="submit-btn" type="submit" form="order-form" id="submit-order-btn">
-            <span data-i18n="submit.btn">تأكيد الطلب</span>
-          </button>
-        </aside>
-      </div>
-    </div>
-  </section>
-
-  <section class="success-page" id="success-page">
-    <div class="container">
-      <div class="success-card">
-        <div class="success-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m9 12.75 2.25 2.25L15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-          </svg>
+        <div class="price-box">
+          <span class="current-price">650 ج.م</span>
+          <span class="old-price">850 ج.م</span>
         </div>
-        <h2 class="success-title" data-i18n="success.title">شكراً لك!</h2>
-        <p class="success-msg" data-i18n="success.msg">تم استلام طلبك بنجاح.</p>
-        <div class="order-num" data-i18n="success.order">رقم الطلب: <span id="order-num">#0000</span></div>
-        <button class="back-btn" id="back-btn" type="button" data-i18n="success.back">العودة للمتجر</button>
-      </div>
-    </div>
-  </section>
 
-  <footer>
-    <div class="container">
-      <div class="footer-card">
-        <div class="footer-logo">HEXA</div>
-        <div class="footer-small" data-i18n="footer.desc">ستريت وير</div>
-        <div style="margin-top:12px">
-          <a class="footer-link" href="https://wa.me/201014144843" target="_blank" rel="noopener">
-            <span data-i18n="footer.whatsapp">واتساب</span>
-          </a>
+        <div>
+          <div class="section-title">
+            <span data-i18n="color.title">اللون:</span>
+            <span class="val-selected" id="color-val" data-i18n="color.black">أسود</span>
+          </div>
+          <div class="color-picker">
+            <div class="color-opt black active" data-color="black"></div>
+            <div class="color-opt white" data-color="white"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-title">
+            <span data-i18n="size.title">المقاس:</span>
+            <span class="val-selected" id="size-val">M (60 - 75 KG)</span>
+          </div>
+          <div class="size-picker">
+            <div class="size-opt active" data-size="M" data-desc="M (60 - 75 KG)">M</div>
+            <div class="size-opt" data-size="L" data-desc="L (75 - 90 KG)">L</div>
+            <div class="size-opt" data-size="XL" data-desc="XL (90 - 105 KG)">XL</div>
+            <div class="size-opt" data-size="XXL" data-desc="XXL (105 - 120 KG)">XXL</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-title" data-i18n="qty.title">الكمية:</div>
+          <div class="qty-box">
+            <button class="qty-btn" id="qty-minus">-</button>
+            <span class="qty-val" id="qty-num">1</span>
+            <button class="qty-btn" id="qty-plus">+</button>
+          </div>
+        </div>
+
+        <button class="action-btn" id="buy-btn">
+          <span data-i18n="buy.btn">شراء الآن</span>
+        </button>
+
+        <div class="desc-text">
+          <p data-i18n="desc.p1">تيشرت أوفرسايز بيزيك مصنوع من قطن فاخر 100٪ عالي الجودة ليوفر لك الراحة القصوى والمظهر العصري الجذاب الملائم لجميع الإطلالات اليومية.</p>
+          <ul>
+            <li data-i18n="desc.li1">خامة قطنية ثقيلة ومقاومة للانكماش والوبر.</li>
+            <li data-i18n="desc.li2">قصّة Box Fit مريحة وأكتاف منسدلة بشكل عصري.</li>
+            <li data-i18n="desc.li3">تطريز عالي الدقة لشعار علامة HEXA التجارية.</li>
+          </ul>
         </div>
       </div>
-    </div>
-  </footer>
-
-  <div class="zoom-modal" id="image-zoom-modal" aria-hidden="true">
-    <div class="zoom-dialog" role="dialog" aria-modal="true">
-      <button class="zoom-close" id="image-zoom-close" type="button" aria-label="Close zoom">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
-      <img id="image-zoom-img" alt="">
-      <div class="zoom-caption" id="image-zoom-caption"></div>
     </div>
   </div>
 
-  <div class="toast" id="toast"></div>
+  <div class="layer-page" id="checkout-page">
+    <div class="layer-container">
+      <div class="checkout-card">
+        <div class="checkout-title" data-i18n="checkout.title">إتمام الطلب</div>
+        <form id="order-form" action="https://formspree.io/f/mpqnqoqj" method="POST">
+          
+          <input type="hidden" name="المنتج" value="أوفرسايز بيزيك بوليفار">
+          <input type="hidden" name="اللون" id="form-color" value="أسود">
+          <input type="hidden" name="المقاس" id="form-size" value="M">
+          <input type="hidden" name="الكمية" id="form-qty" value="1">
+          <input type="hidden" name="إجمالي السعر" id="form-total" value="650 ج.م">
+
+          <div class="form-group">
+            <label data-i18n="form.name">الاسم بالكامل *</label>
+            <input type="text" name="اسم العميل" required placeholder="أدخل اسمك الثلاثي">
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="form.phone">رقم الهاتف *</label>
+            <input type="tel" name="رقم الهاتف" required placeholder="رقم متاح عليه واتساب">
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="form.gov">المحافظة *</label>
+            <select name="المحافظة" id="gov-select" required>
+              <option value="" disabled selected data-i18n="form.govPlace">اختر محافظتك</option>
+              <option value="القاهرة">القاهرة</option>
+              <option value="الجيزة">الجيزة</option>
+              <option value="الإسكندرية">الإسكندرية</option>
+              <option value="القليوبية">القليوبية</option>
+              <option value="المنوفية">المنوفية</option>
+              <option value="الشرقية">الشرقية</option>
+              <option value="الغربية">الغربية</option>
+              <option value="الدقهلية">الدقهلية</option>
+              <option value="البحيرة">البحيرة</option>
+              <option value="دمياط">دمياط</option>
+              <option value="بورسعيد">بورسعيد</option>
+              <option value="الإسماعيلية">الإسماعيلية</option>
+              <option value="السويس">السويس</option>
+              <option value="كفر الشيخ">كفر الشيخ</option>
+              <option value="الفيوم">الفيوم</option>
+              <option value="بني سويف">بني سويف</option>
+              <option value="المنيا">المنيا</option>
+              <option value="أسيوط">أسيوط</option>
+              <option value="سوهاج">سوهاج</option>
+              <option value="قنا">قنا</option>
+              <option value="الأقصر">الأقصر</option>
+              <option value="أسوان">أسوان</option>
+              <option value="البحر الأحمر">البحر الأحمر</option>
+              <option value="الوادي الجديد">الوادي الجديد</option>
+              <option value="مطروح">مطروح</option>
+              <option value="شمال سيناء">شمال سيناء</option>
+              <option value="جنوب سيناء">جنوب سيناء</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="form.address">العنوان بالتفصيل *</label>
+            <input type="text" name="العنوان" required placeholder="اسم الشارع، رقم العمارة، الدور، الشقة">
+          </div>
+
+          <div class="section-title" data-i18n="pay.title">طريقة الدفع</div>
+          <div class="pay-options">
+            <div class="pay-option active" data-payment="cod">
+              <div class="pay-circle"></div>
+              <span class="pay-text" data-i18n="pay.cod">الدفع عند الاستلام (معاينة مجانية)</span>
+              <input type="radio" name="طريقة الدفع" value="الدفع عند الاستلام" checked>
+            </div>
+          </div>
+
+          <div class="section-title" data-i18n="promo.title">كود الخصم</div>
+          <div class="promo-box">
+            <input type="text" id="promo-input" placeholder="إذا كان لديك كود خصم اكتبه هنا">
+            <button type="button" class="promo-btn" id="promo-btn" data-i18n="promo.btn">تطبيق</button>
+          </div>
+          <div id="promo-msg" class="promo-msg"></div>
+
+          <div class="checkout-title" style="margin-top:30px;" data-i18n="summary.title">ملخص الحساب</div>
+          <div class="summary-row">
+            <span id="lbl-subtotal" data-i18n="summary.sub">سعر المنتجات</span>
+            <span id="sum-subtotal">650 ج.م</span>
+          </div>
+          <div class="summary-row discount-line" id="discount-row">
+            <span data-i18n="summary.disc">قيمة الخصم</span>
+            <span id="sum-discount">-0 ج.م</span>
+          </div>
+          <div class="summary-row">
+            <span data-i18n="summary.ship">مصاريف الشحن</span>
+            <span id="sum-shipping">0 ج.م</span>
+          </div>
+          <div class="summary-row total">
+            <span data-i18n="summary.total">الإجمالي الكلي</span>
+            <span id="sum-total">650 ج.م</span>
+          </div>
+
+          <button type="submit" class="action-btn" id="submit-btn" style="margin-top:25px;">
+            <span data-i18n="submit.btn">تأكيد الطلب</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer-page" id="success-page">
+    <div class="layer-container">
+      <div class="success-box">
+        <div class="success-icon">✓</div>
+        <h2 data-i18n="success.title">شكراً لك على طلبك!</h2>
+        <p data-i18n="success.p">يسعدنا جداً اختيارك لبراند HEXA. تم استلام طلبك بنجاح وجاري مراجعته الآن، وسنقوم بالتواصل معك عبر الواتساب أو الهاتف لتأكيد الشحن في أقرب وقت ممكن. نتمنى لك تجربة تسوق رائعة!</p>
+        <div class="order-tag"><span data-i18n="success.order">رقم الطلب:</span> <span id="order-num">#1234</span></div>
+        <button class="action-btn" id="back-btn" data-i18n="success.btn">العودة للمتجر</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">×</button>
+    <img id="lightbox-img" src="" alt="Zoomed view">
+  </div>
 
   <script>
-    const product = {
-      nameAr: 'أوفرسايز بيزيك بوليفار',
-      nameEn: 'Oversized Basic Bolivar',
-      basePrice: 700,
-      oldPrice: 800,
-      images: {
-        maleDefault: 'white-male.png',
-        femaleDefault: 'white-female.png'
-      },
-      colors: [
-        { name: 'أبيض', nameEn: 'White', male: 'white-male.png', female: 'white-female.png', colorHex: '#f2f2f2' },
-        { name: 'أسود', nameEn: 'Black', male: 'black-male.png', female: 'black-female.png', colorHex: '#111111' },
-        { name: 'رمادي', nameEn: 'Grey', male: 'grey-male.png', female: 'grey-female.png', colorHex: '#8a8f98' },
-        { name: 'بينك', nameEn: 'Pink', male: 'pink-male.png', female: 'pink-female.png', colorHex: '#ff9dcf' },
-        { name: 'بيج', nameEn: 'Beige', male: 'beige-male.png', female: 'beige-female.png', colorHex: '#d6c2a3' },
-        { name: 'زيتي', nameEn: 'Olive', male: 'olive-male.png', female: 'olive-female.png', colorHex: '#7f8a49' },
-        { name: 'برجندي', nameEn: 'Burgundy', male: 'burgundy-male.png', female: 'burgundy-female.png', colorHex: '#6f1d2f' }
-      ],
-      sizes: ['S', 'M', 'L', 'XL']
-    };
-
-    const governorates = [
-      { ar: 'القاهرة - 60 ج.م', en: 'Cairo - 60 EGP', price: 60 },
-      { ar: 'الجيزة - 60 ج.م', en: 'Giza - 60 EGP', price: 60 },
-      { ar: 'الإسكندرية - 80 ج.م', en: 'Alexandria - 80 EGP', price: 80 },
-      { ar: 'القليوبية - 70 ج.م', en: 'Qalyubia - 70 EGP', price: 70 },
-      { ar: 'الشرقية - 80 ج.م', en: 'Al Sharqia - 80 EGP', price: 80 },
-      { ar: 'الدقهلية - 80 ج.م', en: 'Dakahlia - 80 EGP', price: 80 },
-      { ar: 'البحيرة - 80 ج.م', en: 'Beheira - 80 EGP', price: 80 },
-      { ar: 'الغربية - 80 ج.م', en: 'Gharbia - 80 EGP', price: 80 },
-      { ar: 'المنوفية - 80 ج.م', en: 'Monufia - 80 EGP', price: 80 },
-      { ar: 'كفر الشيخ - 80 ج.م', en: 'Kafr El Sheikh - 80 EGP', price: 80 },
-      { ar: 'دمياط - 90 ج.م', en: 'Damietta - 90 EGP', price: 90 },
-      { ar: 'بورسعيد - 90 ج.م', en: 'Port Said - 90 EGP', price: 90 },
-      { ar: 'الإسماعيلية - 90 ج.م', en: 'Ismailia - 90 EGP', price: 90 },
-      { ar: 'السويس - 90 ج.م', en: 'Suez - 90 EGP', price: 90 },
-      { ar: 'الفيوم - 90 ج.م', en: 'Fayoum - 90 EGP', price: 90 },
-      { ar: 'بني سويف - 90 ج.م', en: 'Beni Suef - 90 EGP', price: 90 },
-      { ar: 'المنيا - 100 ج.م', en: 'Minya - 100 EGP', price: 100 },
-      { ar: 'أسيوط - 110 ج.م', en: 'Assiut - 110 EGP', price: 110 },
-      { ar: 'سوهاج - 110 ج.م', en: 'Sohag - 110 EGP', price: 110 },
-      { ar: 'قنا - 120 ج.م', en: 'Qena - 120 EGP', price: 120 },
-      { ar: 'الأقصر - 120 ج.م', en: 'Luxor - 120 EGP', price: 120 },
-      { ar: 'أسوان - 130 ج.م', en: 'Aswan - 130 EGP', price: 130 },
-      { ar: 'البحر الأحمر - 130 ج.م', en: 'Red Sea - 130 EGP', price: 130 },
-      { ar: 'الوادي الجديد - 140 ج.م', en: 'New Valley - 140 EGP', price: 140 },
-      { ar: 'مطروح - 130 ج.م', en: 'Matrouh - 130 EGP', price: 130 },
-      { ar: 'شمال سيناء - 140 ج.م', en: 'North Sinai - 140 EGP', price: 140 },
-      { ar: 'جنوب سيناء - 140 ج.م', en: 'South Sinai - 140 EGP', price: 140 }
-    ];
-
-    const translations = {
+    const dict = {
       ar: {
-        'page.title': 'HEXA | أوفرسايز بيزيك بوليفار',
-        'hero.badge': 'ستريت وير',
-        'hero.shop': 'ابدأ التسوق',
-        'hero.checkout': 'اذهب للدفع',
-        'gallery.badge': 'اختر اللون ثم أضف للسلة',
-        'product.sub': 'اختار اللون والمقاس والكمية قبل الإضافة.',
-        'color.title': 'اختر اللون',
-        'size.title': 'اختر المقاس',
-        'qty.title': 'الكمية',
-        'discount.label': 'كود الخصم',
-        'discount.btn': 'تطبيق',
-        'cart.add': 'أضف للسلة',
-        'cart.open': 'عرض السلة',
-        'cart.title': 'سلة التسوق',
-        'cart.total': 'الإجمالي',
-        'cart.checkout': 'إتمام الدفع',
-        'cart.empty': 'السلة فارغة',
-        'cart.remove': 'حذف',
+        'brand.tag': 'STREETWEAR',
+        'product.title': 'أوفرسايز بيزيك بوليفار',
+        'gallery.zoom': 'اضغط للتكبير',
+        'color.title': 'اللون:',
+        'color.black': 'أسود',
+        'color.white': 'أبيض',
+        'size.title': 'المقاس:',
+        'qty.title': 'الكمية:',
+        'buy.btn': 'شراء الآن',
+        'desc.p1': 'تيشرت أوفرسايز بيزيك مصنوع من قطن فاخر 100٪ عالي الجودة ليوفر لك الراحة القصوى والمظهر العصري الجذاب الملائم لجميع الإطلالات اليومية.',
+        'desc.li1': 'خامة قطنية ثقيلة ومقاومة للانكماش والوبر.',
+        'desc.li2': 'قصّة Box Fit مريحة وأكتاف منسدلة بشكل عصري.',
+        'desc.li3': 'تطريز عالي الدقة لشعار علامة HEXA التجارية.',
         'checkout.title': 'إتمام الطلب',
-        'checkout.sub': 'مراجعة الطلب ثم إدخال البيانات وإرسالها مباشرة.',
-        'checkout.info': 'المعلومات الشخصية',
-        'checkout.name': 'الاسم الكامل',
-        'checkout.phone': 'رقم الهاتف',
-        'checkout.city': 'المحافظة',
-        'checkout.address': 'العنوان بالتفصيل',
-        'payment.title': 'طريقة الدفع',
-        'payment.cod': 'الدفع عند الاستلام',
-        'payment.vodafone': 'فودافون كاش',
-        'payment.instapay': 'إنستا باي',
-        'payment.proof.title': 'بيانات الدفع',
-        'payment.upload.title': 'ارفع صورة إثبات الدفع',
-        'summary.title': 'ملخص الطلب',
-        'summary.subtotal': 'الإجمالي الفرعي',
-        'summary.shipping': 'سعر الشحن',
-        'summary.total': 'الإجمالي النهائي',
-        'summary.items': 'منتج',
+        'form.name': 'الاسم بالكامل *',
+        'form.phone': 'رقم الهاتف *',
+        'form.gov': 'المحافظة *',
+        'form.govPlace': 'اختر محافظتك',
+        'form.address': 'العنوان بالتفصيل *',
+        'pay.title': 'طريقة الدفع',
+        'pay.cod': 'الدفع عند الاستلام (معاينة مجانية)',
+        'promo.title': 'كود الخصم',
+        'promo.btn': 'تطبيق',
+        'summary.title': 'ملخص الحساب',
+        'summary.sub': 'سعر المنتجات',
+        'summary.disc': 'قيمة الخصم',
+        'summary.ship': 'مصاريف الشحن',
+        'summary.total': 'الإجمالي الكلي',
         'submit.btn': 'تأكيد الطلب',
-        'submit.sending': 'جاري إرسال الطلب...',
-        'success.title': 'شكراً لك!',
-        'success.msg': 'تم استلام طلبك بنجاح.',
+        'success.title': 'شكراً لك على طلبك!',
+        'success.p': 'يسعدنا جداً اختيارك لبراند HEXA. تم استلام طلبك بنجاح وجاري مراجعته الآن، وسنقوم بالتواصل معك عبر الواتساب أو الهاتف لتأكيد الشحن في أقرب وقت ممكن. نتمنى لك تجربة تسوق رائعة!',
         'success.order': 'رقم الطلب:',
-        'success.back': 'العودة للمتجر',
-        'footer.desc': 'ستريت وير',
-        'footer.whatsapp': 'واتساب',
-        'feat.quality.title': 'جودة ممتازة',
-        'feat.shipping.title': 'شحن سريع',
-        'msg.added': 'تمت الإضافة للسلة',
-        'msg.cart_empty': 'السلة فارغة',
-        'msg.invalid_code': '✗ كود غير صحيح',
-        'msg.discount_applied': 'تم تطبيق الخصم',
-        'msg.discount_success': '✓ تم تطبيق خصم',
+        'success.btn': 'العودة للمتجر',
+        'msg.enterCode': 'يرجى إدخال كود الخصم أولاً',
+        'msg.valid': 'تم تطبيق الكود بنجاح!',
+        'msg.invalid': 'كود الخصم غير صحيح أو منتهي',
         'msg.error': 'حصل خطأ أثناء إرسال الطلب',
-        'placeholder.name': 'الاسم الكامل',
-        'placeholder.phone': 'رقم الهاتف',
-        'placeholder.address': 'الحي - الشارع - رقم المنزل - علامة مميزة',
-        'placeholder.discount': 'أدخل الكود',
-        'select.city': 'اختر المحافظة'
+        'msg.sending': 'جاري إرسال الطلب...'
       },
       en: {
-        'page.title': 'HEXA | Oversized Basic Bolivar',
-        'hero.badge': 'Streetwear',
-        'hero.shop': 'Start Shopping',
-        'hero.checkout': 'Go to Checkout',
-        'gallery.badge': 'Choose a color then add to cart',
-        'product.sub': 'Select color, size, and quantity before adding.',
-        'color.title': 'Select Color',
-        'size.title': 'Select Size',
-        'qty.title': 'Quantity',
-        'discount.label': 'Discount Code',
-        'discount.btn': 'Apply',
-        'cart.add': 'Add to Cart',
-        'cart.open': 'View Cart',
-        'cart.title': 'Shopping Cart',
-        'cart.total': 'Total',
-        'cart.checkout': 'Checkout',
-        'cart.empty': 'Cart is empty',
-        'cart.remove': 'Remove',
+        'brand.tag': 'STREETWEAR',
+        'product.title': 'Oversized Basic Boulevard',
+        'gallery.zoom': 'Click to zoom',
+        'color.title': 'Color:',
+        'color.black': 'Black',
+        'color.white': 'White',
+        'size.title': 'Size:',
+        'qty.title': 'Quantity:',
+        'buy.btn': 'Buy Now',
+        'desc.p1': 'An oversized basic t-shirt crafted from premium 100% heavy cotton, ensuring maximum comfort and a standout modern look for daily wear.',
+        'desc.li1': 'Heavyweight, shrink-resistant, and anti-pilling fabric.',
+        'desc.li2': 'Relaxed Box Fit cutting with dropped shoulders styling.',
+        'desc.li3': 'High-definition precise embroidery for the HEXA brand logo.',
         'checkout.title': 'Checkout',
-        'checkout.sub': 'Review the order and submit your details directly.',
-        'checkout.info': 'Personal Information',
-        'checkout.name': 'Full Name',
-        'checkout.phone': 'Phone Number',
-        'checkout.city': 'Governorate',
-        'checkout.address': 'Full Address',
-        'payment.title': 'Payment Method',
-        'payment.cod': 'Cash on Delivery',
-        'payment.vodafone': 'Vodafone Cash',
-        'payment.instapay': 'InstaPay',
-        'payment.proof.title': 'Payment Details',
-        'payment.upload.title': 'Upload Payment Proof',
+        'form.name': 'Full Name *',
+        'form.phone': 'Phone Number *',
+        'form.gov': 'Governorate *',
+        'form.govPlace': 'Select your governorate',
+        'form.address': 'Detailed Address *',
+        'pay.title': 'Payment Method',
+        'pay.cod': 'Cash on Delivery (Free Inspection)',
+        'promo.title': 'Discount Code',
+        'promo.btn': 'Apply',
         'summary.title': 'Order Summary',
-        'summary.subtotal': 'Subtotal',
-        'summary.shipping': 'Shipping',
+        'summary.sub': 'Subtotal',
+        'summary.disc': 'Discount',
+        'summary.ship': 'Shipping Fee',
         'summary.total': 'Grand Total',
-        'summary.items': 'items',
         'submit.btn': 'Confirm Order',
-        'submit.sending': 'Sending order...',
-        'success.title': 'Thank you!',
-        'success.msg': 'Your order has been received successfully.',
-        'success.order': 'Order number:',
-        'success.back': 'Back to Store',
-        'footer.desc': 'Streetwear',
-        'footer.whatsapp': 'WhatsApp',
-        'feat.quality.title': 'Premium Quality',
-        'feat.shipping.title': 'Fast Shipping',
-        'msg.added': 'Added to cart',
-        'msg.cart_empty': 'Cart is empty',
-        'msg.invalid_code': '✗ Invalid code',
-        'msg.discount_applied': 'Discount applied',
-        'msg.discount_success': '✓ Discount applied',
+        'success.title': 'Thank You For Your Order!',
+        'success.p': 'We are absolutely thrilled that you chose HEXA. Your order has been successfully received and is currently being processed. We will reach out via WhatsApp or phone to confirm shipping shortly. Have a wonderful day!',
+        'success.order': 'Order ID:',
+        'success.btn': 'Back to Store',
+        'msg.enterCode': 'Please enter a promo code',
+        'msg.valid': 'Promo code applied successfully!',
+        'msg.invalid': 'Invalid or expired promo code',
         'msg.error': 'Error while sending order',
-        'placeholder.name': 'Full Name',
-        'placeholder.phone': 'Phone Number',
-        'placeholder.address': 'Neighborhood - Street - House Number - Landmark',
-        'placeholder.discount': 'Enter code',
-        'select.city': 'Select Governorate'
+        'msg.sending': 'Sending order...'
       }
+    };
+
+    const state = {
+      lang: 'ar',
+      basePrice: 650,
+      qty: 1,
+      selectedColor: 'black',
+      selectedSize: 'M',
+      selectedSizeDesc: 'M (60 - 75 KG)',
+      shipping: 0,
+      discount: 0,
+      appliedCode: null
     };
 
     const discountCodes = [
@@ -910,561 +434,283 @@
       { code: 'HEXA50', type: 'fixed', value: 50 }
     ];
 
-    const state = {
-      lang: 'ar',
-      cart: JSON.parse(localStorage.getItem('cart') || '[]'),
-      selectedColor: product.colors[0],
-      selectedSize: 'S',
-      qty: 1,
-      discount: null,
-      unitPrice: product.basePrice
-    };
-
     const els = {
-      pageTitle: document.getElementById('page-title'),
-      langBtn: document.getElementById('lang-btn'),
-      cartBtn: document.getElementById('cart-btn'),
-      cartCount: document.getElementById('cart-count'),
-      cartOverlay: document.getElementById('cart-overlay'),
-      cartDrawer: document.getElementById('cart-drawer'),
-      cartClose: document.getElementById('cart-close'),
-      cartItems: document.getElementById('cart-items'),
-      cartFooter: document.getElementById('cart-footer'),
-      cartTotal: document.getElementById('cart-total'),
-      goCheckout: document.getElementById('go-checkout'),
+      langToggle: document.getElementById('lang-toggle'),
       productPage: document.getElementById('product-page'),
       checkoutPage: document.getElementById('checkout-page'),
       successPage: document.getElementById('success-page'),
-      addCartBtn: document.getElementById('add-cart-btn'),
-      scrollToCart: document.getElementById('scroll-to-cart'),
-      colorOptions: document.getElementById('color-options'),
-      sizeOptions: document.getElementById('size-options'),
-      mainImage: document.getElementById('main-image'),
-      thumbMale: document.getElementById('thumb-male'),
-      thumbFemale: document.getElementById('thumb-female'),
-      productTitle: document.getElementById('product-title'),
-      oldPrice: document.getElementById('old-price'),
-      currentPrice: document.getElementById('current-price'),
-      selectedColorPill: document.getElementById('selected-color-pill'),
-      selectedSizePill: document.getElementById('selected-size-pill'),
-      qtyValue: document.getElementById('qty-value'),
-      qtyMinus: document.getElementById('qty-minus'),
-      qtyPlus: document.getElementById('qty-plus'),
-      discountInput: document.getElementById('discount-input'),
-      applyBtn: document.getElementById('apply-btn'),
-      discountMsg: document.getElementById('discount-msg'),
-      toast: document.getElementById('toast'),
-      imageZoomModal: document.getElementById('image-zoom-modal'),
-      imageZoomImg: document.getElementById('image-zoom-img'),
-      imageZoomCaption: document.getElementById('image-zoom-caption'),
-      imageZoomClose: document.getElementById('image-zoom-close'),
-      paymentOptions: document.querySelectorAll('.pay-option'),
-      proofBox: document.getElementById('proof-box'),
-      paymentFile: document.getElementById('payment-file'),
-      fileName: document.getElementById('file-name'),
-      orderForm: document.getElementById('order-form'),
-      summaryItems: document.getElementById('order-items'),
-      summarySubtotal: document.getElementById('summary-subtotal'),
-      summaryShipping: document.getElementById('summary-shipping'),
-      summaryTotal: document.getElementById('summary-total'),
-      summaryItemsCount: document.getElementById('summary-items-count'),
-      citySelect: document.getElementById('city-select'),
-      inputName: document.getElementById('input-name'),
-      inputPhone: document.getElementById('input-phone'),
-      inputAddress: document.getElementById('input-address'),
-      submitOrderBtn: document.getElementById('submit-order-btn'),
+      buyBtn: document.getElementById('buy-btn'),
       backBtn: document.getElementById('back-btn'),
       homeLogo: document.getElementById('home-logo'),
+      
+      stageMale: document.getElementById('stage-male'),
+      stageFemale: document.getElementById('stage-female'),
+      thumbMale: document.getElementById('thumb-male'),
+      thumbFemale: document.getElementById('thumb-female'),
+      mainStage: document.getElementById('main-stage'),
+      
+      colorOpts: document.querySelectorAll('.color-opt'),
+      colorVal: document.getElementById('color-val'),
+      sizeOpts: document.querySelectorAll('.size-opt'),
+      sizeVal: document.getElementById('size-val'),
+      
+      qtyMinus: document.getElementById('qty-minus'),
+      qtyPlus: document.getElementById('qty-plus'),
+      qtyNum: document.getElementById('qty-num'),
+      
+      orderForm: document.getElementById('order-form'),
+      govSelect: document.getElementById('gov-select'),
+      paymentOptions: document.querySelectorAll('.pay-option'),
+      
+      promoInput: document.getElementById('promo-input'),
+      promoBtn: document.getElementById('promo-btn'),
+      promoMsg: document.getElementById('promo-msg'),
+      
+      sumSubtotal: document.getElementById('sum-subtotal'),
+      sumDiscount: document.getElementById('sum-discount'),
+      sumShipping: document.getElementById('sum-shipping'),
+      sumTotal: document.getElementById('sum-total'),
+      discountRow: document.getElementById('discount-row'),
+      
+      formColor: document.getElementById('form-color'),
+      formSize: document.getElementById('form-size'),
+      formQty: document.getElementById('form-qty'),
+      formTotal: document.getElementById('form-total'),
+      
+      lightbox: document.getElementById('lightbox'),
+      lightboxImg: document.getElementById('lightbox-img'),
+      lightboxClose: document.getElementById('lightbox-close')
     };
 
     function t(key) {
-      return translations[state.lang][key] || key;
+      return dict[state.lang][key] || key;
     }
 
-    function formatPrice(value) {
-      return `${Math.round(value)} ${state.lang === 'ar' ? 'ج.م' : 'EGP'}`;
+    function localize() {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          el.placeholder = t(key);
+        } else {
+          el.textContent = t(key);
+        }
+      });
+      
+      if (state.lang === 'ar') {
+        document.documentElement.lang = 'ar';
+        document.documentElement.dir = 'rtl';
+        els.langToggle.textContent = 'English';
+      } else {
+        document.documentElement.lang = 'en';
+        document.documentElement.dir = 'ltr';
+        els.langToggle.textContent = 'العربية';
+      }
+      
+      const currentGov = els.govSelect.value;
+      els.govSelect.innerHTML = `<option value="" disabled ${!currentGov ? 'selected' : ''}>${t('form.govPlace')}</option>` + 
+        ['القاهرة','الجيزة','الإسكندرية','القليوبية','المنوفية','الشرقية','الغربية','الدقهلية','البحيرة','دمياط','بورسعيد','الإسماعيلية','السويس','كفر الشيخ','الفيوم','بني سويف','المنيا','أسيوط','سوهاج','قنا','الأقصر','أسوان','البحر الأحمر','الوادي الجديد','مطروح','شمال سيناء','جنوب سيناء'].map(g => `<option value="${g}" ${currentGov === g ? 'selected' : ''}>${g}</option>`).join('');
+
+      els.colorVal.textContent = t(state.selectedColor === 'black' ? 'color.black' : 'color.white');
+      els.sizeVal.textContent = state.selectedSizeDesc;
+      updatePricingDisplay();
     }
 
-    function svgPlaceholder(label) {
-      const safe = String(label || 'Image')
-        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-        .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-      const svg = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
-          <rect width="800" height="1000" fill="#f2f4f8"/>
-          <rect x="34" y="34" width="732" height="932" rx="36" fill="#ffffff" stroke="#dce1ea"/>
-          <text x="50%" y="47%" text-anchor="middle" font-size="42" font-family="Arial,sans-serif" fill="#111">${safe}</text>
-          <text x="50%" y="54%" text-anchor="middle" font-size="22" font-family="Arial,sans-serif" fill="#666">Image not found</text>
-        </svg>`;
-      return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
-    }
-
-    function imgPath(file) {
-      return `photos/${encodeURI(file)}`;
-    }
-
-    function setImage(imgEl, file, label) {
-      imgEl.src = imgPath(file);
-      imgEl.alt = label || '';
-      imgEl.onerror = () => {
-        imgEl.onerror = null;
-        imgEl.src = svgPlaceholder(label || file);
-      };
-    }
-
-    function openImageZoom(src, caption) {
-      if (!els.imageZoomModal || !els.imageZoomImg) return;
-      els.imageZoomImg.src = src;
-      els.imageZoomImg.alt = caption || '';
-      els.imageZoomCaption.textContent = caption || '';
-      els.imageZoomModal.classList.add('show');
-      els.imageZoomModal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeImageZoom() {
-      if (!els.imageZoomModal) return;
-      els.imageZoomModal.classList.remove('show');
-      els.imageZoomModal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-
-    function bindZoom(imgEl, caption) {
-      if (!imgEl) return;
-      imgEl.style.cursor = 'zoom-in';
-      imgEl.onclick = () => openImageZoom(imgEl.src, caption);
-    }
+    els.langToggle.addEventListener('click', () => {
+      state.lang = state.lang === 'ar' ? 'en' : 'ar';
+      localize();
+    });
 
     function applyImages(color) {
-      setImage(els.thumbMale, color.male, color.name);
-      setImage(els.thumbFemale, color.female, color.name);
-      bindZoom(els.thumbMale, `${state.selectedColor.name} - ${state.lang === 'ar' ? 'صورة المنتج للولد' : 'Male product image'}`);
-      bindZoom(els.thumbFemale, `${state.selectedColor.name} - ${state.lang === 'ar' ? 'صورة المنتج للبنت' : 'Female product image'}`);
-    }
-
-    function renderColors() {
-      els.colorOptions.innerHTML = product.colors.map((c) => {
-        const active = state.selectedColor.name === c.name ? 'active' : '';
-        return `
-          <button type="button" class="option-btn ${active}" data-color="${c.name}">
-            <span class="swatch" style="background:${c.colorHex}"></span>
-            ${state.lang === 'ar' ? c.name : c.nameEn}
-          </button>
-        `;
-      }).join('');
-      els.colorOptions.querySelectorAll('[data-color]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const name = btn.dataset.color;
-          state.selectedColor = product.colors.find(c => c.name === name) || product.colors[0];
-          applyImages(state.selectedColor);
-          renderColors();
-          updateSelectedPills();
-        });
-      });
-    }
-
-    function renderSizes() {
-      els.sizeOptions.innerHTML = product.sizes.map((s) => `
-        <button type="button" class="option-btn ${state.selectedSize === s ? 'active' : ''}" data-size="${s}">${s}</button>
-      `).join('');
-      els.sizeOptions.querySelectorAll('[data-size]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          state.selectedSize = btn.dataset.size;
-          renderSizes();
-          updateSelectedPills();
-        });
-      });
-    }
-
-    function updateSelectedPills() {
-      els.selectedColorPill.textContent = `● ${state.lang === 'ar' ? state.selectedColor.name : state.selectedColor.nameEn}`;
-      els.selectedSizePill.textContent = state.selectedSize;
-      els.qtyValue.textContent = state.qty;
-      els.currentPrice.textContent = formatPrice(state.unitPrice);
-      els.oldPrice.textContent = formatPrice(product.oldPrice);
-    }
-
-    function syncPriceWithDiscount() {
-      if (!state.discount) {
-        state.unitPrice = product.basePrice;
-      } else if (state.discount.type === 'percent') {
-        state.unitPrice = product.basePrice - (product.basePrice * state.discount.value / 100);
+      if (color === 'black') {
+        els.stageMale.src = 'photos/أسود راجل.png';
+        els.stageFemale.src = 'photos/أسود بنت.png';
+        els.thumbMale.querySelector('img').src = 'photos/أسود راجل.png';
+        els.thumbFemale.querySelector('img').src = 'photos/أسود بنت.png';
       } else {
-        state.unitPrice = Math.max(0, product.basePrice - state.discount.value);
+        els.stageMale.src = 'photos/ابيض راجل.png';
+        els.stageFemale.src = 'photos/ابيض بنت.png';
+        els.thumbMale.querySelector('img').src = 'photos/ابيض راجل.png';
+        els.thumbFemale.querySelector('img').src = 'photos/ابيض بنت.png';
       }
-      updateSelectedPills();
     }
 
-    function keyForItem(item) {
-      return [item.name, item.color, item.size, item.unitPrice].join('||');
+    els.colorOpts.forEach(opt => {
+      opt.addEventListener('click', () => {
+        els.colorOpts.forEach(x => x.classList.remove('active'));
+        opt.classList.add('active');
+        state.selectedColor = opt.getAttribute('data-color');
+        els.colorVal.textContent = t(state.selectedColor === 'black' ? 'color.black' : 'color.white');
+        applyImages(state.selectedColor);
+      });
+    });
+
+    els.sizeOpts.forEach(opt => {
+      opt.addEventListener('click', () => {
+        els.sizeOpts.forEach(x => x.classList.remove('active'));
+        opt.classList.add('active');
+        state.selectedSize = opt.getAttribute('data-size');
+        state.selectedSizeDesc = opt.getAttribute('data-desc');
+        els.sizeVal.textContent = state.selectedSizeDesc;
+      });
+    });
+
+    function switchThumb(target) {
+      document.querySelectorAll('.thumb').forEach(x => x.classList.remove('active'));
+      target.classList.add('active');
+      if (target.id === 'thumb-male') {
+        els.stageMale.classList.add('active');
+        els.stageFemale.classList.remove('active');
+      } else {
+        els.stageFemale.classList.add('active');
+        els.stageMale.classList.remove('active');
+      }
+    }
+    els.thumbMale.addEventListener('click', () => switchThumb(els.thumbMale));
+    els.thumbFemale.addEventListener('click', () => switchThumb(els.thumbFemale));
+
+    function bindZoom(triggerEl, altText) {
+      triggerEl.addEventListener('click', () => {
+        const activeImg = document.querySelector('.main-stage img.active');
+        if (activeImg) {
+          els.lightboxImg.src = activeImg.src;
+          els.lightboxImg.alt = altText;
+          els.lightbox.style.display = 'flex';
+        }
+      });
     }
 
-    function saveCart() {
-      localStorage.setItem('cart', JSON.stringify(state.cart));
+    els.mainStage.addEventListener('click', () => {
+      const activeImg = document.querySelector('.main-stage img.active');
+      if (activeImg) {
+        els.lightboxImg.src = activeImg.src;
+        els.lightbox.style.display = 'flex';
+      }
+    });
+
+    els.lightboxClose.addEventListener('click', () => els.lightbox.style.display = 'none');
+    els.lightbox.addEventListener('click', (e) => { if (e.target === els.lightbox) els.lightbox.style.display = 'none'; });
+
+    els.qtyPlus.addEventListener('click', () => { state.qty++; els.qtyNum.textContent = state.qty; calculateTotal(); });
+    els.qtyMinus.addEventListener('click', () => { if (state.qty > 1) { state.qty--; els.qtyNum.textContent = state.qty; calculateTotal(); } });
+
+    function calculateTotal() {
+      const sub = state.basePrice * state.qty;
+      if (state.appliedCode) {
+        if (state.appliedCode.type === 'percent') {
+          state.discount = Math.round(sub * (state.appliedCode.value / 100));
+        } else if (state.appliedCode.type === 'fixed') {
+          state.discount = state.appliedCode.value;
+        }
+      } else {
+        state.discount = 0;
+      }
+      updatePricingDisplay();
     }
 
-    function totalQty() {
-      return state.cart.reduce((sum, item) => sum + item.quantity, 0);
+    function updatePricingDisplay() {
+      const sub = state.basePrice * state.qty;
+      const cur = state.lang === 'ar' ? ' ج.م' : ' EGP';
+      
+      els.sumSubtotal.textContent = sub + cur;
+      els.sumShipping.textContent = state.shipping === 0 ? (state.lang === 'ar' ? 'مجاني' : 'Free') : state.shipping + cur;
+      
+      if (state.discount > 0) {
+        els.discountRow.style.display = 'flex';
+        els.sumDiscount.textContent = '-' + state.discount + cur;
+      } else {
+        els.discountRow.style.display = 'none';
+      }
+      
+      const finalTotal = Math.max(0, (sub - state.discount) + state.shipping);
+      els.sumTotal.textContent = finalTotal + cur;
+      
+      // مزامنة حقول الفورم المخفية للـ Formspree باللغة العربية دائماً كداتا ريكورد
+      els.formColor.value = state.selectedColor === 'black' ? 'أسود' : 'أبيض';
+      els.formSize.value = state.selectedSize;
+      els.formQty.value = state.qty;
+      els.formTotal.value = finalTotal + ' ج.م';
     }
 
-    function cartSubtotal() {
-      return state.cart.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0);
-    }
+    els.govSelect.addEventListener('change', () => {
+      const v = els.govSelect.value;
+      if (['القاهرة', 'الجيزة', 'الإسكندرية', 'القليوبية'].includes(v)) {
+        state.shipping = 0; // عرض خاص للشحن المجاني
+      } else {
+        state.shipping = 0; // شحن مجاني لكل المحافظات حالياً
+      }
+      calculateTotal();
+    });
 
-    function getShipping() {
-      const v = els.citySelect?.value || '';
-      const match = v.match(/-\s*(\d+)\s*(ج\.?م|EGP)/i);
-      return match ? Number(match[1]) : 0;
-    }
-
-    function money(v) {
-      return formatPrice(v);
-    }
-
-    function updateCart() {
-      saveCart();
-      els.cartCount.textContent = totalQty();
-
-      if (!state.cart.length) {
-        els.cartItems.innerHTML = `
-          <div class="empty-state">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2m0 0L7.2 14h9.5l1.8-7H5.4m0 0L4 5H2"/>
-              <path stroke-linecap="round" stroke-linejoin="round" d="M7 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm10 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>
-            </svg>
-            <div>${t('cart.empty')}</div>
-          </div>
-        `;
-        els.cartFooter.style.display = 'none';
+    els.promoBtn.addEventListener('click', () => {
+      const codeStr = els.promoInput.value.trim().toUpperCase();
+      if (!codeStr) {
+        els.promoMsg.className = 'promo-msg error';
+        els.promoMsg.textContent = t('msg.enterCode');
         return;
       }
-
-      els.cartItems.innerHTML = state.cart.map((item, idx) => {
-        // Find English color name from cart item if saved previously
-        const colorObj = product.colors.find(c => c.name === item.color || c.nameEn === item.color);
-        const displayColor = colorObj ? (state.lang === 'ar' ? colorObj.name : colorObj.nameEn) : item.color;
-        const displayName = state.lang === 'ar' ? product.nameAr : product.nameEn;
-
-        return `
-        <div class="cart-item">
-          <div class="cart-thumb">
-            <img src="${imgPath(item.image)}" alt="">
-          </div>
-          <div class="cart-meta">
-            <div class="cart-name">${escapeHtml(displayName)}</div>
-            <div class="cart-details">
-              <span class="meta-pill">● ${escapeHtml(displayColor)}</span>
-              <span class="meta-pill">${escapeHtml(item.size)}</span>
-              <span class="meta-pill">${item.quantity}×</span>
-            </div>
-            <div class="cart-row">
-              <div class="cart-price">${money(item.quantity * item.unitPrice)}</div>
-              <div class="cart-actions">
-                <button class="icon-action" type="button" data-action="dec" data-idx="${idx}">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14"/></svg>
-                </button>
-                <button class="icon-action" type="button" data-action="inc" data-idx="${idx}">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m7-7H5"/></svg>
-                </button>
-                <button class="remove-btn" type="button" data-action="remove" data-idx="${idx}">${t('cart.remove')}</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      `}).join('');
-
-      els.cartItems.querySelectorAll('[data-action]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const idx = Number(btn.dataset.idx);
-          const action = btn.dataset.action;
-          if (action === 'inc') state.cart[idx].quantity += 1;
-          if (action === 'dec') {
-            state.cart[idx].quantity -= 1;
-            if (state.cart[idx].quantity <= 0) state.cart.splice(idx, 1);
-          }
-          if (action === 'remove') state.cart.splice(idx, 1);
-          updateCart();
-          if (els.checkoutPage.classList.contains('show')) updateCheckoutSummary();
-        });
-      });
-
-      els.cartTotal.textContent = money(cartSubtotal());
-      els.cartFooter.style.display = 'block';
-    }
-
-    function updateCheckoutSummary() {
-      const subtotal = cartSubtotal();
-      const shipping = getShipping();
-      const total = subtotal + shipping;
-
-      els.summaryItems.innerHTML = state.cart.map(item => {
-        const colorObj = product.colors.find(c => c.name === item.color || c.nameEn === item.color);
-        const displayColor = colorObj ? (state.lang === 'ar' ? colorObj.name : colorObj.nameEn) : item.color;
-        const displayName = state.lang === 'ar' ? product.nameAr : product.nameEn;
-        
-        return `
-        <div class="summary-item">
-          <div class="summary-item-top">
-            <div>
-              <div class="summary-item-name">
-                <svg class="cart-mini" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
-                  <path d="M3 3h2l.4 2m0 0L7.2 14h9.5l1.8-7H5.4m0 0L4 5H2"/>
-                  <path d="M7 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm10 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>
-                </svg>
-                ${escapeHtml(displayName)}
-              </div>
-              <div class="summary-item-meta">
-                <span class="pill">${escapeHtml(displayColor)}</span>
-                <span class="pill">${escapeHtml(item.size)}</span>
-                <span class="pill">${item.quantity}×</span>
-              </div>
-            </div>
-            <div class="summary-item-price">${money(item.quantity * item.unitPrice)}</div>
-          </div>
-        </div>
-      `}).join('');
-
-      els.summarySubtotal.textContent = money(subtotal);
-      els.summaryShipping.textContent = money(shipping);
-      els.summaryTotal.textContent = money(total);
-      els.summaryItemsCount.textContent = `${state.cart.length} ${t('summary.items')}`;
-    }
-
-    function showToast(message) {
-      els.toast.textContent = message;
-      els.toast.classList.add('show');
-      setTimeout(() => els.toast.classList.remove('show'), 2200);
-    }
-
-    function openCart() {
-      els.cartOverlay.classList.add('show');
-      els.cartDrawer.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeCart() {
-      els.cartOverlay.classList.remove('show');
-      els.cartDrawer.classList.remove('show');
-      document.body.style.overflow = '';
-    }
+      const found = discountCodes.find(x => x.code === codeStr);
+      if (found) {
+        state.appliedCode = found;
+        els.promoMsg.className = 'promo-msg success';
+        els.promoMsg.textContent = t('msg.valid');
+        calculateTotal();
+      } else {
+        state.appliedCode = null;
+        els.promoMsg.className = 'promo-msg error';
+        els.promoMsg.textContent = t('msg.invalid');
+        calculateTotal();
+      }
+    });
 
     function showProductPage() {
       els.checkoutPage.classList.remove('show');
       els.successPage.classList.remove('show');
       els.productPage.style.display = 'grid';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo(0,0);
     }
 
-    function showCheckoutPage() {
+    els.buyBtn.addEventListener('click', () => {
       els.productPage.style.display = 'none';
       els.checkoutPage.classList.add('show');
-      els.successPage.classList.remove('show');
-      updateCheckoutSummary();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
-
-    function applyLanguage() {
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        el.textContent = t(el.dataset.i18n);
-      });
-
-      els.langBtn.textContent = state.lang === 'ar' ? 'EN' : 'عربي';
-      document.documentElement.lang = state.lang;
-      document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
-
-      els.pageTitle.textContent = t('page.title');
-      els.productTitle.textContent = state.lang === 'ar' ? product.nameAr : product.nameEn;
-      
-      // Update Inputs Placeholders
-      els.inputName.placeholder = t('placeholder.name');
-      els.inputPhone.placeholder = t('placeholder.phone');
-      els.inputAddress.placeholder = t('placeholder.address');
-      els.discountInput.placeholder = t('placeholder.discount');
-      
-      // Update Cities Select Dropdown
-      const currentValIndex = els.citySelect.selectedIndex;
-      els.citySelect.innerHTML = `<option value="">${t('select.city')}</option>` + 
-        governorates.map(g => {
-          const val = state.lang === 'ar' ? g.ar : g.en;
-          return `<option value="${val}">${val}</option>`;
-        }).join('');
-      if(currentValIndex > 0) els.citySelect.selectedIndex = currentValIndex;
-
-      renderColors();
-      renderSizes();
-      updateSelectedPills();
-      updateCart();
-      if (els.checkoutPage.classList.contains('show')) updateCheckoutSummary();
-    }
-
-    function addToCart() {
-      const item = {
-        name: product.nameAr, // Always store internal logic variables
-        color: state.selectedColor.name, 
-        size: state.selectedSize,
-        quantity: state.qty,
-        unitPrice: state.unitPrice,
-        image: state.selectedColor.male,
-        id: Date.now() + Math.floor(Math.random() * 1000)
-      };
-
-      const key = keyForItem(item);
-      const existingIndex = state.cart.findIndex(it => keyForItem(it) === key);
-
-      if (existingIndex >= 0) {
-        state.cart[existingIndex].quantity += item.quantity;
-      } else {
-        state.cart.push(item);
-      }
-
-      updateCart();
-      showToast(t('msg.added'));
-    }
-
-    // Events
-    els.langBtn.addEventListener('click', () => {
-      state.lang = state.lang === 'ar' ? 'en' : 'ar';
-      applyLanguage();
+      calculateTotal();
+      window.scrollTo(0,0);
     });
-
-    els.cartBtn.addEventListener('click', openCart);
-    els.scrollToCart.addEventListener('click', openCart);
-    els.cartClose.addEventListener('click', closeCart);
-    els.cartOverlay.addEventListener('click', closeCart);
-
-    els.imageZoomClose?.addEventListener('click', closeImageZoom);
-    els.imageZoomModal?.addEventListener('click', (e) => {
-      if (e.target === els.imageZoomModal) closeImageZoom();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeCart();
-        closeImageZoom();
-      }
-    });
-
-    els.addCartBtn.addEventListener('click', () => {
-      addToCart();
-    });
-
-    els.goCheckout.addEventListener('click', () => {
-      if (!state.cart.length) {
-        showToast(t('msg.cart_empty'));
-        return;
-      }
-      closeCart();
-      showCheckoutPage();
-    });
-
-    els.qtyMinus.addEventListener('click', () => {
-      state.qty = Math.max(1, state.qty - 1);
-      updateSelectedPills();
-    });
-    els.qtyPlus.addEventListener('click', () => {
-      state.qty += 1;
-      updateSelectedPills();
-    });
-
-    els.applyBtn.addEventListener('click', () => {
-      const code = els.discountInput.value.trim().toUpperCase();
-      const valid = discountCodes.find(c => c.code === code);
-
-      if (!valid) {
-        state.discount = null;
-        state.unitPrice = product.basePrice;
-        els.discountMsg.textContent = t('msg.invalid_code');
-        els.discountMsg.className = 'msg error';
-        updateSelectedPills();
-        return;
-      }
-
-      state.discount = valid;
-      syncPriceWithDiscount();
-      els.discountMsg.className = 'msg success';
-      els.discountMsg.textContent = `${t('msg.discount_success')} ${valid.value}${valid.type === 'percent' ? '%' : (state.lang === 'ar' ? ' ج.م' : ' EGP')}`;
-      showToast(t('msg.discount_applied'));
-    });
-
-    els.paymentOptions.forEach(opt => {
-      opt.addEventListener('click', () => {
-        els.paymentOptions.forEach(x => x.classList.remove('active'));
-        opt.classList.add('active');
-        opt.querySelector('input').checked = true;
-        const isExtra = opt.dataset.payment !== 'cod';
-        els.proofBox.classList.toggle('show', isExtra);
-      });
-    });
-
-    els.paymentFile.addEventListener('change', function() {
-      if (this.files && this.files[0]) {
-        els.fileName.textContent = this.files[0].name;
-      }
-    });
-
-    document.getElementById('upload-box').addEventListener('click', (e) => {
-      if (e.target.tagName.toLowerCase() !== 'input') {
-        els.paymentFile.click();
-      }
-    });
-
-    els.citySelect?.addEventListener('change', updateCheckoutSummary);
 
     els.orderForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-
-      if (!state.cart.length) {
-        showToast(t('msg.cart_empty'));
-        return;
-      }
-
-      const submitBtn = els.submitOrderBtn;
+      const submitBtn = document.getElementById('submit-btn');
       submitBtn.disabled = true;
-      submitBtn.innerHTML = t('submit.sending');
+      submitBtn.textContent = t('msg.sending');
 
       const formData = new FormData(els.orderForm);
-      const productsText = state.cart.map(item =>
-        `${item.name} | ${item.color} | ${item.size} | ${item.quantity} x ${item.unitPrice} = ${item.quantity * item.unitPrice}`
-      ).join(' || ');
-      
-      const currency = state.lang === 'ar' ? 'ج.م' : 'EGP';
-      formData.append('الطلبات', productsText);
-      formData.append('الإجمالي الفرعي', `${cartSubtotal()} ${currency}`);
-      formData.append('سعر الشحن', `${getShipping()} ${currency}`);
-      formData.append('الإجمالي النهائي', `${cartSubtotal() + getShipping()} ${currency}`);
 
       try {
-        await fetch(els.orderForm.action, {
+        const response = await fetch(els.orderForm.action, {
           method: 'POST',
           body: formData,
           headers: { 'Accept': 'application/json' }
         });
 
-        document.getElementById('order-num').textContent = '#' + Math.floor(1000 + Math.random() * 9000);
+        if (response.ok) {
+          // جينيريت عشوائي لرقم الطلب
+          document.getElementById('order-num').textContent = '#' + Math.floor(1000 + Math.random() * 9000);
 
-        els.checkoutPage.classList.remove('show');
-        els.productPage.style.display = 'grid';
-        els.successPage.classList.add('show');
-        els.productPage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          els.checkoutPage.classList.remove('show');
+          els.productPage.style.display = 'grid';
+          els.successPage.classList.add('show');
+          els.productPage.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-        state.cart = [];
-        saveCart();
-        updateCart();
-        els.orderForm.reset();
-        els.fileName.textContent = 'PNG / JPG / HEIC';
-        els.proofBox.classList.remove('show');
-        els.paymentOptions.forEach(x => x.classList.remove('active'));
-        const cod = document.querySelector('.pay-option[data-payment="cod"]');
-        cod.classList.add('active');
-        cod.querySelector('input').checked = true;
+          // تصفير البيانات بعد النجاح
+          state.qty = 1;
+          state.appliedCode = null;
+          state.discount = 0;
+          els.qtyNum.textContent = '1';
+          els.promoInput.value = '';
+          els.promoMsg.style.display = 'none';
+          els.orderForm.reset();
+        } else {
+          alert(t('msg.error'));
+        }
       } catch (err) {
         alert(t('msg.error'));
       } finally {
@@ -1486,12 +732,9 @@
 
     // init
     applyImages(state.selectedColor);
-    bindZoom(els.thumbMale, state.lang === 'ar' ? 'صورة المنتج للولد' : 'Male product image');
-    bindZoom(els.thumbFemale, state.lang === 'ar' ? 'صورة المنتج للبنت' : 'Female product image');
-    
-    // Default load execution
-    applyLanguage();
-    syncPriceWithDiscount();
+    bindZoom(els.thumbMale, 'صورة المنتج للولد');
+    bindZoom(els.thumbFemale, 'صورة المنتج للبنت');
+    localize();
   </script>
 </body>
 </html>
