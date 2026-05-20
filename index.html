@@ -95,7 +95,7 @@
             margin-top: 60px;
             width: 100%;
             height: 250px;
-            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+            background: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -772,7 +772,7 @@
 </head>
 <body>
     <header>
-        <div class="logo">HEXA</div>
+        <div class="logo"><a href="#" id="home-logo" style="text-decoration:none;color:inherit;">HEXA</a></div>
         <div class="header-btns">
             <button class="lang-btn" id="lang-btn">EN</button>
             <button class="cart-btn" id="cart-btn">
@@ -785,7 +785,7 @@
     </header>
 
     <section class="hero">
-        <div class="logo">HEXA</div>
+        <div class="logo"><a href="#" id="hero-home-logo" style="text-decoration:none;color:inherit;">HEXA</a></div>
     </section>
 
     <section class="product-page" id="product-page">
@@ -953,7 +953,7 @@
                 <span class="label" data-i18n="summary.total">الإجمالي</span>
                 <span class="value" id="summary-total">0 ج.م</span>
             </div>
-            <button type="submit" form="order-form" class="submit-btn" data-i18n="submit.btn">تأكيد الطلب</button>
+            <button id="submit-order-btn" type="submit" form="order-form" class="submit-btn" data-i18n="submit.btn">تأكيد الطلب</button>
         </div>
     </section>
 
@@ -1277,67 +1277,60 @@
             }
         });
 
-        orderForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+        
+orderForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-            const submitBtn = orderForm.querySelector('.submit-btn');
-            const originalBtnText = submitBtn.textContent;
+    const submitBtn = document.getElementById('submit-order-btn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'جاري إرسال الطلب...';
 
-            if (!cart.length) {
-                showToast(currentLang === 'ar' ? 'السلة فارغة' : 'Cart is empty');
-                return;
-            }
+    const formData = new FormData(orderForm);
 
-            submitBtn.disabled = true;
-            submitBtn.textContent = currentLang === 'ar' ? 'جاري الإرسال...' : 'Sending...';
+    const productsText = cart.map(item =>
+        `${item.name} - ${item.price} ج.م`
+    ).join(' | ');
 
-            const formData = new FormData(orderForm);
+    formData.append('الطلبات', productsText);
 
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            const productsText = cart.map(item => `${item.name} - ${item.price} ${currentLang === 'ar' ? 'ج.م' : 'EGP'}`).join(' | ');
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    formData.append('الإجمالي', total + ' ج.م');
 
-            formData.append('الطلبات', productsText);
-            formData.append('الإجمالي', `${total} ${currentLang === 'ar' ? 'ج.م' : 'EGP'}`);
-            formData.append('عدد_المنتجات', String(cart.length));
-            formData.append('كود_الخصم', appliedDiscount ? appliedDiscount.code : 'لا يوجد');
-            formData.append('السلة_الكاملة', JSON.stringify(cart, null, 2));
+    try {
 
-            try {
-                const response = await fetch(orderForm.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: { Accept: 'application/json' }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Form submission failed');
-                }
-
-                document.getElementById('order-num').textContent = '#' + Math.floor(1000 + Math.random() * 9000);
-                checkoutPage.style.display = 'none';
-            checkoutPage.classList.remove('show');
-                successPage.style.display = 'flex';
-            successPage.classList.add('show');
-
-                cart = [];
-                updateCart();
-                orderForm.reset();
-                finalPrice = product.price;
-                appliedDiscount = null;
-                discountInput.value = '';
-                discountMsg.textContent = '';
-                resetPaymentUI();
-
-            } catch (error) {
-                alert(currentLang === 'ar'
-                    ? 'حصل خطأ أثناء إرسال الطلب. تأكد من Formspree ومرة تانية جرّب.'
-                    : 'There was an error sending the order. Please try again.');
-                console.error(error);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalBtnText;
+        const response = await fetch(orderForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
             }
         });
+
+        document.getElementById('order-num').textContent =
+            '#' + Math.floor(1000 + Math.random() * 9000);
+
+        checkoutPage.style.display = 'none';
+        checkoutPage.classList.remove('show');
+
+        successPage.style.display = 'flex';
+        successPage.classList.add('show');
+
+        cart = [];
+        updateCart();
+        orderForm.reset();
+
+    } catch (error) {
+
+        alert('حصل خطأ أثناء إرسال الطلب');
+
+    } finally {
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'تأكيد الطلب';
+
+    }
+});
+
 
         document.getElementById('back-btn').addEventListener('click', () => {
             successPage.classList.remove('show');
@@ -1347,6 +1340,28 @@
             discountMsg.textContent = '';
             showProduct();
         });
+
+        
+        document.getElementById('home-logo').addEventListener('click', (e) => {
+            e.preventDefault();
+            successPage.classList.remove('show');
+            checkoutPage.classList.remove('show');
+            checkoutPage.style.display = 'none';
+            successPage.style.display = 'none';
+            productPage.style.display = 'block';
+            window.scrollTo({top:0, behavior:'smooth'});
+        });
+
+        document.getElementById('hero-home-logo').addEventListener('click', (e) => {
+            e.preventDefault();
+            successPage.classList.remove('show');
+            checkoutPage.classList.remove('show');
+            checkoutPage.style.display = 'none';
+            successPage.style.display = 'none';
+            productPage.style.display = 'block';
+            window.scrollTo({top:0, behavior:'smooth'});
+        });
+
 
         // Init
         applyLang();
