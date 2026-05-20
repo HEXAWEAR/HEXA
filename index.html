@@ -94,86 +94,6 @@
         .logo a { color: inherit; text-decoration: none; }
         .product-image img, .gender-img img, .cart-item img { object-fit: cover; }
 
-
-        .zoomable-image {
-            cursor: zoom-in;
-            transition: transform .2s ease, filter .2s ease;
-            will-change: transform;
-        }
-
-        .zoomable-image:hover {
-            transform: scale(1.015);
-            filter: brightness(0.98);
-        }
-
-        .image-modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.82);
-            z-index: 7000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity .25s ease, visibility .25s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 18px;
-            backdrop-filter: blur(8px);
-        }
-
-        .image-modal.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .image-modal-panel {
-            width: min(92vw, 980px);
-            max-height: 88vh;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .image-modal-img {
-            max-width: 100%;
-            max-height: 82vh;
-            width: auto;
-            height: auto;
-            border-radius: 24px;
-            box-shadow: 0 24px 80px rgba(0,0,0,0.45);
-            object-fit: contain;
-            background: #fff;
-        }
-
-        .image-modal-close {
-            position: absolute;
-            top: -14px;
-            inset-inline-end: -14px;
-            width: 46px;
-            height: 46px;
-            border: none;
-            border-radius: 50%;
-            background: #fff;
-            color: #000;
-            font-size: 30px;
-            line-height: 1;
-            cursor: pointer;
-            box-shadow: 0 14px 35px rgba(0,0,0,0.35);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .image-modal-caption {
-            margin-top: 12px;
-            color: #fff;
-            font-size: 14px;
-            text-align: center;
-            opacity: 0.9;
-        }
-
         /* Hero */
         .hero {
             margin-top: 60px;
@@ -1052,16 +972,6 @@
         <button class="back-btn" id="back-btn" data-i18n="success.back">العودة للمتجر</button>
     </section>
 
-
-    <div class="image-modal" id="image-modal" aria-hidden="true">
-        <div class="image-modal-panel" role="dialog" aria-modal="true" aria-label="Image preview">
-            <button type="button" class="image-modal-close" id="image-modal-close" aria-label="Close preview">×</button>
-            <img class="image-modal-img" id="image-modal-img" alt="">
-            <div class="image-modal-caption" id="image-modal-caption"></div>
-        </div>
-    </div>
-
-
     <div class="toast" id="toast"></div>
 
     <footer>
@@ -1162,10 +1072,6 @@
         const paymentOptions = document.querySelectorAll('.payment-option');
         const vodafoneBox = document.getElementById('vodafone-box');
         const orderForm = document.getElementById('order-form');
-        const imageModal = document.getElementById('image-modal');
-        const imageModalImg = document.getElementById('image-modal-img');
-        const imageModalCaption = document.getElementById('image-modal-caption');
-        const imageModalClose = document.getElementById('image-modal-close');
 
         // Functions
         function t(key) {
@@ -1206,60 +1112,6 @@
                 imgEl.src = fallbackSvg(label || fileName);
             };
         }
-
-
-        function escapeHtml(str) {
-            return String(str)
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#39;');
-        }
-
-        function fallbackSvg(label) {
-            const safe = escapeHtml(label || 'Image');
-            const svg = `
-                <svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200">
-                    <rect width="900" height="1200" fill="#f3f3f3"/>
-                    <rect x="40" y="40" width="820" height="1120" rx="36" fill="#ffffff" stroke="#e2e2e2"/>
-                    <text x="450" y="560" text-anchor="middle" font-size="42" font-family="Arial, sans-serif" fill="#111111">${safe}</text>
-                    <text x="450" y="620" text-anchor="middle" font-size="22" font-family="Arial, sans-serif" fill="#777777">Image not found</text>
-                </svg>`;
-            return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
-        }
-
-        function imageSrc(fileName) {
-            return 'photos/' + encodeURI(fileName);
-        }
-
-        function applyImageWithFallback(imgEl, fileName, label) {
-            imgEl.src = imageSrc(fileName);
-            imgEl.alt = label || '';
-            imgEl.onerror = () => {
-                imgEl.onerror = null;
-                imgEl.src = fallbackSvg(label || fileName);
-            };
-        }
-
-        function openImageModal(src, caption = '') {
-            imageModalImg.src = src;
-            imageModalImg.alt = caption;
-            imageModalCaption.textContent = caption;
-            imageModal.classList.add('show');
-            imageModal.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeImageModal() {
-            imageModal.classList.remove('show');
-            imageModal.setAttribute('aria-hidden', 'true');
-            imageModalImg.src = '';
-            imageModalImg.alt = '';
-            imageModalCaption.textContent = '';
-            document.body.style.overflow = '';
-        }
-
 
         function applyLang() {
             document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -1305,15 +1157,13 @@
         function updateImages() {
             if (!selectedColor) return;
             genderImages.innerHTML = `
-                <div class="gender-img"><img id="male-img" class="zoomable-image" alt=""></div>
-                <div class="gender-img"><img id="female-img" class="zoomable-image" alt=""></div>
+                <div class="gender-img"><img id="male-img" alt=""></div>
+                <div class="gender-img"><img id="female-img" alt=""></div>
             `;
             const maleImg = document.getElementById('male-img');
             const femaleImg = document.getElementById('female-img');
             applyImageWithFallback(maleImg, selectedColor.male, `${selectedColor.name} male`);
             applyImageWithFallback(femaleImg, selectedColor.female, `${selectedColor.name} female`);
-            maleImg.addEventListener('click', () => openImageModal(maleImg.src, maleImg.alt));
-            femaleImg.addEventListener('click', () => openImageModal(femaleImg.src, femaleImg.alt));
         }
 
         function updateCart() {
@@ -1548,21 +1398,6 @@ orderForm.addEventListener('submit', async (e) => {
         });
 
         
-
-        imageModal.addEventListener('click', (e) => {
-            if (e.target === imageModal || e.target === imageModalClose) {
-                closeImageModal();
-            }
-        });
-
-        imageModalClose.addEventListener('click', closeImageModal);
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && imageModal.classList.contains('show')) {
-                closeImageModal();
-            }
-        });
-
         // Init
         applyLang();
         updateCart();
