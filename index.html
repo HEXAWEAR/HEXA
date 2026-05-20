@@ -860,7 +860,7 @@
     <section class="checkout-page" id="checkout-page">
         <h1 class="page-title" data-i18n="checkout.title">إتمام الطلب</h1>
         
-        <form class="form-section" id="order-form" action="https://formspree.io/f/mpqnqoqj" method="POST">
+        <form class="form-section" id="order-form" action="https://formspree.io/f/mpqnqoqj" method="POST" enctype="multipart/form-data">
             <h3 class="form-title" data-i18n="checkout.info">المعلومات الشخصية</h3>
             
             <div class="form-group">
@@ -959,57 +959,16 @@
             nameEn: 'Oversized Basic Pullover',
             price: 700,
             colors: [
-
-    {
-        name: 'أبيض',
-        nameEn: 'White',
-        male: 'white-male.png',
-        female: 'white-female.png'
-    },
-
-    {
-        name: 'أسود',
-        nameEn: 'Black',
-        male: 'black-male.png',
-        female: 'black-female.png'
-    },
-
-    {
-        name: 'رمادي',
-        nameEn: 'Grey',
-        male: 'grey-male.png',
-        female: 'grey-female.png'
-    },
-
-    {
-        name: 'بينك',
-        nameEn: 'Pink',
-        male: 'pink-male.png',
-        female: 'pink-female.png'
-    },
-
-    {
-        name: 'بيج',
-        nameEn: 'Beige',
-        male: 'beige-male.png',
-        female: 'beige-female.png'
-    },
-
-    {
-        name: 'زيتي',
-        nameEn: 'Olive',
-        male: 'olive-male.png',
-        female: 'olive-female.png'
-    },
-
-    {
-        name: 'برجاندي',
-        nameEn: 'Burgundy',
-        male: 'burgundy-male.png',
-        female: 'burgundy-female.png'
-    }
-
-]
+                { name: 'أبيض', nameEn: 'White', male: 'white-male.png', female: 'white-female.png' },
+                { name: 'أسود', nameEn: 'Black', male: 'black-male.png', female: 'black-female.png' },
+                { name: 'رمادي', nameEn: 'Grey', male: 'grey-male.png', female: 'grey-female.png' },
+                { name: 'بينك', nameEn: 'Pink', male: 'pink-male.png', female: 'pink-female.png' },
+                { name: 'بيج', nameEn: 'Beige', male: 'beige-male.png', female: 'beige-female.png' },
+                { name: 'زيتي', nameEn: 'Olive', male: 'olive-male.png', female: 'olive-female.png' },
+                { name: 'برجاندي', nameEn: 'Burgundy', male: 'burgundy-male.png', female: 'burgundy-female.png' }
+            ],
+            sizes: ['S', 'M', 'L', 'XL']
+        };
 
         const translations = {
             ar: {
@@ -1194,6 +1153,20 @@
             setTimeout(() => toast.classList.remove('show'), 2500);
         }
 
+        function resetPaymentUI() {
+            paymentOptions.forEach(o => o.classList.remove('active'));
+            const codOption = document.querySelector('.payment-option[data-payment="cod"]');
+            if (codOption) {
+                codOption.classList.add('active');
+                codOption.querySelector('input').checked = true;
+            }
+            vodafoneBox.classList.remove('show');
+            const fileInput = document.getElementById('payment-file');
+            if (fileInput) fileInput.value = '';
+            const fileLabel = document.querySelector('#file-upload-box p');
+            if (fileLabel) fileLabel.textContent = t('upload.hint');
+        }
+
         function showCheckout() {
             productPage.style.display = 'none';
             checkoutPage.classList.add('show');
@@ -1277,14 +1250,64 @@
             }
         });
 
-        orderForm.addEventListener('submit', e => {
+        orderForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            document.getElementById('order-num').textContent = '#' + Math.floor(1000 + Math.random() * 9000);
-            checkoutPage.classList.remove('show');
-            successPage.classList.add('show');
-            cart = [];
-            updateCart();
-            orderForm.reset();
+
+            const submitBtn = orderForm.querySelector('.submit-btn');
+            const originalBtnText = submitBtn.textContent;
+
+            if (!cart.length) {
+                showToast(currentLang === 'ar' ? 'السلة فارغة' : 'Cart is empty');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = currentLang === 'ar' ? 'جاري الإرسال...' : 'Sending...';
+
+            const formData = new FormData(orderForm);
+
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            const productsText = cart.map(item => `${item.name} - ${item.price} ${currentLang === 'ar' ? 'ج.م' : 'EGP'}`).join(' | ');
+
+            formData.append('الطلبات', productsText);
+            formData.append('الإجمالي', `${total} ${currentLang === 'ar' ? 'ج.م' : 'EGP'}`);
+            formData.append('عدد_المنتجات', String(cart.length));
+            formData.append('كود_الخصم', appliedDiscount ? appliedDiscount.code : 'لا يوجد');
+            formData.append('السلة_الكاملة', JSON.stringify(cart, null, 2));
+
+            try {
+                const response = await fetch(orderForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { Accept: 'application/json' }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Form submission failed');
+                }
+
+                document.getElementById('order-num').textContent = '#' + Math.floor(1000 + Math.random() * 9000);
+                checkoutPage.classList.remove('show');
+                successPage.classList.add('show');
+
+                cart = [];
+                updateCart();
+                orderForm.reset();
+                finalPrice = product.price;
+                appliedDiscount = null;
+                discountInput.value = '';
+                discountMsg.textContent = '';
+                resetPaymentUI();
+
+            } catch (error) {
+                alert(currentLang === 'ar'
+                    ? 'حصل خطأ أثناء إرسال الطلب. تأكد من Formspree ومرة تانية جرّب.'
+                    : 'There was an error sending the order. Please try again.');
+                console.error(error);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
+            }
         });
 
         document.getElementById('back-btn').addEventListener('click', () => {
