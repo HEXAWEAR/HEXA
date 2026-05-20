@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#111111" />
+  <title>HEXA | أوفرسايز بيزيك بوليفار</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#111111;
+      --muted:#6b7280;
+      --line:#e9ecf3;
+      --primary:#111111;
+      --primary-2:#2a2a2a;
+      --accent:#d81f26;
+      --success:#11a36a;
+      --shadow: 0 18px 50px rgba(17,17,17,.08);
+      --radius: 22px;
+      --radius-sm: 14px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:'Cairo',sans-serif;-webkit-tap-highlight-color:transparent;}
+    body{background:var(--bg);color:var(--text);direction:rtl;text-align:right;overflow-x:hidden;line-height:1.6;}
+    .container{max-width:1200px;margin:0 auto;padding:20px;}
+    header{display:flex;justify-content:space-between;align-items:center;padding:15px 0;margin-bottom:20px;border-bottom:1px solid var(--line);}
+    .logo{font-size:26px;font-weight:800;letter-spacing:1px;cursor:pointer;color:var(--primary);}
+    .lang-btn{background:var(--card);border:1px solid var(--line);padding:8px 16px;border-radius:30px;cursor:pointer;font-weight:600;font-size:14px;transition:0.2s;}
+    .lang-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+
+    .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:10px;}
+    .gallery-side{position:sticky;top:20px;align-self:start;}
+    .gallery-two-up{display:grid;grid-template-columns:1fr 1fr;gap:15px;}
+    .gallery-two-up img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);cursor:zoom-in;}
+
+    .details-side{background:var(--card);padding:40px;border-radius:var(--radius);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:22px;}
+    .tag-brand{align-self:start;background:var(--bg);font-size:12px;font-weight:700;padding:6px 14px;border-radius:30px;text-transform:uppercase;}
+    h1{font-size:32px;font-weight:800;color:var(--primary);line-height:1.2;}
+    .price-box{display:flex;align-items:center;gap:15px;flex-wrap:wrap;}
+    .current-price{font-size:36px;font-weight:800;color:var(--accent);}
+    .old-price{font-size:20px;color:var(--muted);text-decoration:line-through;}
+    .discount-badge{background:var(--accent);color:#fff;padding:4px 12px;border-radius:30px;font-size:14px;font-weight:700;}
+
+    .section-card{border:1px solid var(--line);border-radius:18px;padding:18px;background:#fff;}
+    .section-title{font-size:15px;font-weight:800;color:var(--text);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+    .section-title span.val-selected{font-weight:600;color:var(--muted);font-size:14px;}
+
+    .color-picker{display:flex;gap:12px;flex-wrap:wrap;}
+    .color-opt{width:45px;height:45px;border-radius:50%;cursor:pointer;position:relative;border:1px solid rgba(0,0,0,0.1);transition:0.2s;display:flex;align-items:center;justify-content:center;}
+    .color-opt:after{content:'';width:53px;height:53px;border-radius:50%;border:2px solid transparent;position:absolute;transition:0.2s;}
+    .color-opt.active:after{border-color:var(--primary);}
+
+    .size-picker{display:flex;gap:10px;flex-wrap:wrap;}
+    .size-opt{background:var(--bg);padding:12px 24px;border-radius:var(--radius-sm);cursor:pointer;font-weight:700;font-size:15px;transition:0.2s;border:2px solid transparent;flex:1;text-align:center;min-width:70px;}
+    .size-opt:hover{background:var(--line);}
+    .size-opt.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+
+    .qty-box{display:flex;align-items:center;background:var(--bg);border-radius:var(--radius-sm);padding:6px;width:150px;justify-content:space-between;}
+    .qty-btn{width:40px;height:40px;border-radius:var(--radius-sm);background:var(--card);border:none;font-size:20px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:0.2s;box-shadow:0 2px 6px rgba(0,0,0,0.05);}
+    .qty-btn:hover{background:var(--primary);color:#fff;}
+    .qty-val{font-size:18px;font-weight:700;width:40px;text-align:center;}
+
+    .action-btn{background:var(--primary);color:#fff;border:none;padding:18px;border-radius:var(--radius-sm);font-size:18px;font-weight:700;cursor:pointer;transition:0.3s;display:flex;align-items:center;justify-content:center;gap:15px;box-shadow:0 10px 25px rgba(17,17,17,0.15);width:100%;}
+    .action-btn:hover{background:var(--primary-2);transform:translateY(-2px);}
+    .action-btn:active{transform:translateY(0);}
+
+    .desc-text{color:var(--muted);font-size:15px;line-height:1.7;border-top:1px solid var(--line);padding-top:20px;margin-top:5px;}
+    .desc-text ul{padding-right:20px;margin-top:10px;display:flex;flex-direction:column;gap:6px;}
+
+    .size-chart-tab{margin-top:12px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg);}
+    .size-chart-btn{width:100%;padding:14px 16px;background:none;border:none;display:flex;align-items:center;justify-content:space-between;font-size:15px;font-weight:800;cursor:pointer;color:var(--text);}
+    .size-chart-content{display:none;padding:0 14px 14px;}
+    .size-chart-content.show{display:block;}
+    .size-chart-content img{width:100%;display:block;border-radius:12px;border:1px solid var(--line);cursor:zoom-in;background:#fff;}
+    .size-chart-note{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.6;}
+
+    .layer-page{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg);z-index:1000;overflow-y:auto;display:none;padding:20px 0;}
+    .layer-page.show{display:block;}
+    .layer-container{max-width:600px;margin:0 auto;padding:0 20px;}
+
+    .checkout-card{background:var(--card);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow);margin-bottom:25px;}
+    .checkout-title{font-size:22px;font-weight:800;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;}
+
+    .form-group{margin-bottom:20px;position:relative;}
+    .form-group label{display:block;font-size:14px;font-weight:700;margin-bottom:8px;color:var(--text);}
+    .form-group input, .form-group select{width:100%;padding:14px 16px;border-radius:var(--radius-sm);border:1px solid var(--line);background:var(--bg);font-size:15px;font-weight:600;transition:0.2s;outline:none;}
+    .form-group input:focus, .form-group select:focus{border-color:var(--primary);background:var(--card);box-shadow:0 0 0 4px rgba(17,17,17,0.05);}
+
+    .pay-options{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:20px;}
+    .pay-option{background:var(--bg);border:2px solid transparent;padding:16px;border-radius:var(--radius-sm);cursor:pointer;transition:0.2s;display:flex;align-items:center;gap:12px;}
+    .pay-option.active{border-color:var(--primary);background:var(--card);box-shadow:0 4px 15px rgba(0,0,0,0.02);}
+    .pay-option input{display:none;}
+    .pay-circle{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);position:relative;display:flex;align-items:center;justify-content:center;background:#fff;}
+    .pay-option.active .pay-circle{border-color:var(--primary);}
+    .pay-option.active .pay-circle:after{content:'';width:10px;height:10px;background:var(--primary);border-radius:50%;}
+    .pay-text{font-weight:700;font-size:15px;}
+
+    .promo-box{display:flex;gap:10px;margin-bottom:20px;}
+    .promo-box input{flex:1;margin-bottom:0;}
+    .promo-btn{background:var(--primary);color:#fff;border:none;padding:0 22px;border-radius:var(--radius-sm);font-weight:700;cursor:pointer;transition:0.2s;}
+    .promo-btn:hover{background:var(--primary-2);}
+    .promo-msg{font-size:13px;font-weight:700;margin-top:6px;display:none;}
+    .promo-msg.success{color:var(--success);display:block;}
+    .promo-msg.error{color:var(--accent);display:block;}
+
+    .summary-row{display:flex;justify-content:space-between;margin-bottom:12px;font-size:15px;font-weight:600;color:var(--muted);}
+    .summary-row.total{border-top:1px solid var(--line);padding-top:15px;margin-top:15px;font-size:20px;font-weight:800;color:var(--text);}
+    .summary-row.discount-line{color:var(--success);display:none;}
+
+    .success-box{background:var(--card);border-radius:var(--radius);padding:50px 30px;box-shadow:var(--shadow);text-align:center;margin-top:40px;}
+    .success-icon{width:80px;height:80px;background:rgba(17,163,106,0.1);color:var(--success);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 25px;}
+    .success-box h2{font-size:28px;font-weight:800;margin-bottom:15px;}
+    .success-box p{color:var(--muted);font-size:16px;margin-bottom:30px;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.8;}
+    .order-tag{background:var(--bg);padding:10px 20px;border-radius:30px;font-weight:800;font-size:16px;display:inline-block;margin-bottom:30px;color:var(--primary);}
+
+    .lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(17,17,17,0.95);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px);}
+    .lightbox img{max-width:100%;max-height:100%;object-fit:contain;border-radius:10px;box-shadow:0 10px 40px rgba(0,0,0,0.5);}
+    .lightbox-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#fff;font-size:35px;cursor:pointer;width:50px;height:50px;display:flex;align-items:center;justify-content:center;}
+
+    @media(max-width:900px){
+      .product-grid{grid-template-columns:1fr;gap:25px;}
+      .gallery-side{position:relative;top:0;}
+      .gallery-two-up{gap:8px;}
+      .details-side{padding:25px;}
+      h1{font-size:26px;}
+      .current-price{font-size:30px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo" id="home-logo">HEXA</div>
+      <button class="lang-btn" id="lang-toggle">English</button>
+    </header>
+
+    <div class="product-grid" id="product-page">
+      <div class="gallery-side">
+        <div class="gallery-two-up">
+          <img id="stage-male" src="https://raw.githubusercontent.com/HEXAWEAR/HEXA/main/photos/black-male.png" alt="صورة المنتج للولد">
+          <img id="stage-female" src="https://raw.githubusercontent.com/HEXAWEAR/HEXA/main/photos/black-female.png" alt="صورة المنتج للبنت">
+        </div>
+      </div>
+
+      <div class="details-side">
+        <div>
+          <span class="tag-brand" data-i18n="brand.tag">STREETWEAR</span>
+          <h1 style="margin-top:10px;" data-i18n="product.title">أوفرسايز بيزيك بوليفار</h1>
+        </div>
+
+        <div class="price-box">
+          <span class="current-price" id="price-main">600 ج.م</span>
+          <span class="old-price" id="price-old">700 ج.م</span>
+          <span class="discount-badge" id="discount-amount-badge">وفر 100 ج.م</span>
+        </div>
+
+        <div class="section-card">
+          <div class="section-title">
+            <span data-i18n="color.title">اللون:</span>
+            <span class="val-selected" id="color-val" data-i18n="color.black">أسود</span>
+          </div>
+          <div class="color-picker">
+            <div class="color-opt active" data-color="black" style="background:#111111;"></div>
+            <div class="color-opt" data-color="white" style="background:#ffffff;border:1px solid #ccc;"></div>
+            <div class="color-opt" data-color="beige" style="background:#ded1be;"></div>
+            <div class="color-opt" data-color="burgundy" style="background:#6d1f36;"></div>
+            <div class="color-opt" data-color="grey" style="background:#707378;"></div>
+            <div class="color-opt" data-color="olive" style="background:#556b2f;"></div>
+            <div class="color-opt" data-color="pink" style="background:#f4a6b8;"></div>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-title">
+            <span data-i18n="size.title">المقاس:</span>
+            <span class="val-selected" id="size-val">M (60 - 75 KG)</span>
+          </div>
+          <div class="size-picker">
+            <div class="size-opt active" data-size="M" data-desc="M (60 - 75 KG)">M</div>
+            <div class="size-opt" data-size="L" data-desc="L (75 - 90 KG)">L</div>
+            <div class="size-opt" data-size="XL" data-desc="XL (90 - 105 KG)">XL</div>
+            <div class="size-opt" data-size="XXL" data-desc="XXL (105 - 120 KG)">XXL</div>
+          </div>
+
+          <div class="size-chart-tab">
+            <button type="button" class="size-chart-btn" id="size-chart-toggle">
+              <span data-i18n="size.chart.title">سايز شارت</span>
+              <span id="size-chart-arrow">+</span>
+            </button>
+            <div class="size-chart-content" id="size-chart-content">
+              <img id="size-chart-img" src="https://raw.githubusercontent.com/HEXAWEAR/HEXA/main/photos/size-chart.png" alt="Size Chart">
+              <div class="size-chart-note" data-i18n="size.chart.note">الأرقام بالمقاس توضيحية، واستخدم الجدول لاختيار المقاس المناسب.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-title" data-i18n="qty.title">الكمية:</div>
+          <div class="qty-box">
+            <button class="qty-btn" id="qty-minus">-</button>
+            <span class="qty-val" id="qty-num">1</span>
+            <button class="qty-btn" id="qty-plus">+</button>
+          </div>
+        </div>
+
+        <button class="action-btn" id="buy-btn">
+          <span data-i18n="buy.btn">شراء الآن</span>
+        </button>
+
+        <div class="desc-text">
+          <p data-i18n="desc.p1">تيشرت أوفرسايز بيزيك مصنوع من قطن فاخر 100٪ عالي الجودة ليوفر لك الراحة القصوى والمظهر العصري الجذاب الملائم لجميع الإطلالات اليومية.</p>
+          <ul>
+            <li data-i18n="desc.li1">خامة قطنية ثقيلة ومقاومة للانكماش والوبر.</li>
+            <li data-i18n="desc.li2">قصّة Box Fit مريحة وأكتاف منسدلة بشكل عصري.</li>
+            <li data-i18n="desc.li3">تطريز عالي الدقة لشعار علامة HEXA التجارية.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer-page" id="checkout-page">
+    <div class="layer-container">
+      <div class="checkout-card">
+        <div class="checkout-title" data-i18n="checkout.title">إتمام الطلب</div>
+        <form id="order-form" action="https://formspree.io/f/mpqnqoqj" method="POST">
+          <input type="hidden" name="المنتج" value="أوفرسايز بيزيك بوليفار">
+          <input type="hidden" name="اللون" id="form-color" value="أسود">
+          <input type="hidden" name="المقاس" id="form-size" value="M">
+          <input type="hidden" name="الكمية" id="form-qty" value="1">
+          <input type="hidden" name="مصاريف الشحن" id="form-shipping" value="0">
+          <input type="hidden" name="إجمالي السعر" id="form-total" value="">
+
+          <div class="form-group">
+            <label data-i18n="form.name">الاسم بالكامل *</label>
+            <input type="text" name="اسم العميل" required placeholder="أدخل اسمك الثلاثي">
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="form.phone">رقم الهاتف *</label>
+            <input type="tel" name="رقم الهاتف" required placeholder="رقم متاح عليه واتساب">
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="form.gov">المحافظة *</label>
+            <select name="المحافظة" id="gov-select" required>
+              <option value="" disabled selected data-i18n="form.govPlace">اختر محافظتك</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="form.address">العنوان بالتفصيل *</label>
+            <input type="text" name="العنوان" required placeholder="اسم الشارع، رقم العمارة، الدور، الشقة">
+          </div>
+
+          <div class="section-title" data-i18n="pay.title">طريقة الدفع</div>
+          <div class="pay-options">
+            <div class="pay-option active" data-payment="cod">
+              <div class="pay-circle"></div>
+              <span class="pay-text" data-i18n="pay.cod">الدفع عند الاستلام (معاينة مجانية)</span>
+              <input type="radio" name="طريقة الدفع" value="الدفع عند الاستلام" checked>
+            </div>
+          </div>
+
+          <div class="section-title" data-i18n="promo.title">كود الخصم</div>
+          <div class="promo-box">
+            <input type="text" id="promo-input" placeholder="إذا كان لديك كود خصم اكتبه هنا">
+            <button type="button" class="promo-btn" id="promo-btn" data-i18n="promo.btn">تطبيق</button>
+          </div>
+          <div id="promo-msg" class="promo-msg"></div>
+
+          <div class="checkout-title" style="margin-top:30px;" data-i18n="summary.title">ملخص الحساب</div>
+          <div class="summary-row">
+            <span data-i18n="summary.sub">سعر المنتجات</span>
+            <span id="sum-subtotal">600 ج.م</span>
+          </div>
+          <div class="summary-row discount-line" id="discount-row">
+            <span data-i18n="summary.disc">قيمة الخصم</span>
+            <span id="sum-discount">-0 ج.م</span>
+          </div>
+          <div class="summary-row">
+            <span data-i18n="summary.ship">مصاريف الشحن</span>
+            <span id="sum-shipping">0 ج.م</span>
+          </div>
+          <div class="summary-row total">
+            <span data-i18n="summary.total">الإجمالي الكلي</span>
+            <span id="sum-total">600 ج.م</span>
+          </div>
+
+          <button type="submit" class="action-btn" id="submit-btn" style="margin-top:25px;">
+            <span data-i18n="submit.btn">تأكيد الطلب</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer-page" id="success-page">
+    <div class="layer-container">
+      <div class="success-box">
+        <div class="success-icon">✓</div>
+        <h2 data-i18n="success.title">شكراً لك على طلبك!</h2>
+        <p data-i18n="success.p">يسعدنا جداً اختيارك لبراند HEXA. تم استلام طلبك بنجاح وجاري مراجعته الآن، وسنقوم بالتواصل معك عبر الواتساب أو الهاتف لتأكيد الشحن في أقرب وقت ممكن. نتمنى لك تجربة تسوق رائعة!</p>
+        <div class="order-tag"><span data-i18n="success.order">رقم الطلب:</span> <span id="order-num">#1234</span></div>
+        <button class="action-btn" id="back-btn" data-i18n="success.btn">العودة للمتجر</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">×</button>
+    <img id="lightbox-img" src="" alt="Zoomed view">
+  </div>
+
+  <script>
+    const BASE_URL = "https://raw.githubusercontent.com/HEXAWEAR/HEXA/main/photos";
+    const SIZE_CHART_URL = `${BASE_URL}/size-chart.png`;
+
+    const colorNames = {
+      black: { ar: 'أسود', en: 'Black', male: `${BASE_URL}/black-male.png`, female: `${BASE_URL}/black-female.png` },
+      white: { ar: 'أبيض', en: 'White', male: `${BASE_URL}/white-male.png`, female: `${BASE_URL}/white-female.png` },
+      beige: { ar: 'بيج', en: 'Beige', male: `${BASE_URL}/beige-male.png`, female: `${BASE_URL}/beige-female.png` },
+      burgundy: { ar: 'برجاندي', en: 'Burgundy', male: `${BASE_URL}/burgundy-male.png`, female: `${BASE_URL}/burgundy-female.png` },
+      grey: { ar: 'رمادي', en: 'Grey', male: `${BASE_URL}/grey-male.png`, female: `${BASE_URL}/grey-female.png` },
+      olive: { ar: 'زيتي', en: 'Olive', male: `${BASE_URL}/olive-male.png`, female: `${BASE_URL}/olive-female.png` },
+      pink: { ar: 'بينك', en: 'Pink', male: `${BASE_URL}/pink-male.png`, female: `${BASE_URL}/pink-female.png` }
+    };
+
+    const dict = {
+      ar: {
+        'brand.tag': 'STREETWEAR',
+        'product.title': 'أوفرسايز بيزيك بوليفار',
+        'color.title': 'اللون:',
+        'color.black': 'أسود',
+        'color.white': 'أبيض',
+        'color.beige': 'بيج',
+        'color.burgundy': 'برجاندي',
+        'color.grey': 'رمادي',
+        'color.olive': 'زيتي',
+        'color.pink': 'بينك',
+        'size.title': 'المقاس:',
+        'qty.title': 'الكمية:',
+        'buy.btn': 'شراء الآن',
+        'size.chart.title': 'سايز شارت',
+        'size.chart.note': 'الأرقام بالمقاس توضيحية، واستخدم الجدول لاختيار المقاس المناسب.',
+        'checkout.title': 'إتمام الطلب',
+        'form.name': 'الاسم بالكامل *',
+        'form.phone': 'رقم الهاتف *',
+        'form.gov': 'المحافظة *',
+        'form.govPlace': 'اختر محافظتك',
+        'form.address': 'العنوان بالتفصيل *',
+        'pay.title': 'طريقة الدفع',
+        'pay.cod': 'الدفع عند الاستلام (معاينة مجانية)',
+        'promo.title': 'كود الخصم',
+        'promo.btn': 'تطبيق',
+        'summary.title': 'ملخص الحساب',
+        'summary.sub': 'سعر المنتجات',
+        'summary.disc': 'قيمة الخصم',
+        'summary.ship': 'مصاريف الشحن',
+        'summary.total': 'الإجمالي الكلي',
+        'submit.btn': 'تأكيد الطلب',
+        'success.title': 'شكراً لك على طلبك!',
+        'success.p': 'يسعدنا جداً اختيارك لبراند HEXA. تم استلام طلبك بنجاح وجاري مراجعته الآن، وسنقوم بالتواصل معك عبر الواتساب أو الهاتف لتأكيد الشحن في أقرب وقت ممكن. نتمنى لك تجربة تسوق رائعة!',
+        'success.order': 'رقم الطلب:',
+        'success.btn': 'العودة للمتجر',
+        'msg.enterCode': 'يرجى إدخال كود الخصم أولاً',
+        'msg.valid': 'تم تطبيق الكود بنجاح!',
+        'msg.invalid': 'كود الخصم غير صحيح أو منتهي',
+        'msg.error': 'حصل خطأ أثناء إرسال الطلب',
+        'msg.sending': 'جاري إرسال الطلب...'
+      },
+      en: {
+        'brand.tag': 'STREETWEAR',
+        'product.title': 'Oversized Basic Boulevard',
+        'color.title': 'Color:',
+        'color.black': 'Black',
+        'color.white': 'White',
+        'color.beige': 'Beige',
+        'color.burgundy': 'Burgundy',
+        'color.grey': 'Grey',
+        'color.olive': 'Olive',
+        'color.pink': 'Pink',
+        'size.title': 'Size:',
+        'qty.title': 'Quantity:',
+        'buy.btn': 'Buy Now',
+        'size.chart.title': 'Size Chart',
+        'size.chart.note': 'The measurements are approximate. Use the chart to choose the right size.',
+        'checkout.title': 'Checkout',
+        'form.name': 'Full Name *',
+        'form.phone': 'Phone Number *',
+        'form.gov': 'Governorate *',
+        'form.govPlace': 'Select your governorate',
+        'form.address': 'Detailed Address *',
+        'pay.title': 'Payment Method',
+        'pay.cod': 'Cash on Delivery (Free Inspection)',
+        'promo.title': 'Discount Code',
+        'promo.btn': 'Apply',
+        'summary.title': 'Order Summary',
+        'summary.sub': 'Subtotal',
+        'summary.disc': 'Discount',
+        'summary.ship': 'Shipping Fee',
+        'summary.total': 'Grand Total',
+        'submit.btn': 'Confirm Order',
+        'success.title': 'Thank You For Your Order!',
+        'success.p': 'We are absolutely thrilled that you chose HEXA. Your order has been successfully received and is currently being processed. We will reach out via WhatsApp or phone to confirm shipping shortly. Have a wonderful day!',
+        'success.order': 'Order ID:',
+        'success.btn': 'Back to Store',
+        'msg.enterCode': 'Please enter a promo code',
+        'msg.valid': 'Promo code applied successfully!',
+        'msg.invalid': 'Invalid or expired promo code',
+        'msg.error': 'Error while sending order',
+        'msg.sending': 'Sending order...'
+      }
+    };
+
+    const governorates = [
+      { ar: 'القاهرة', en: 'Cairo', shipping: 60 },
+      { ar: 'الجيزة', en: 'Giza', shipping: 55 },
+      { ar: 'الإسكندرية', en: 'Alexandria', shipping: 70 },
+      { ar: 'القليوبية', en: 'Qalyubia', shipping: 50 },
+      { ar: 'المنوفية', en: 'Monufia', shipping: 55 },
+      { ar: 'الشرقية', en: 'Sharqia', shipping: 60 },
+      { ar: 'الغربية', en: 'Gharbia', shipping: 55 },
+      { ar: 'الدقهلية', en: 'Dakahlia', shipping: 60 },
+      { ar: 'البحيرة', en: 'Beheira', shipping: 65 },
+      { ar: 'دمياط', en: 'Damietta', shipping: 75 },
+      { ar: 'بورسعيد', en: 'Port Said', shipping: 80 },
+      { ar: 'الإسماعيلية', en: 'Ismailia', shipping: 70 },
+      { ar: 'السويس', en: 'Suez', shipping: 75 },
+      { ar: 'كفر الشيخ', en: 'Kafr El Sheikh', shipping: 60 },
+      { ar: 'الفيوم', en: 'Fayoum', shipping: 55 },
+      { ar: 'بني سويف', en: 'Beni Suef', shipping: 55 },
+      { ar: 'المنيا', en: 'Minya', shipping: 60 },
+      { ar: 'أسيوط', en: 'Asyut', shipping: 65 },
+      { ar: 'سوهاج', en: 'Sohag', shipping: 65 },
+      { ar: 'قنا', en: 'Qena', shipping: 70 },
+      { ar: 'الأقصر', en: 'Luxor', shipping: 75 },
+      { ar: 'أسوان', en: 'Aswan', shipping: 80 },
+      { ar: 'البحر الأحمر', en: 'Red Sea', shipping: 90 },
+      { ar: 'الوادي الجديد', en: 'New Valley', shipping: 85 },
+      { ar: 'مطروح', en: 'Matrouh', shipping: 90 },
+      { ar: 'شمال سيناء', en: 'North Sinai', shipping: 95 },
+      { ar: 'جنوب سيناء', en: 'South Sinai', shipping: 95 }
+    ];
+
+    const state = {
+      lang: 'ar',
+      basePrice: 600,
+      qty: 1,
+      selectedColor: 'black',
+      selectedSize: 'M',
+      selectedSizeDesc: 'M (60 - 75 KG)',
+      selectedGovernorate: '',
+      shipping: 0,
+      discount: 0,
+      appliedCode: null
+    };
+
+    const discountCodes = [
+      { code: 'HEXA10', type: 'percent', value: 10 },
+      { code: 'HEXA50', type: 'fixed', value: 50 }
+    ];
+
+    const els = {
+      langToggle: document.getElementById('lang-toggle'),
+      productPage: document.getElementById('product-page'),
+      checkoutPage: document.getElementById('checkout-page'),
+      successPage: document.getElementById('success-page'),
+      buyBtn: document.getElementById('buy-btn'),
+      backBtn: document.getElementById('back-btn'),
+      homeLogo: document.getElementById('home-logo'),
+
+      stageMale: document.getElementById('stage-male'),
+      stageFemale: document.getElementById('stage-female'),
+      sizeChartToggle: document.getElementById('size-chart-toggle'),
+      sizeChartContent: document.getElementById('size-chart-content'),
+      sizeChartArrow: document.getElementById('size-chart-arrow'),
+      sizeChartImg: document.getElementById('size-chart-img'),
+
+      colorOpts: document.querySelectorAll('.color-opt'),
+      colorVal: document.getElementById('color-val'),
+      sizeOpts: document.querySelectorAll('.size-opt'),
+      sizeVal: document.getElementById('size-val'),
+
+      qtyMinus: document.getElementById('qty-minus'),
+      qtyPlus: document.getElementById('qty-plus'),
+      qtyNum: document.getElementById('qty-num'),
+
+      orderForm: document.getElementById('order-form'),
+      govSelect: document.getElementById('gov-select'),
+
+      promoInput: document.getElementById('promo-input'),
+      promoBtn: document.getElementById('promo-btn'),
+      promoMsg: document.getElementById('promo-msg'),
+
+      sumSubtotal: document.getElementById('sum-subtotal'),
+      sumDiscount: document.getElementById('sum-discount'),
+      sumShipping: document.getElementById('sum-shipping'),
+      sumTotal: document.getElementById('sum-total'),
+      discountRow: document.getElementById('discount-row'),
+
+      formColor: document.getElementById('form-color'),
+      formSize: document.getElementById('form-size'),
+      formQty: document.getElementById('form-qty'),
+      formShipping: document.getElementById('form-shipping'),
+      formTotal: document.getElementById('form-total'),
+
+      lightbox: document.getElementById('lightbox'),
+      lightboxImg: document.getElementById('lightbox-img'),
+      lightboxClose: document.getElementById('lightbox-close')
+    };
+
+    function t(key) {
+      return dict[state.lang][key] || key;
+    }
+
+    function renderGovernorates() {
+      const currentGov = state.selectedGovernorate;
+      els.govSelect.innerHTML =
+        `<option value="" disabled ${!currentGov ? 'selected' : ''}>${t('form.govPlace')}</option>` +
+        governorates.map(g => {
+          const label = state.lang === 'ar' ? g.ar : g.en;
+          const selected = currentGov === g.ar ? 'selected' : '';
+          return `<option value="${g.ar}" ${selected}>${label} - ${g.shipping} ${state.lang === 'ar' ? 'ج.م' : 'EGP'}</option>`;
+        }).join('');
+    }
+
+    function localize() {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          el.placeholder = t(key);
+        } else {
+          el.textContent = t(key);
+        }
+      });
+
+      document.documentElement.lang = state.lang;
+      document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
+      els.langToggle.textContent = state.lang === 'ar' ? 'English' : 'العربية';
+
+      if (state.lang === 'ar') {
+        document.getElementById('price-main').textContent = '600 ج.م';
+        document.getElementById('price-old').textContent = '700 ج.م';
+        document.getElementById('discount-amount-badge').textContent = 'وفر 100 ج.م';
+      } else {
+        document.getElementById('price-main').textContent = '600 EGP';
+        document.getElementById('price-old').textContent = '700 EGP';
+        document.getElementById('discount-amount-badge').textContent = 'Save 100 EGP';
+      }
+
+      els.colorVal.textContent = t('color.' + state.selectedColor);
+      els.sizeVal.textContent = state.selectedSizeDesc;
+      renderGovernorates();
+      updatePricingDisplay();
+    }
+
+    function applyImages(colorKey) {
+      const paths = colorNames[colorKey];
+      if (paths) {
+        els.stageMale.src = paths.male;
+        els.stageFemale.src = paths.female;
+      }
+    }
+
+    function updatePricingDisplay() {
+      const sub = state.basePrice * state.qty;
+      const cur = state.lang === 'ar' ? ' ج.م' : ' EGP';
+
+      els.sumSubtotal.textContent = sub + cur;
+
+      if (state.selectedGovernorate) {
+        els.sumShipping.textContent = state.shipping + cur;
+      } else {
+        els.sumShipping.textContent = state.lang === 'ar' ? 'اختر محافظة' : 'Select governorate';
+      }
+
+      if (state.discount > 0) {
+        els.discountRow.style.display = 'flex';
+        els.sumDiscount.textContent = '-' + state.discount + cur;
+      } else {
+        els.discountRow.style.display = 'none';
+      }
+
+      const finalTotal = Math.max(0, (sub - state.discount) + state.shipping);
+      els.sumTotal.textContent = finalTotal + cur;
+
+      els.formColor.value = colorNames[state.selectedColor].ar;
+      els.formSize.value = state.selectedSize;
+      els.formQty.value = state.qty;
+      els.formShipping.value = state.selectedGovernorate ? (state.shipping + ' ج.م') : '0 ج.م';
+      els.formTotal.value = finalTotal + ' ج.م';
+    }
+
+    function calculateTotal() {
+      const sub = state.basePrice * state.qty;
+      if (state.appliedCode) {
+        if (state.appliedCode.type === 'percent') {
+          state.discount = Math.round(sub * (state.appliedCode.value / 100));
+        } else if (state.appliedCode.type === 'fixed') {
+          state.discount = state.appliedCode.value;
+        }
+      } else {
+        state.discount = 0;
+      }
+      updatePricingDisplay();
+    }
+
+    els.langToggle.addEventListener('click', () => {
+      state.lang = state.lang === 'ar' ? 'en' : 'ar';
+      localize();
+    });
+
+    els.colorOpts.forEach(opt => {
+      opt.addEventListener('click', () => {
+        els.colorOpts.forEach(x => x.classList.remove('active'));
+        opt.classList.add('active');
+        state.selectedColor = opt.getAttribute('data-color');
+        els.colorVal.textContent = t('color.' + state.selectedColor);
+        applyImages(state.selectedColor);
+      });
+    });
+
+    els.sizeOpts.forEach(opt => {
+      opt.addEventListener('click', () => {
+        els.sizeOpts.forEach(x => x.classList.remove('active'));
+        opt.classList.add('active');
+        state.selectedSize = opt.getAttribute('data-size');
+        state.selectedSizeDesc = opt.getAttribute('data-desc');
+        els.sizeVal.textContent = state.selectedSizeDesc;
+      });
+    });
+
+    els.sizeChartToggle.addEventListener('click', () => {
+      els.sizeChartContent.classList.toggle('show');
+      els.sizeChartArrow.textContent = els.sizeChartContent.classList.contains('show') ? '−' : '+';
+    });
+
+    document.querySelectorAll('.gallery-two-up img').forEach(img => {
+      img.addEventListener('click', () => {
+        els.lightboxImg.src = img.src;
+        els.lightboxImg.alt = img.alt;
+        els.lightbox.style.display = 'flex';
+      });
+    });
+
+    if (els.sizeChartImg) {
+      els.sizeChartImg.addEventListener('click', () => {
+        els.lightboxImg.src = SIZE_CHART_URL;
+        els.lightboxImg.alt = 'Size Chart';
+        els.lightbox.style.display = 'flex';
+      });
+    }
+
+    els.lightboxClose.addEventListener('click', () => els.lightbox.style.display = 'none');
+    els.lightbox.addEventListener('click', (e) => { if (e.target === els.lightbox) els.lightbox.style.display = 'none'; });
+
+    els.qtyPlus.addEventListener('click', () => { state.qty++; els.qtyNum.textContent = state.qty; calculateTotal(); });
+    els.qtyMinus.addEventListener('click', () => { if (state.qty > 1) { state.qty--; els.qtyNum.textContent = state.qty; calculateTotal(); } });
+
+    els.govSelect.addEventListener('change', () => {
+      state.selectedGovernorate = els.govSelect.value;
+      const selected = governorates.find(g => g.ar === state.selectedGovernorate);
+      state.shipping = selected ? selected.shipping : 0;
+      calculateTotal();
+    });
+
+    els.promoBtn.addEventListener('click', () => {
+      const codeStr = els.promoInput.value.trim().toUpperCase();
+      if (!codeStr) {
+        els.promoMsg.className = 'promo-msg error';
+        els.promoMsg.textContent = t('msg.enterCode');
+        return;
+      }
+      const found = discountCodes.find(x => x.code === codeStr);
+      if (found) {
+        state.appliedCode = found;
+        els.promoMsg.className = 'promo-msg success';
+        els.promoMsg.textContent = t('msg.valid');
+        calculateTotal();
+      } else {
+        state.appliedCode = null;
+        els.promoMsg.className = 'promo-msg error';
+        els.promoMsg.textContent = t('msg.invalid');
+        calculateTotal();
+      }
+    });
+
+    function showProductPage() {
+      els.checkoutPage.classList.remove('show');
+      els.successPage.classList.remove('show');
+      els.productPage.style.display = 'grid';
+      window.scrollTo(0,0);
+    }
+
+    els.buyBtn.addEventListener('click', () => {
+      els.productPage.style.display = 'none';
+      els.checkoutPage.classList.add('show');
+      calculateTotal();
+      window.scrollTo(0,0);
+    });
+
+    els.orderForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = t('msg.sending');
+
+      const formData = new FormData(els.orderForm);
+
+      try {
+        const response = await fetch(els.orderForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          document.getElementById('order-num').textContent = '#' + Math.floor(1000 + Math.random() * 9000);
+
+          els.checkoutPage.classList.remove('show');
+          els.productPage.style.display = 'grid';
+          els.successPage.classList.add('show');
+          els.productPage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+          state.qty = 1;
+          state.appliedCode = null;
+          state.discount = 0;
+          state.selectedGovernorate = '';
+          state.shipping = 0;
+          els.qtyNum.textContent = '1';
+          els.promoInput.value = '';
+          els.promoMsg.style.display = 'none';
+          els.orderForm.reset();
+          renderGovernorates();
+          calculateTotal();
+        } else {
+          alert(t('msg.error'));
+        }
+      } catch (err) {
+        alert(t('msg.error'));
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<span data-i18n="submit.btn">${t('submit.btn')}</span>`;
+      }
+    });
+
+    els.backBtn.addEventListener('click', () => {
+      els.successPage.classList.remove('show');
+      showProductPage();
+    });
+
+    els.homeLogo.addEventListener('click', (e) => {
+      e.preventDefault();
+      els.successPage.classList.remove('show');
+      showProductPage();
+    });
+
+    applyImages(state.selectedColor);
+    localize();
+    els.sizeChartContent.classList.remove('show');
+  </script>
+</body>
+</html>
