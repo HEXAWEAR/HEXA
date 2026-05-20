@@ -123,6 +123,17 @@
     .lightbox img{max-width:100%;max-height:100%;object-fit:contain;border-radius:10px;box-shadow:0 10px 40px rgba(0,0,0,0.5);}
     .lightbox-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#fff;font-size:35px;cursor:pointer;width:50px;height:50px;display:flex;align-items:center;justify-content:center;}
 
+    .cart-list{display:flex;flex-direction:column;gap:12px;}
+    .cart-item{border:1px solid var(--line);border-radius:18px;padding:16px;background:var(--bg);display:flex;justify-content:space-between;gap:12px;align-items:flex-start;}
+    .cart-item-main{display:flex;flex-direction:column;gap:6px;flex:1;}
+    .cart-item-title{font-size:16px;font-weight:800;color:var(--text);}
+    .cart-item-meta{font-size:13px;color:var(--muted);line-height:1.7;}
+    .cart-item-actions{display:flex;flex-direction:column;align-items:flex-end;gap:10px;min-width:110px;}
+    .cart-item-price{font-size:15px;font-weight:800;color:var(--primary);}
+    .cart-remove-btn{border:none;background:var(--accent);color:#fff;padding:8px 14px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;}
+    .cart-remove-btn:hover{opacity:0.92;}
+    .empty-cart{padding:18px;border:1px dashed var(--line);border-radius:16px;background:#fff;color:var(--muted);text-align:center;font-weight:700;}
+
     @media(max-width:900px){
       .product-grid{grid-template-columns:1fr;gap:25px;}
       .gallery-side{position:relative;top:0;}
@@ -131,6 +142,8 @@
       h1{font-size:26px;}
       .current-price{font-size:30px;}
       .action-row{flex-direction:column;}
+      .cart-item{flex-direction:column;}
+      .cart-item-actions{align-items:flex-start;min-width:0;}
     }
   </style>
 </head>
@@ -222,12 +235,32 @@
     </div>
   </div>
 
+  <div class="layer-page" id="cart-page">
+    <div class="layer-container">
+      <div class="checkout-card">
+        <div class="checkout-title" data-i18n="cart.title">السلة</div>
+
+        <div class="cart-list" id="cart-items"></div>
+
+        <div class="summary-row total" style="margin-top:25px;">
+          <span data-i18n="cart.total">الإجمالي</span>
+          <span id="cart-total">0 ج.م</span>
+        </div>
+
+        <button class="action-btn" id="cart-checkout-btn" style="margin-top:20px;">
+          <span data-i18n="cart.checkout">إكمال الشراء</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="layer-page" id="checkout-page">
     <div class="layer-container">
       <div class="checkout-card">
         <div class="checkout-title" data-i18n="checkout.title">إتمام الطلب</div>
         <form id="order-form" action="https://formspree.io/f/mpqnqoqj" method="POST">
-          <input type="hidden" name="المنتج" value="أوفرسايز بيزيك بوليفار">
+          <input type="hidden" name="المنتج" id="form-product" value="أوفرسايز بيزيك بوليفار">
+          <input type="hidden" name="السلة" id="form-cart" value="">
           <input type="hidden" name="اللون" id="form-color" value="أسود">
           <input type="hidden" name="المقاس" id="form-size" value="M">
           <input type="hidden" name="الكمية" id="form-qty" value="1">
@@ -345,6 +378,11 @@
         'qty.title': 'الكمية:',
         'buy.btn': 'شراء الآن',
         'cart.btn': 'إضافة للسلة',
+        'cart.title': 'السلة',
+        'cart.total': 'الإجمالي',
+        'cart.checkout': 'إكمال الشراء',
+        'cart.remove': 'حذف',
+        'cart.empty': 'السلة فارغة',
         'size.chart.title': 'سايز شارت',
         'size.chart.note': 'الأرقام بالمقاس توضيحية، واستخدم الجدول لاختيار المقاس المناسب.',
         'checkout.title': 'إتمام الطلب',
@@ -388,6 +426,11 @@
         'qty.title': 'Quantity:',
         'buy.btn': 'Buy Now',
         'cart.btn': 'Add to Cart',
+        'cart.title': 'Cart',
+        'cart.total': 'Total',
+        'cart.checkout': 'Checkout',
+        'cart.remove': 'Remove',
+        'cart.empty': 'Cart is empty',
         'size.chart.title': 'Size Chart',
         'size.chart.note': 'The measurements are approximate. Use the chart to choose the right size.',
         'checkout.title': 'Checkout',
@@ -458,8 +501,11 @@
       selectedGovernorate: '',
       shipping: 0,
       discount: 0,
-      appliedCode: null
+      appliedCode: null,
+      checkoutMode: 'single'
     };
+
+    const cart = [];
 
     const discountCodes = [
       { code: 'HEXA10', type: 'percent', value: 10 },
@@ -469,10 +515,12 @@
     const els = {
       langToggle: document.getElementById('lang-toggle'),
       productPage: document.getElementById('product-page'),
+      cartPage: document.getElementById('cart-page'),
       checkoutPage: document.getElementById('checkout-page'),
       successPage: document.getElementById('success-page'),
       buyBtn: document.getElementById('buy-btn'),
       addCartBtn: document.getElementById('add-cart-btn'),
+      cartCheckoutBtn: document.getElementById('cart-checkout-btn'),
       backBtn: document.getElementById('back-btn'),
       homeLogo: document.getElementById('home-logo'),
 
@@ -505,11 +553,16 @@
       sumTotal: document.getElementById('sum-total'),
       discountRow: document.getElementById('discount-row'),
 
+      formProduct: document.getElementById('form-product'),
+      formCart: document.getElementById('form-cart'),
       formColor: document.getElementById('form-color'),
       formSize: document.getElementById('form-size'),
       formQty: document.getElementById('form-qty'),
       formShipping: document.getElementById('form-shipping'),
       formTotal: document.getElementById('form-total'),
+
+      cartItems: document.getElementById('cart-items'),
+      cartTotal: document.getElementById('cart-total'),
 
       lightbox: document.getElementById('lightbox'),
       lightboxImg: document.getElementById('lightbox-img'),
@@ -518,6 +571,56 @@
 
     function t(key) {
       return dict[state.lang][key] || key;
+    }
+
+    function formatMoney(amount) {
+      return amount + (state.lang === 'ar' ? ' ج.م' : ' EGP');
+    }
+
+    function getCartSubtotal() {
+      return cart.reduce((sum, item) => sum + (item.unitPrice * item.qty), 0);
+    }
+
+    function getCurrentSubtotal() {
+      return state.checkoutMode === 'cart' ? getCartSubtotal() : (state.basePrice * state.qty);
+    }
+
+    function getCartQtyTotal() {
+      return cart.reduce((sum, item) => sum + item.qty, 0);
+    }
+
+    function buildCartSummary() {
+      if (!cart.length) return '';
+      return cart.map((item, index) => {
+        return `${index + 1}) ${item.title} - ${item.colorLabel} - ${item.size} - x${item.qty} - ${formatMoney(item.unitPrice * item.qty)}`;
+      }).join(' | ');
+    }
+
+    function renderCart() {
+      if (!cart.length) {
+        els.cartItems.innerHTML = `<div class="empty-cart">${t('cart.empty')}</div>`;
+      } else {
+        els.cartItems.innerHTML = cart.map((item, index) => `
+          <div class="cart-item">
+            <div class="cart-item-main">
+              <div class="cart-item-title">${item.title}</div>
+              <div class="cart-item-meta">
+                ${t('color.title')} ${item.colorLabel}<br>
+                ${t('size.title')} ${item.size}<br>
+                ${t('qty.title')} ${item.qty}
+              </div>
+            </div>
+            <div class="cart-item-actions">
+              <div class="cart-item-price">${formatMoney(item.unitPrice * item.qty)}</div>
+              <button type="button" class="cart-remove-btn" data-index="${index}">${t('cart.remove')}</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      els.cartTotal.textContent = formatMoney(getCartSubtotal());
+      els.cartCheckoutBtn.disabled = cart.length === 0;
+      syncHiddenFields();
     }
 
     function renderGovernorates() {
@@ -529,6 +632,45 @@
           const selected = currentGov === g.ar ? 'selected' : '';
           return `<option value="${g.ar}" ${selected}>${label} - ${g.shipping} ${state.lang === 'ar' ? 'ج.م' : 'EGP'}</option>`;
         }).join('');
+    }
+
+    function syncHiddenFields() {
+      const subtotal = getCurrentSubtotal();
+      const qtyForSummary = state.checkoutMode === 'cart' ? getCartQtyTotal() : state.qty;
+      const productValue = state.checkoutMode === 'cart' ? 'سلة منتجات HEXA' : 'أوفرسايز بيزيك بوليفار';
+
+      els.formProduct.value = productValue;
+      els.formCart.value = state.checkoutMode === 'cart' ? buildCartSummary() : `اللون: ${colorNames[state.selectedColor].ar} | المقاس: ${state.selectedSize} | الكمية: ${state.qty}`;
+      els.formColor.value = state.checkoutMode === 'cart' ? 'من السلة' : colorNames[state.selectedColor].ar;
+      els.formSize.value = state.checkoutMode === 'cart' ? 'متعدد' : state.selectedSize;
+      els.formQty.value = qtyForSummary;
+      els.formShipping.value = state.selectedGovernorate ? (state.shipping + ' ج.م') : '0 ج.م';
+      els.formTotal.value = Math.max(0, (subtotal - state.discount) + state.shipping) + ' ج.م';
+    }
+
+    function updatePricingDisplay() {
+      const sub = getCurrentSubtotal();
+      const cur = state.lang === 'ar' ? ' ج.م' : ' EGP';
+
+      els.sumSubtotal.textContent = sub + cur;
+
+      if (state.selectedGovernorate) {
+        els.sumShipping.textContent = state.shipping + cur;
+      } else {
+        els.sumShipping.textContent = state.lang === 'ar' ? 'اختر محافظة' : 'Select governorate';
+      }
+
+      if (state.discount > 0) {
+        els.discountRow.style.display = 'flex';
+        els.sumDiscount.textContent = '-' + state.discount + cur;
+      } else {
+        els.discountRow.style.display = 'none';
+      }
+
+      const finalTotal = Math.max(0, (sub - state.discount) + state.shipping);
+      els.sumTotal.textContent = finalTotal + cur;
+
+      syncHiddenFields();
     }
 
     function localize() {
@@ -558,6 +700,7 @@
       els.colorVal.textContent = t('color.' + state.selectedColor);
       els.sizeVal.textContent = state.selectedSizeDesc;
       renderGovernorates();
+      renderCart();
       updatePricingDisplay();
     }
 
@@ -569,37 +712,8 @@
       }
     }
 
-    function updatePricingDisplay() {
-      const sub = state.basePrice * state.qty;
-      const cur = state.lang === 'ar' ? ' ج.م' : ' EGP';
-
-      els.sumSubtotal.textContent = sub + cur;
-
-      if (state.selectedGovernorate) {
-        els.sumShipping.textContent = state.shipping + cur;
-      } else {
-        els.sumShipping.textContent = state.lang === 'ar' ? 'اختر محافظة' : 'Select governorate';
-      }
-
-      if (state.discount > 0) {
-        els.discountRow.style.display = 'flex';
-        els.sumDiscount.textContent = '-' + state.discount + cur;
-      } else {
-        els.discountRow.style.display = 'none';
-      }
-
-      const finalTotal = Math.max(0, (sub - state.discount) + state.shipping);
-      els.sumTotal.textContent = finalTotal + cur;
-
-      els.formColor.value = colorNames[state.selectedColor].ar;
-      els.formSize.value = state.selectedSize;
-      els.formQty.value = state.qty;
-      els.formShipping.value = state.selectedGovernorate ? (state.shipping + ' ج.م') : '0 ج.م';
-      els.formTotal.value = finalTotal + ' ج.م';
-    }
-
     function calculateTotal() {
-      const sub = state.basePrice * state.qty;
+      const sub = getCurrentSubtotal();
       if (state.appliedCode) {
         if (state.appliedCode.type === 'percent') {
           state.discount = Math.round(sub * (state.appliedCode.value / 100));
@@ -612,11 +726,53 @@
       updatePricingDisplay();
     }
 
-    function openCheckout() {
+    function showProductPage() {
+      els.cartPage.classList.remove('show');
+      els.checkoutPage.classList.remove('show');
+      els.successPage.classList.remove('show');
+      els.productPage.style.display = 'grid';
+      window.scrollTo(0, 0);
+    }
+
+    function showCartPage() {
       els.productPage.style.display = 'none';
+      els.checkoutPage.classList.remove('show');
+      els.successPage.classList.remove('show');
+      els.cartPage.classList.add('show');
+      renderCart();
+      window.scrollTo(0, 0);
+    }
+
+    function showCheckoutPage(mode) {
+      state.checkoutMode = mode;
+      els.productPage.style.display = 'none';
+      els.cartPage.classList.remove('show');
+      els.successPage.classList.remove('show');
       els.checkoutPage.classList.add('show');
       calculateTotal();
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
+    }
+
+    function addCurrentItemToCart() {
+      const item = {
+        title: state.lang === 'ar' ? 'أوفرسايز بيزيك بوليفار' : 'Oversized Basic Boulevard',
+        colorKey: state.selectedColor,
+        colorLabel: colorNames[state.selectedColor].ar,
+        size: state.selectedSize,
+        qty: state.qty,
+        unitPrice: state.basePrice
+      };
+
+      const existing = cart.find(x => x.colorKey === item.colorKey && x.size === item.size && x.unitPrice === item.unitPrice);
+      if (existing) {
+        existing.qty += item.qty;
+      } else {
+        cart.push(item);
+      }
+
+      state.checkoutMode = 'cart';
+      renderCart();
+      showCartPage();
     }
 
     els.langToggle.addEventListener('click', () => {
@@ -631,6 +787,7 @@
         state.selectedColor = opt.getAttribute('data-color');
         els.colorVal.textContent = t('color.' + state.selectedColor);
         applyImages(state.selectedColor);
+        syncHiddenFields();
       });
     });
 
@@ -641,6 +798,7 @@
         state.selectedSize = opt.getAttribute('data-size');
         state.selectedSizeDesc = opt.getAttribute('data-desc');
         els.sizeVal.textContent = state.selectedSizeDesc;
+        syncHiddenFields();
       });
     });
 
@@ -668,8 +826,19 @@
     els.lightboxClose.addEventListener('click', () => els.lightbox.style.display = 'none');
     els.lightbox.addEventListener('click', (e) => { if (e.target === els.lightbox) els.lightbox.style.display = 'none'; });
 
-    els.qtyPlus.addEventListener('click', () => { state.qty++; els.qtyNum.textContent = state.qty; calculateTotal(); });
-    els.qtyMinus.addEventListener('click', () => { if (state.qty > 1) { state.qty--; els.qtyNum.textContent = state.qty; calculateTotal(); } });
+    els.qtyPlus.addEventListener('click', () => {
+      state.qty++;
+      els.qtyNum.textContent = state.qty;
+      calculateTotal();
+    });
+
+    els.qtyMinus.addEventListener('click', () => {
+      if (state.qty > 1) {
+        state.qty--;
+        els.qtyNum.textContent = state.qty;
+        calculateTotal();
+      }
+    });
 
     els.govSelect.addEventListener('change', () => {
       state.selectedGovernorate = els.govSelect.value;
@@ -699,19 +868,32 @@
       }
     });
 
-    function showProductPage() {
-      els.checkoutPage.classList.remove('show');
-      els.successPage.classList.remove('show');
-      els.productPage.style.display = 'grid';
-      window.scrollTo(0,0);
-    }
-
-    els.buyBtn.addEventListener('click', () => {
-      openCheckout();
+    els.addCartBtn.addEventListener('click', () => {
+      addCurrentItemToCart();
     });
 
-    els.addCartBtn.addEventListener('click', () => {
-      openCheckout();
+    els.buyBtn.addEventListener('click', () => {
+      state.checkoutMode = 'single';
+      showCheckoutPage('single');
+    });
+
+    els.cartCheckoutBtn.addEventListener('click', () => {
+      if (!cart.length) return;
+      showCheckoutPage('cart');
+    });
+
+    els.cartItems.addEventListener('click', (e) => {
+      const btn = e.target.closest('.cart-remove-btn');
+      if (!btn) return;
+      const index = Number(btn.getAttribute('data-index'));
+      if (Number.isNaN(index)) return;
+
+      cart.splice(index, 1);
+      renderCart();
+
+      if (!cart.length) {
+        els.cartPage.classList.add('show');
+      }
     });
 
     els.orderForm.addEventListener('submit', async (e) => {
@@ -720,6 +902,7 @@
       submitBtn.disabled = true;
       submitBtn.textContent = t('msg.sending');
 
+      syncHiddenFields();
       const formData = new FormData(els.orderForm);
 
       try {
@@ -742,10 +925,15 @@
           state.discount = 0;
           state.selectedGovernorate = '';
           state.shipping = 0;
+          state.checkoutMode = 'single';
+          cart.length = 0;
+
           els.qtyNum.textContent = '1';
           els.promoInput.value = '';
           els.promoMsg.style.display = 'none';
           els.orderForm.reset();
+
+          renderCart();
           renderGovernorates();
           calculateTotal();
         } else {
@@ -771,6 +959,7 @@
     });
 
     applyImages(state.selectedColor);
+    renderCart();
     localize();
     els.sizeChartContent.classList.remove('show');
   </script>
