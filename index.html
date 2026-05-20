@@ -28,8 +28,43 @@
     .container{max-width:1200px;margin:0 auto;padding:20px;}
     header{display:flex;justify-content:space-between;align-items:center;padding:15px 0;margin-bottom:20px;border-bottom:1px solid var(--line);}
     .logo{font-size:26px;font-weight:800;letter-spacing:1px;cursor:pointer;color:var(--primary);}
+    .header-actions{display:flex;align-items:center;gap:10px;}
     .lang-btn{background:var(--card);border:1px solid var(--line);padding:8px 16px;border-radius:30px;cursor:pointer;font-weight:600;font-size:14px;transition:0.2s;}
     .lang-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+    .cart-icon-btn{
+      position:relative;
+      width:44px;height:44px;
+      border:none;
+      border-radius:50%;
+      background:var(--card);
+      border:1px solid var(--line);
+      box-shadow:0 2px 10px rgba(0,0,0,0.04);
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:0.2s;
+      flex-shrink:0;
+    }
+    .cart-icon-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+    .cart-icon{font-size:18px;line-height:1;}
+    .cart-badge{
+      position:absolute;
+      top:-6px;
+      left:-6px;
+      min-width:20px;
+      height:20px;
+      padding:0 6px;
+      border-radius:999px;
+      background:var(--accent);
+      color:#fff;
+      font-size:12px;
+      font-weight:800;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 6px 16px rgba(216,31,38,.25);
+    }
 
     .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:10px;}
     .gallery-side{position:sticky;top:20px;align-self:start;}
@@ -151,7 +186,13 @@
   <div class="container">
     <header>
       <div class="logo" id="home-logo">HEXA</div>
-      <button class="lang-btn" id="lang-toggle">English</button>
+      <div class="header-actions">
+        <button class="cart-icon-btn" id="cart-icon-btn" aria-label="السلة">
+          <span class="cart-icon">🛒</span>
+          <span class="cart-badge" id="cart-badge">0</span>
+        </button>
+        <button class="lang-btn" id="lang-toggle">English</button>
+      </div>
     </header>
 
     <div class="product-grid" id="product-page">
@@ -258,7 +299,11 @@
     <div class="layer-container">
       <div class="checkout-card">
         <div class="checkout-title" data-i18n="checkout.title">إتمام الطلب</div>
-        <form id="order-form" action="https://formspree.io/f/mpqnqoqj" method="POST">
+
+        <div class="section-title" style="margin-bottom:10px;" data-i18n="checkout.itemsTitle">المنتجات المختارة</div>
+        <div class="cart-list" id="checkout-items"></div>
+
+        <form id="order-form" action="https://formspree.io/f/mpqnqoqj" method="POST" style="margin-top:20px;">
           <input type="hidden" name="المنتج" id="form-product" value="أوفرسايز بيزيك بوليفار">
           <input type="hidden" name="السلة" id="form-cart" value="">
           <input type="hidden" name="اللون" id="form-color" value="أسود">
@@ -383,6 +428,7 @@
         'cart.checkout': 'إكمال الشراء',
         'cart.remove': 'حذف',
         'cart.empty': 'السلة فارغة',
+        'checkout.itemsTitle': 'المنتجات المختارة',
         'size.chart.title': 'سايز شارت',
         'size.chart.note': 'الأرقام بالمقاس توضيحية، واستخدم الجدول لاختيار المقاس المناسب.',
         'checkout.title': 'إتمام الطلب',
@@ -431,6 +477,7 @@
         'cart.checkout': 'Checkout',
         'cart.remove': 'Remove',
         'cart.empty': 'Cart is empty',
+        'checkout.itemsTitle': 'Selected Products',
         'size.chart.title': 'Size Chart',
         'size.chart.note': 'The measurements are approximate. Use the chart to choose the right size.',
         'checkout.title': 'Checkout',
@@ -506,6 +553,7 @@
     };
 
     const cart = [];
+    let checkoutItems = [];
 
     const discountCodes = [
       { code: 'HEXA10', type: 'percent', value: 10 },
@@ -514,6 +562,8 @@
 
     const els = {
       langToggle: document.getElementById('lang-toggle'),
+      cartIconBtn: document.getElementById('cart-icon-btn'),
+      cartBadge: document.getElementById('cart-badge'),
       productPage: document.getElementById('product-page'),
       cartPage: document.getElementById('cart-page'),
       checkoutPage: document.getElementById('checkout-page'),
@@ -563,6 +613,7 @@
 
       cartItems: document.getElementById('cart-items'),
       cartTotal: document.getElementById('cart-total'),
+      checkoutItems: document.getElementById('checkout-items'),
 
       lightbox: document.getElementById('lightbox'),
       lightboxImg: document.getElementById('lightbox-img'),
@@ -581,19 +632,40 @@
       return cart.reduce((sum, item) => sum + (item.unitPrice * item.qty), 0);
     }
 
+    function getCheckoutSubtotal() {
+      return checkoutItems.reduce((sum, item) => sum + (item.unitPrice * item.qty), 0);
+    }
+
     function getCurrentSubtotal() {
-      return state.checkoutMode === 'cart' ? getCartSubtotal() : (state.basePrice * state.qty);
+      return state.checkoutMode === 'cart' ? getCheckoutSubtotal() : (checkoutItems.length ? getCheckoutSubtotal() : (state.basePrice * state.qty));
     }
 
     function getCartQtyTotal() {
       return cart.reduce((sum, item) => sum + item.qty, 0);
     }
 
-    function buildCartSummary() {
-      if (!cart.length) return '';
-      return cart.map((item, index) => {
+    function buildCartSummary(items) {
+      if (!items.length) return '';
+      return items.map((item, index) => {
         return `${index + 1}) ${item.title} - ${item.colorLabel} - ${item.size} - x${item.qty} - ${formatMoney(item.unitPrice * item.qty)}`;
       }).join(' | ');
+    }
+
+    function updateCartBadge() {
+      const count = getCartQtyTotal();
+      els.cartBadge.textContent = count;
+      els.cartBadge.style.display = count > 0 ? 'flex' : 'none';
+    }
+
+    function buildCurrentSelectionItem() {
+      return {
+        title: state.lang === 'ar' ? 'أوفرسايز بيزيك بوليفار' : 'Oversized Basic Boulevard',
+        colorKey: state.selectedColor,
+        colorLabel: colorNames[state.selectedColor].ar,
+        size: state.selectedSize,
+        qty: state.qty,
+        unitPrice: state.basePrice
+      };
     }
 
     function renderCart() {
@@ -620,7 +692,33 @@
 
       els.cartTotal.textContent = formatMoney(getCartSubtotal());
       els.cartCheckoutBtn.disabled = cart.length === 0;
+      updateCartBadge();
+    }
+
+    function renderCheckoutItems() {
+      if (!checkoutItems.length) {
+        els.checkoutItems.innerHTML = `<div class="empty-cart">${t('cart.empty')}</div>`;
+      } else {
+        els.checkoutItems.innerHTML = checkoutItems.map((item, index) => `
+          <div class="cart-item">
+            <div class="cart-item-main">
+              <div class="cart-item-title">${item.title}</div>
+              <div class="cart-item-meta">
+                ${t('color.title')} ${item.colorLabel}<br>
+                ${t('size.title')} ${item.size}<br>
+                ${t('qty.title')} ${item.qty}
+              </div>
+            </div>
+            <div class="cart-item-actions">
+              <div class="cart-item-price">${formatMoney(item.unitPrice * item.qty)}</div>
+              <button type="button" class="cart-remove-btn" data-index="${index}">${t('cart.remove')}</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
       syncHiddenFields();
+      updatePricingDisplay();
     }
 
     function renderGovernorates() {
@@ -636,14 +734,14 @@
 
     function syncHiddenFields() {
       const subtotal = getCurrentSubtotal();
-      const qtyForSummary = state.checkoutMode === 'cart' ? getCartQtyTotal() : state.qty;
-      const productValue = state.checkoutMode === 'cart' ? 'سلة منتجات HEXA' : 'أوفرسايز بيزيك بوليفار';
+      const qtyForSummary = checkoutItems.reduce((sum, item) => sum + item.qty, 0);
+      const productValue = checkoutItems.length > 1 || state.checkoutMode === 'cart' ? 'سلة منتجات HEXA' : 'أوفرسايز بيزيك بوليفار';
 
       els.formProduct.value = productValue;
-      els.formCart.value = state.checkoutMode === 'cart' ? buildCartSummary() : `اللون: ${colorNames[state.selectedColor].ar} | المقاس: ${state.selectedSize} | الكمية: ${state.qty}`;
-      els.formColor.value = state.checkoutMode === 'cart' ? 'من السلة' : colorNames[state.selectedColor].ar;
-      els.formSize.value = state.checkoutMode === 'cart' ? 'متعدد' : state.selectedSize;
-      els.formQty.value = qtyForSummary;
+      els.formCart.value = buildCartSummary(checkoutItems.length ? checkoutItems : [buildCurrentSelectionItem()]);
+      els.formColor.value = checkoutItems.length ? (checkoutItems.length === 1 ? checkoutItems[0].colorLabel : 'من السلة') : colorNames[state.selectedColor].ar;
+      els.formSize.value = checkoutItems.length ? (checkoutItems.length === 1 ? checkoutItems[0].size : 'متعدد') : state.selectedSize;
+      els.formQty.value = checkoutItems.length ? qtyForSummary : state.qty;
       els.formShipping.value = state.selectedGovernorate ? (state.shipping + ' ج.م') : '0 ج.م';
       els.formTotal.value = Math.max(0, (subtotal - state.discount) + state.shipping) + ' ج.م';
     }
@@ -701,7 +799,9 @@
       els.sizeVal.textContent = state.selectedSizeDesc;
       renderGovernorates();
       renderCart();
+      renderCheckoutItems();
       updatePricingDisplay();
+      updateCartBadge();
     }
 
     function applyImages(colorKey) {
@@ -743,41 +843,74 @@
       window.scrollTo(0, 0);
     }
 
-    function showCheckoutPage(mode) {
+    function openCheckout(mode) {
       state.checkoutMode = mode;
+      if (mode === 'cart') {
+        checkoutItems = cart.map(item => ({ ...item }));
+      } else {
+        checkoutItems = [buildCurrentSelectionItem()];
+      }
+
       els.productPage.style.display = 'none';
       els.cartPage.classList.remove('show');
       els.successPage.classList.remove('show');
       els.checkoutPage.classList.add('show');
+
+      renderCheckoutItems();
+      renderGovernorates();
       calculateTotal();
       window.scrollTo(0, 0);
     }
 
     function addCurrentItemToCart() {
-      const item = {
-        title: state.lang === 'ar' ? 'أوفرسايز بيزيك بوليفار' : 'Oversized Basic Boulevard',
-        colorKey: state.selectedColor,
-        colorLabel: colorNames[state.selectedColor].ar,
-        size: state.selectedSize,
-        qty: state.qty,
-        unitPrice: state.basePrice
-      };
+      const item = buildCurrentSelectionItem();
+      const existing = cart.find(x =>
+        x.colorKey === item.colorKey &&
+        x.size === item.size &&
+        x.unitPrice === item.unitPrice
+      );
 
-      const existing = cart.find(x => x.colorKey === item.colorKey && x.size === item.size && x.unitPrice === item.unitPrice);
       if (existing) {
         existing.qty += item.qty;
       } else {
         cart.push(item);
       }
 
-      state.checkoutMode = 'cart';
+      updateCartBadge();
       renderCart();
-      showCartPage();
+    }
+
+    function removeCartItem(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+
+    function removeCheckoutItem(index) {
+      checkoutItems.splice(index, 1);
+
+      if (state.checkoutMode === 'cart') {
+        cart.splice(index, 1);
+        renderCart();
+      }
+
+      if (checkoutItems.length === 0) {
+        state.checkoutMode = 'single';
+        renderCart();
+        showProductPage();
+        return;
+      }
+
+      renderCheckoutItems();
+      calculateTotal();
     }
 
     els.langToggle.addEventListener('click', () => {
       state.lang = state.lang === 'ar' ? 'en' : 'ar';
       localize();
+    });
+
+    els.cartIconBtn.addEventListener('click', () => {
+      showCartPage();
     });
 
     els.colorOpts.forEach(opt => {
@@ -873,13 +1006,12 @@
     });
 
     els.buyBtn.addEventListener('click', () => {
-      state.checkoutMode = 'single';
-      showCheckoutPage('single');
+      openCheckout('single');
     });
 
     els.cartCheckoutBtn.addEventListener('click', () => {
       if (!cart.length) return;
-      showCheckoutPage('cart');
+      openCheckout('cart');
     });
 
     els.cartItems.addEventListener('click', (e) => {
@@ -887,13 +1019,15 @@
       if (!btn) return;
       const index = Number(btn.getAttribute('data-index'));
       if (Number.isNaN(index)) return;
+      removeCartItem(index);
+    });
 
-      cart.splice(index, 1);
-      renderCart();
-
-      if (!cart.length) {
-        els.cartPage.classList.add('show');
-      }
+    els.checkoutItems.addEventListener('click', (e) => {
+      const btn = e.target.closest('.cart-remove-btn');
+      if (!btn) return;
+      const index = Number(btn.getAttribute('data-index'));
+      if (Number.isNaN(index)) return;
+      removeCheckoutItem(index);
     });
 
     els.orderForm.addEventListener('submit', async (e) => {
@@ -927,6 +1061,7 @@
           state.shipping = 0;
           state.checkoutMode = 'single';
           cart.length = 0;
+          checkoutItems = [];
 
           els.qtyNum.textContent = '1';
           els.promoInput.value = '';
@@ -934,8 +1069,10 @@
           els.orderForm.reset();
 
           renderCart();
+          renderCheckoutItems();
           renderGovernorates();
           calculateTotal();
+          updateCartBadge();
         } else {
           alert(t('msg.error'));
         }
@@ -960,6 +1097,8 @@
 
     applyImages(state.selectedColor);
     renderCart();
+    renderCheckoutItems();
+    updateCartBadge();
     localize();
     els.sizeChartContent.classList.remove('show');
   </script>
