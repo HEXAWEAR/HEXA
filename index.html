@@ -27,36 +27,31 @@
     body{background:var(--bg);color:var(--text);direction:rtl;text-align:right;overflow-x:hidden;line-height:1.6;}
     
     .container{max-width:1200px;margin:0 auto;padding:20px;}
-    header{display:flex;justify-content:between;align-items:center;padding:15px 0;margin-bottom:20px;border-bottom:1px solid var(--line);}
+    header{display:flex;justify-content:space-between;align-items:center;padding:15px 0;margin-bottom:20px;border-bottom:1px solid var(--line);}
     .logo{font-size:26px;font-weight:800;letter-spacing:1px;cursor:pointer;color:var(--primary);}
     .lang-btn{background:var(--card);border:1px solid var(--line);padding:8px 16px;border-radius:30px;cursor:pointer;font-weight:600;font-size:14px;transition:0.2s;}
     .lang-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
 
     .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:10px;}
     .gallery-side{position:sticky;top:20px;align-self:start;}
-    .main-stage{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);position:relative;margin-bottom:15px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;}
-    .main-stage img{width:100%;height:100%;object-fit:cover;display:none;transition:transform 0.3s ease;}
-    .main-stage img.active{display:block;}
-    .zoom-hint{position:absolute;bottom:15px;right:15px;background:rgba(17,17,17,0.7);color:#fff;padding:5px 12px;border-radius:20px;font-size:12px;pointer-events:none;backdrop-filter:blur(4px);}
     
-    .thumbs-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;}
-    .thumb{background:var(--card);border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:1;cursor:pointer;border:2px solid transparent;box-shadow:0 4px 15px rgba(0,0,0,0.02);transition:0.2s;}
-    .thumb:hover{border-color:var(--muted);}
-    .thumb.active{border-color:var(--primary);}
-    .thumb img{width:100%;height:100%;object-fit:cover;}
+    /* معرض الصور الجديد: صورتين جمب بعض */
+    .gallery-two-up{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:15px;}
+    .gallery-two-up img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);cursor:zoom-in;}
 
     .details-side{background:var(--card);padding:40px;border-radius:var(--radius);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:25px;}
     .tag-brand{align-self:start;background:var(--bg);font-size:12px;font-weight:700;padding:6px 14px;border-radius:30px;text-transform:uppercase;}
     h1{font-size:32px;font-weight:800;color:var(--primary);line-height:1.2;}
     
-    .price-box{display:flex;align-items:baseline;gap:15px;margin-top:-5px;}
+    .price-box{display:flex;align-items:center;gap:15px;margin-top:-5px;}
     .current-price{font-size:36px;font-weight:800;color:var(--accent);}
     .old-price{font-size:20px;color:var(--muted);text-decoration:line-through;}
+    .discount-badge{background:var(--accent);color:#fff;padding:4px 12px;border-radius:30px;font-size:14px;font-weight:700;}
 
-    .section-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;justify-content:between;align-items:center;}
+    .section-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;}
     .section-title span.val-selected{font-weight:500;color:var(--muted);font-size:14px;margin-right:8px;}
 
-    .color-picker{display:flex;gap:12px;}
+    .color-picker{display:flex;gap:12px;flex-wrap:wrap;}
     .color-opt{width:45px;height:45px;border-radius:50%;cursor:pointer;position:relative;border:1px solid rgba(0,0,0,0.1);transition:0.2s;display:flex;align-items:center;justify-content:center;}
     .color-opt:after{content:'';width:53px;height:53px;border-radius:50%;border:2px solid transparent;position:absolute;transition:0.2s;}
     .color-opt.active:after{border-color:var(--primary);}
@@ -124,6 +119,8 @@
     @media(max-width:900px){
       .product-grid{grid-template-columns:1fr;gap:25px;}
       .gallery-side{position:relative;top:0;}
+      /* على الهاتف: تصغير الفجوة بين الصورتين */
+      .gallery-two-up{gap:8px;}
       .details-side{padding:25px;}
       h1{font-size:26px;}
       .current-price{font-size:30px;}
@@ -140,14 +137,9 @@
 
     <div class="product-grid" id="product-page">
       <div class="gallery-side">
-        <div class="main-stage" id="main-stage">
-          <img id="stage-male" class="active" src="" alt="">
-          <img id="stage-female" src="" alt="">
-          <div class="zoom-hint" data-i18n="gallery.zoom">اضغط للتكبير</div>
-        </div>
-        <div class="thumbs-grid">
-          <div class="thumb active" id="thumb-male"><img src="" alt=""></div>
-          <div class="thumb" id="thumb-female"><img src="" alt=""></div>
+        <div class="gallery-two-up" id="main-gallery">
+          <img id="stage-male" src="photos/أسود راجل.png" alt="صورة المنتج للولد">
+          <img id="stage-female" src="photos/أسود بنت.png" alt="صورة المنتج للبنت">
         </div>
       </div>
 
@@ -158,24 +150,38 @@
         </div>
 
         <div class="price-box">
-          <span class="current-price" id="price-main">650 ج.م</span>
-          <span class="old-price" id="price-old">850 ج.م</span>
+          <span class="current-price" id="price-main">600 ج.م</span>
+          <span class="old-price" id="price-old">700 ج.م</span>
+          <span class="discount-badge" id="discount-amount-badge">وفر 100 ج.م</span>
         </div>
 
         <div>
           <div class="section-title">
             <span data-i18n="color.title">اللون:</span>
-            <span class="val-selected" id="color-val"></span>
+            <span class="val-selected" id="color-val" data-i18n="color.black">أسود</span>
           </div>
-          <div class="color-picker" id="color-picker-box"></div>
+          <div class="color-picker">
+            <div class="color-opt active" data-color="black" style="background:#111111;"></div>
+            <div class="color-opt" data-color="white" style="background:#ffffff;"></div>
+            <div class="color-opt" data-color="navy" style="background:#1e293b;"></div>
+            <div class="color-opt" data-color="olive" style="background:#3f4238;"></div>
+            <div class="color-opt" data-color="grey" style="background:#707378;"></div>
+            <div class="color-opt" data-color="beige" style="background:#ded1be;"></div>
+            <div class="color-opt" data-color="brown" style="background:#4a3728;"></div>
+          </div>
         </div>
 
         <div>
           <div class="section-title">
             <span data-i18n="size.title">المقاس:</span>
-            <span class="val-selected" id="size-val"></span>
+            <span class="val-selected" id="size-val">M (60 - 75 KG)</span>
           </div>
-          <div class="size-picker" id="size-picker-box"></div>
+          <div class="size-picker">
+            <div class="size-opt active" data-size="M" data-desc="M (60 - 75 KG)">M</div>
+            <div class="size-opt" data-size="L" data-desc="L (75 - 90 KG)">L</div>
+            <div class="size-opt" data-size="XL" data-desc="XL (90 - 105 KG)">XL</div>
+            <div class="size-opt" data-size="XXL" data-desc="XXL (105 - 120 KG)">XXL</div>
+          </div>
         </div>
 
         <div>
@@ -210,8 +216,8 @@
         <form id="order-form" action="https://formspree.io/f/mpqnqoqj" method="POST">
           
           <input type="hidden" name="المنتج" value="أوفرسايز بيزيك بوليفار">
-          <input type="hidden" name="اللون" id="form-color" value="">
-          <input type="hidden" name="المقاس" id="form-size" value="">
+          <input type="hidden" name="اللون" id="form-color" value="أسود">
+          <input type="hidden" name="المقاس" id="form-size" value="M">
           <input type="hidden" name="الكمية" id="form-qty" value="1">
           <input type="hidden" name="إجمالي السعر" id="form-total" value="">
 
@@ -229,6 +235,33 @@
             <label data-i18n="form.gov">المحافظة *</label>
             <select name="المحافظة" id="gov-select" required>
               <option value="" disabled selected data-i18n="form.govPlace">اختر محافظتك</option>
+              <option value="القاهرة">القاهرة</option>
+              <option value="الجيزة">الجيزة</option>
+              <option value="الإسكندرية">الإسكندرية</option>
+              <option value="القليوبية">القليوبية</option>
+              <option value="المنوفية">المنوفية</option>
+              <option value="الشرقية">الشرقية</option>
+              <option value="الغربية">الغربية</option>
+              <option value="الدقهلية">الدقهلية</option>
+              <option value="البحيرة">البحيرة</option>
+              <option value="دمياط">دمياط</option>
+              <option value="بورسعيد">بورسعيد</option>
+              <option value="الإسماعيلية">الإسماعيلية</option>
+              <option value="السويس">السويس</option>
+              <option value="كفر الشيخ">كفر الشيخ</option>
+              <option value="الفيوم">الفيوم</option>
+              <option value="بني سويف">بني سويف</option>
+              <option value="المنيا">المنيا</option>
+              <option value="أسيوط">أسيوط</option>
+              <option value="سوهاج">سوهاج</option>
+              <option value="قنا">قنا</option>
+              <option value="الأقصر">الأقصر</option>
+              <option value="أسوان">أسوان</option>
+              <option value="البحر الأحمر">البحر الأحمر</option>
+              <option value="الوادي الجديد">الوادي الجديد</option>
+              <option value="مطروح">مطروح</option>
+              <option value="شمال سيناء">شمال سيناء</option>
+              <option value="جنوب سيناء">جنوب سيناء</option>
             </select>
           </div>
 
@@ -256,7 +289,7 @@
           <div class="checkout-title" style="margin-top:30px;" data-i18n="summary.title">ملخص الحساب</div>
           <div class="summary-row">
             <span data-i18n="summary.sub">سعر المنتجات</span>
-            <span id="sum-subtotal">650 ج.م</span>
+            <span id="sum-subtotal">600 ج.م</span>
           </div>
           <div class="summary-row discount-line" id="discount-row">
             <span data-i18n="summary.disc">قيمة الخصم</span>
@@ -268,7 +301,7 @@
           </div>
           <div class="summary-row total">
             <span data-i18n="summary.total">الإجمالي الكلي</span>
-            <span id="sum-total">650 ج.م</span>
+            <span id="sum-total">600 ج.م</span>
           </div>
 
           <button type="submit" class="action-btn" id="submit-btn" style="margin-top:25px;">
@@ -297,28 +330,14 @@
   </div>
 
   <script>
-    const catalog = {
-      product: { price: 650, oldPrice: 850 },
-      colors: [
-        { id: 'black', hex: '#111111', nameAr: 'أسود', nameEn: 'Black', maleImg: 'photos/أسود راجل.png', femaleImg: 'photos/أسود بنت.png' },
-        { id: 'white', hex: '#ffffff', nameAr: 'أبيض', nameEn: 'White', maleImg: 'photos/ابيض راجل.png', femaleImg: 'photos/ابيض بنت.png' },
-        { id: 'navy', hex: '#1e293b', nameAr: 'كحلي', nameEn: 'Navy Black', maleImg: 'photos/كحلي راجل.png', femaleImg: 'photos/كحلي بنت.png' },
-        { id: 'olive', hex: '#3f4238', nameAr: 'زيتي', nameEn: 'Olive', maleImg: 'photos/زيتي راجل.png', femaleImg: 'photos/زيتي بنت.png' },
-        { id: 'grey', hex: '#707378', nameAr: 'رمادي', nameEn: 'Grey', maleImg: 'photos/رمادي راجل.png', femaleImg: 'photos/رمادي بنت.png' },
-        { id: 'beige', hex: '#ded1be', nameAr: 'بيج', nameEn: 'Beige', maleImg: 'photos/بيج راجل.png', femaleImg: 'photos/بيج بنت.png' },
-        { id: 'brown', hex: '#4a3728', nameAr: 'بني', nameEn: 'Brown', maleImg: 'photos/بني راجل.png', femaleImg: 'photos/بني بنت.png' }
-      ],
-      sizes: [
-        { id: 'M', descAr: 'M (60 - 75 KG)', descEn: 'M (60 - 75 KG)' },
-        { id: 'L', descAr: 'L (75 - 90 KG)', descEn: 'L (75 - 90 KG)' },
-        { id: 'XL', descAr: 'XL (90 - 105 KG)', descEn: 'XL (90 - 105 KG)' },
-        { id: 'XXL', descAr: 'XXL (105 - 120 KG)', descEn: 'XXL (105 - 120 KG)' }
-      ],
-      discountCodes: [
-        { code: 'HEXA10', type: 'percent', value: 10 },
-        { code: 'HEXA50', type: 'fixed', value: 50 }
-      ],
-      govs: ['القاهرة','الجيزة','الإسكندرية','القليوبية','المنوفية','الشرقية','الغربية','الدقهلية','البحيرة','دمياط','بورسعيد','الإسماعيلية','السويس','كفر الشيخ','الفيوم','بني سويف','المنيا','أسيوط','سوهاج','قنا','الأقصر','أسوان','البحر الأحمر','الوادي الجديد','مطروح','شمال سيناء','جنوب سيناء']
+    const colorNames = {
+      black: { ar: 'أسود', en: 'Black', male: 'photos/أسود راجل.png', female: 'photos/أسود بنت.png' },
+      white: { ar: 'أبيض', en: 'White', male: 'photos/ابيض راجل.png', female: 'photos/ابيض بنت.png' },
+      navy: { ar: 'كحلي', en: 'Navy', male: 'photos/كحلي راجل.png', female: 'photos/كحلي بنت.png' },
+      olive: { ar: 'زيتي', en: 'Olive', male: 'photos/زيتي راجل.png', female: 'photos/زيتي بنت.png' },
+      grey: { ar: 'رمادي', en: 'Grey', male: 'photos/رمادي راجل.png', female: 'photos/رمادي بنت.png' },
+      beige: { ar: 'بيج', en: 'Beige', male: 'photos/بيج راجل.png', female: 'photos/بيج بنت.png' },
+      brown: { ar: 'بني', en: 'Brown', male: 'photos/بني راجل.png', female: 'photos/بني بنت.png' }
     };
 
     const dict = {
@@ -327,6 +346,13 @@
         'product.title': 'أوفرسايز بيزيك بوليفار',
         'gallery.zoom': 'اضغط للتكبير',
         'color.title': 'اللون:',
+        'color.black': 'أسود',
+        'color.white': 'أبيض',
+        'color.navy': 'كحلي',
+        'color.olive': 'زيتي',
+        'color.grey': 'رمادي',
+        'color.beige': 'بيج',
+        'color.brown': 'بني',
         'size.title': 'المقاس:',
         'qty.title': 'الكمية:',
         'buy.btn': 'شراء الآن',
@@ -365,6 +391,13 @@
         'product.title': 'Oversized Basic Boulevard',
         'gallery.zoom': 'Click to zoom',
         'color.title': 'Color:',
+        'color.black': 'Black',
+        'color.white': 'White',
+        'color.navy': 'Navy',
+        'color.olive': 'Olive',
+        'color.grey': 'Grey',
+        'color.beige': 'Beige',
+        'color.brown': 'Brown',
         'size.title': 'Size:',
         'qty.title': 'Quantity:',
         'buy.btn': 'Buy Now',
@@ -402,13 +435,20 @@
 
     const state = {
       lang: 'ar',
+      basePrice: 600,
       qty: 1,
-      color: catalog.colors[0],
-      size: catalog.sizes[0],
+      selectedColor: 'black',
+      selectedSize: 'M',
+      selectedSizeDesc: 'M (60 - 75 KG)',
       shipping: 0,
       discount: 0,
       appliedCode: null
     };
+
+    const discountCodes = [
+      { code: 'HEXA10', type: 'percent', value: 10 },
+      { code: 'HEXA50', type: 'fixed', value: 50 }
+    ];
 
     const els = {
       langToggle: document.getElementById('lang-toggle'),
@@ -418,71 +458,46 @@
       buyBtn: document.getElementById('buy-btn'),
       backBtn: document.getElementById('back-btn'),
       homeLogo: document.getElementById('home-logo'),
+      
       stageMale: document.getElementById('stage-male'),
       stageFemale: document.getElementById('stage-female'),
-      thumbMale: document.getElementById('thumb-male'),
-      thumbFemale: document.getElementById('thumb-female'),
-      mainStage: document.getElementById('main-stage'),
+      // تم إزالة مراجع الصور المصغرة لأنها لم تعد موجودة
+      
+      colorOpts: document.querySelectorAll('.color-opt'),
       colorVal: document.getElementById('color-val'),
-      colorPickerBox: document.getElementById('color-picker-box'),
+      sizeOpts: document.querySelectorAll('.size-opt'),
       sizeVal: document.getElementById('size-val'),
-      sizePickerBox: document.getElementById('size-picker-box'),
+      
       qtyMinus: document.getElementById('qty-minus'),
       qtyPlus: document.getElementById('qty-plus'),
       qtyNum: document.getElementById('qty-num'),
+      
       orderForm: document.getElementById('order-form'),
       govSelect: document.getElementById('gov-select'),
+      paymentOptions: document.querySelectorAll('.pay-option'),
+      
       promoInput: document.getElementById('promo-input'),
       promoBtn: document.getElementById('promo-btn'),
       promoMsg: document.getElementById('promo-msg'),
+      
       sumSubtotal: document.getElementById('sum-subtotal'),
       sumDiscount: document.getElementById('sum-discount'),
       sumShipping: document.getElementById('sum-shipping'),
       sumTotal: document.getElementById('sum-total'),
       discountRow: document.getElementById('discount-row'),
+      
       formColor: document.getElementById('form-color'),
       formSize: document.getElementById('form-size'),
       formQty: document.getElementById('form-qty'),
       formTotal: document.getElementById('form-total'),
+      
       lightbox: document.getElementById('lightbox'),
       lightboxImg: document.getElementById('lightbox-img'),
       lightboxClose: document.getElementById('lightbox-close')
     };
 
-    function t(key) { return dict[state.lang][key] || key; }
-
-    function initCatalogDOM() {
-      els.colorPickerBox.innerHTML = catalog.colors.map(c => `<div class="color-opt" data-id="${c.id}" style="background:${c.hex}"></div>`).join('');
-      els.sizePickerBox.innerHTML = catalog.sizes.map(s => `<div class="size-opt" data-id="${s.id}">${s.id}</div>`).join('');
-      
-      document.querySelectorAll('.color-opt').forEach(el => {
-        el.addEventListener('click', () => {
-          const c = catalog.colors.find(x => x.id === el.getAttribute('data-id'));
-          state.color = c;
-          updateProductConfigDisplay();
-        });
-      });
-
-      document.querySelectorAll('.size-opt').forEach(el => {
-        el.addEventListener('click', () => {
-          const s = catalog.sizes.find(x => x.id === el.getAttribute('data-id'));
-          state.size = s;
-          updateProductConfigDisplay();
-        });
-      });
-    }
-
-    function updateProductConfigDisplay() {
-      document.querySelectorAll('.color-opt').forEach(x => x.classList.toggle('active', x.getAttribute('data-id') === state.color.id));
-      document.querySelectorAll('.size-opt').forEach(x => x.classList.toggle('active', x.getAttribute('data-id') === state.size.id));
-      
-      els.colorVal.textContent = state.lang === 'ar' ? state.color.nameAr : state.color.nameEn;
-      els.sizeVal.textContent = state.lang === 'ar' ? state.size.descAr : state.size.descEn;
-      
-      els.stageMale.src = state.color.maleImg;
-      els.stageFemale.src = state.color.femaleImg;
-      els.thumbMale.querySelector('img').src = state.color.maleImg;
-      els.thumbFemale.querySelector('img').src = state.color.femaleImg;
+    function t(key) {
+      return dict[state.lang][key] || key;
     }
 
     function localize() {
@@ -499,20 +514,24 @@
         document.documentElement.lang = 'ar';
         document.documentElement.dir = 'rtl';
         els.langToggle.textContent = 'English';
+        document.getElementById('price-main').textContent = '600 ج.م';
+        document.getElementById('price-old').textContent = '700 ج.م';
+        document.getElementById('discount-amount-badge').textContent = 'وفر 100 ج.م';
       } else {
         document.documentElement.lang = 'en';
         document.documentElement.dir = 'ltr';
         els.langToggle.textContent = 'العربية';
+        document.getElementById('price-main').textContent = '600 EGP';
+        document.getElementById('price-old').textContent = '700 EGP';
+        document.getElementById('discount-amount-badge').textContent = 'Save 100 EGP';
       }
       
       const currentGov = els.govSelect.value;
       els.govSelect.innerHTML = `<option value="" disabled ${!currentGov ? 'selected' : ''}>${t('form.govPlace')}</option>` + 
-        catalog.govs.map(g => `<option value="${g}" ${currentGov === g ? 'selected' : ''}>${g}</option>`).join('');
+        ['القاهرة','الجيزة','الإسكندرية','القليوبية','المنوفية','الشرقية','الغربية','الدقهلية','البحيرة','دمياط','بورسعيد','الإسماعيلية','السويس','كفر الشيخ','الفيوم','بني سويف','المنيا','أسيوط','سوهاج','قنا','الأقصر','أسوان','البحر الأحمر','الوادي الجديد','مطروح','شمال سيناء','جنوب سيناء'].map(g => `<option value="${g}" ${currentGov === g ? 'selected' : ''}>${g}</option>`).join('');
 
-      document.getElementById('price-main').textContent = catalog.product.price + (state.lang === 'ar' ? ' ج.م' : ' EGP');
-      document.getElementById('price-old').textContent = catalog.product.oldPrice + (state.lang === 'ar' ? ' ج.م' : ' EGP');
-
-      updateProductConfigDisplay();
+      els.colorVal.textContent = t('color.' + state.selectedColor);
+      els.sizeVal.textContent = state.selectedSizeDesc;
       updatePricingDisplay();
     }
 
@@ -521,26 +540,44 @@
       localize();
     });
 
-    function switchThumb(target) {
-      document.querySelectorAll('.thumb').forEach(x => x.classList.remove('active'));
-      target.classList.add('active');
-      if (target.id === 'thumb-male') {
-        els.stageMale.classList.add('active');
-        els.stageFemale.classList.remove('active');
-      } else {
-        els.stageFemale.classList.add('active');
-        els.stageMale.classList.remove('active');
+    function applyImages(colorKey) {
+      const paths = colorNames[colorKey];
+      if (paths) {
+        // تحديث الصورتين الرئيسيتين في المعرض
+        els.stageMale.src = paths.male;
+        els.stageFemale.src = paths.female;
       }
     }
-    els.thumbMale.addEventListener('click', () => switchThumb(els.thumbMale));
-    els.thumbFemale.addEventListener('click', () => switchThumb(els.thumbFemale));
 
-    els.mainStage.addEventListener('click', () => {
-      const activeImg = document.querySelector('.main-stage img.active');
-      if (activeImg) {
-        els.lightboxImg.src = activeImg.src;
+    els.colorOpts.forEach(opt => {
+      opt.addEventListener('click', () => {
+        els.colorOpts.forEach(x => x.classList.remove('active'));
+        opt.classList.add('active');
+        state.selectedColor = opt.getAttribute('data-color');
+        els.colorVal.textContent = t('color.' + state.selectedColor);
+        applyImages(state.selectedColor);
+      });
+    });
+
+    els.sizeOpts.forEach(opt => {
+      opt.addEventListener('click', () => {
+        els.sizeOpts.forEach(x => x.classList.remove('active'));
+        opt.classList.add('active');
+        state.selectedSize = opt.getAttribute('data-size');
+        state.selectedSizeDesc = opt.getAttribute('data-desc');
+        els.sizeVal.textContent = state.selectedSizeDesc;
+      });
+    });
+
+    // تم إزالة وظائف switchThumb لأنها لم تعد مطلوبة مع التصميم الجديد
+
+    // وظيفة تكبير الصورة عند الضغط عليها
+    document.querySelectorAll('.gallery-two-up img').forEach(img => {
+      img.addEventListener('click', () => {
+        els.lightboxImg.src = img.src;
+        els.lightboxImg.alt = img.alt;
         els.lightbox.style.display = 'flex';
-      }
+      });
     });
 
     els.lightboxClose.addEventListener('click', () => els.lightbox.style.display = 'none');
@@ -550,7 +587,7 @@
     els.qtyMinus.addEventListener('click', () => { if (state.qty > 1) { state.qty--; els.qtyNum.textContent = state.qty; calculateTotal(); } });
 
     function calculateTotal() {
-      const sub = catalog.product.price * state.qty;
+      const sub = state.basePrice * state.qty;
       if (state.appliedCode) {
         if (state.appliedCode.type === 'percent') {
           state.discount = Math.round(sub * (state.appliedCode.value / 100));
@@ -564,7 +601,7 @@
     }
 
     function updatePricingDisplay() {
-      const sub = catalog.product.price * state.qty;
+      const sub = state.basePrice * state.qty;
       const cur = state.lang === 'ar' ? ' ج.م' : ' EGP';
       
       els.sumSubtotal.textContent = sub + cur;
@@ -580,14 +617,14 @@
       const finalTotal = Math.max(0, (sub - state.discount) + state.shipping);
       els.sumTotal.textContent = finalTotal + cur;
       
-      els.formColor.value = state.color.nameAr;
-      els.formSize.value = state.size.id;
+      els.formColor.value = colorNames[state.selectedColor].ar;
+      els.formSize.value = state.selectedSize;
       els.formQty.value = state.qty;
       els.formTotal.value = finalTotal + ' ج.م';
     }
 
     els.govSelect.addEventListener('change', () => {
-      state.shipping = 0;
+      state.shipping = 0; // شحن مجاني
       calculateTotal();
     });
 
@@ -598,7 +635,7 @@
         els.promoMsg.textContent = t('msg.enterCode');
         return;
       }
-      const found = catalog.discountCodes.find(x => x.code === codeStr);
+      const found = discountCodes.find(x => x.code === codeStr);
       if (found) {
         state.appliedCode = found;
         els.promoMsg.className = 'promo-msg success';
@@ -679,8 +716,7 @@
     });
 
     // init
-    initCatalogDOM();
-    switchThumb(els.thumbMale);
+    applyImages(state.selectedColor);
     localize();
   </script>
 </body>
