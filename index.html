@@ -242,7 +242,7 @@ src="https://www.facebook.com/tr?id=1795473838093904&ev=PageView&noscript=1"
         <div class="price-box">
           <span class="current-price" id="price-main">550 ج.م</span>
           <span class="old-price" id="price-old">700 ج.م</span>
-          <span class="discount-badge" id="discount-amount-badge">وفر 100 ج.م</span>
+          <span class="discount-badge" id="discount-amount-badge">وفر 150 ج.م</span>
         </div>
 
         <div class="section-card">
@@ -389,7 +389,7 @@ src="https://www.facebook.com/tr?id=1795473838093904&ev=PageView&noscript=1"
           <div class="checkout-title" style="margin-top:30px;" data-i18n="summary.title">ملخص الحساب</div>
           <div class="summary-row">
             <span data-i18n="summary.sub">سعر المنتجات</span>
-            <span id="sum-subtotal">600 ج.م</span>
+            <span id="sum-subtotal">550 ج.م</span>
           </div>
           <div class="summary-row discount-line" id="discount-row">
             <span data-i18n="summary.disc">قيمة الخصم</span>
@@ -401,7 +401,7 @@ src="https://www.facebook.com/tr?id=1795473838093904&ev=PageView&noscript=1"
           </div>
           <div class="summary-row total">
             <span data-i18n="summary.total">الإجمالي الكلي</span>
-            <span id="sum-total">600 ج.م</span>
+            <span id="sum-total">550 ج.م</span>
           </div>
 
           <button type="submit" class="action-btn" id="submit-btn" style="margin-top:25px;">
@@ -619,7 +619,7 @@ src="https://www.facebook.com/tr?id=1795473838093904&ev=PageView&noscript=1"
 
     const state = {
       lang: 'ar',
-      basePrice: 600,
+      basePrice: 550,
       qty: 1,
       selectedColor: 'black',
       selectedSize: 'M',
@@ -868,13 +868,13 @@ src="https://www.facebook.com/tr?id=1795473838093904&ev=PageView&noscript=1"
       els.langToggle.textContent = state.lang === 'ar' ? 'English' : 'العربية';
 
       if (state.lang === 'ar') {
-        document.getElementById('price-main').textContent = '600 ج.م';
+        document.getElementById('price-main').textContent = '550 ج.م';
         document.getElementById('price-old').textContent = '700 ج.م';
-        document.getElementById('discount-amount-badge').textContent = 'وفر 100 ج.م';
+        document.getElementById('discount-amount-badge').textContent = 'وفر 150 ج.م';
       } else {
-        document.getElementById('price-main').textContent = '600 EGP';
+        document.getElementById('price-main').textContent = '550 EGP';
         document.getElementById('price-old').textContent = '700 EGP';
-        document.getElementById('discount-amount-badge').textContent = 'Save 100 EGP';
+        document.getElementById('discount-amount-badge').textContent = 'Save 150 EGP';
       }
 
       els.colorVal.textContent = t('color.' + state.selectedColor);
